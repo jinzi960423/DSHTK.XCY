@@ -1,0 +1,68 @@
+{
+    "pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+        {
+            "path": "pages/index/index",
+            "style": {
+                "navigationStyle": "custom"
+            }
+        },
+        {
+            "path": "pages/activity/activity",
+            "style": {
+                "navigationBarTitleText": "活动"
+            }
+        },
+        {
+            "path": "pages/home/home",
+            "style": {
+                "navigationStyle": "custom",
+                "backgroundColorBottom": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/forward/forward",
+            "style": {
+                "navigationBarTitleText": "转发积赞"
+            }
+        },
+        {
+            "path": "pages/friendHelp/friendHelp",
+            "style": {
+                "navigationBarTitleText": "好友助力"
+            }
+        },
+        {
+            "path": "pages/mine/mine",
+            "style": {
+                "navigationBarTitleText": "小仓库"
+            }
+        },
+        {
+            "path": "pages/redemption/redemption",
+            "style": {
+                "navigationBarTitleText": "赠品核销"
+            }
+        },
+        {
+            "path": "pages/turntable/turntable",
+            "style": {
+                "navigationStyle": "custom"
+            }
+        },
+        {
+            "path": "pages/free/free",
+            "style": {
+                "navigationBarTitleText": "白嫖"
+            }
+        }
+    ],
+    "globalStyle": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "",
+        "navigationBarBackgroundColor": "#FFFFFF",
+        "backgroundColor": "#FFFFFF",
+        "backgroundColorTop": "#FFFFFF",
+        "backgroundColorBottom": "#F2F2F2"
+    },
+    "uniIdRouter": {}
+}

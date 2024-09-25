@@ -1,0 +1,7 @@
+{
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "my-turntable-draw": "../../components/my-turntable-draw/my-turntable-draw",
+    "bottom-support-info": "../../components/bottom-support-info/bottom-support-info"
+  }
+}

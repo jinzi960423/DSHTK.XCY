@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "转发积赞",
+  "usingComponents": {
+    "net-image": "../../components/net-image/net-image",
+    "bottom-support-info": "../../components/bottom-support-info/bottom-support-info"
+  }
+}

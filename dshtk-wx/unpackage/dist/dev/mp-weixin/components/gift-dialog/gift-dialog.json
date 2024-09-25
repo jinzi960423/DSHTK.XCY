@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "u-icon": "../../uni_modules/uview-plus/components/u-icon/u-icon",
+    "u-overlay": "../../uni_modules/uview-plus/components/u-overlay/u-overlay"
+  }
+}

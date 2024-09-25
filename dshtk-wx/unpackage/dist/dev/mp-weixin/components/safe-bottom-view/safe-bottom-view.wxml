@@ -1,0 +1,1 @@
+<view style="{{'padding-bottom:' + a}}"><slot></slot></view>

@@ -1,0 +1,13 @@
+{
+  "navigationStyle": "custom",
+  "backgroundColorBottom": "#FFFFFF",
+  "usingComponents": {
+    "u-navbar": "../../uni_modules/uview-plus/components/u-navbar/u-navbar",
+    "u-icon": "../../uni_modules/uview-plus/components/u-icon/u-icon",
+    "net-image": "../../components/net-image/net-image",
+    "bottom-support-info": "../../components/bottom-support-info/bottom-support-info",
+    "safe-bottom-view": "../../components/safe-bottom-view/safe-bottom-view",
+    "z-paging": "../../uni_modules/z-paging/components/z-paging/z-paging",
+    "gift-dialog": "../../components/gift-dialog/gift-dialog"
+  }
+}
