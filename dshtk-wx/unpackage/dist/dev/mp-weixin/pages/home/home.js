@@ -5,7 +5,18 @@ const _sfc_main = {
     return {
       dataList: [],
       showGift: true,
-      giftInfo: null
+      showShop: false,
+      giftInfo: null,
+      shopList: [{
+        id: 0,
+        name: "测试门店1"
+      }, {
+        id: 1,
+        name: "测试门店2"
+      }, {
+        id: 2,
+        name: "测试门店3"
+      }]
     };
   },
   onLoad(options) {
@@ -26,6 +37,9 @@ const _sfc_main = {
         title: "我攒的家当都在这里",
         path: "/pages/mine/mine"
       }]);
+    },
+    confirmShop(e) {
+      console.log("e", e);
     }
   }
 };
@@ -37,7 +51,8 @@ if (!Array) {
   const _easycom_safe_bottom_view2 = common_vendor.resolveComponent("safe-bottom-view");
   const _easycom_z_paging2 = common_vendor.resolveComponent("z-paging");
   const _easycom_gift_dialog2 = common_vendor.resolveComponent("gift-dialog");
-  (_easycom_u_navbar2 + _easycom_u_icon2 + _easycom_net_image2 + _easycom_bottom_support_info2 + _easycom_safe_bottom_view2 + _easycom_z_paging2 + _easycom_gift_dialog2)();
+  const _easycom_custom_picker_dialog2 = common_vendor.resolveComponent("custom-picker-dialog");
+  (_easycom_u_navbar2 + _easycom_u_icon2 + _easycom_net_image2 + _easycom_bottom_support_info2 + _easycom_safe_bottom_view2 + _easycom_z_paging2 + _easycom_gift_dialog2 + _easycom_custom_picker_dialog2)();
 }
 const _easycom_u_navbar = () => "../../uni_modules/uview-plus/components/u-navbar/u-navbar.js";
 const _easycom_u_icon = () => "../../uni_modules/uview-plus/components/u-icon/u-icon.js";
@@ -46,25 +61,19 @@ const _easycom_bottom_support_info = () => "../../components/bottom-support-info
 const _easycom_safe_bottom_view = () => "../../components/safe-bottom-view/safe-bottom-view.js";
 const _easycom_z_paging = () => "../../uni_modules/z-paging/components/z-paging/z-paging.js";
 const _easycom_gift_dialog = () => "../../components/gift-dialog/gift-dialog.js";
+const _easycom_custom_picker_dialog = () => "../../components/custom-picker-dialog/custom-picker-dialog.js";
 if (!Math) {
-  (_easycom_u_navbar + _easycom_u_icon + _easycom_net_image + _easycom_bottom_support_info + _easycom_safe_bottom_view + _easycom_z_paging + _easycom_gift_dialog)();
+  (_easycom_u_navbar + _easycom_u_icon + _easycom_net_image + _easycom_bottom_support_info + _easycom_safe_bottom_view + _easycom_z_paging + _easycom_gift_dialog + _easycom_custom_picker_dialog)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: "overflow:" + ($data.showGift ? "hidden" : "auto"),
+    a: "overflow:" + ($data.showGift || $data.showShop ? "hidden" : "auto"),
     b: common_vendor.p({
       placeholder: true,
       title: "首页",
       autoBack: true
     }),
-    c: common_vendor.p({
-      name: "reload",
-      size: "24rpx",
-      color: "#1d1d1d",
-      label: "切换",
-      ["label-color"]: "#1d1d1d",
-      ["label-size"]: "24rpx"
-    }),
+    c: common_vendor.o(($event) => $data.showShop = true),
     d: common_vendor.p({
       name: "map",
       color: "#1d1d1d",
@@ -75,7 +84,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     e: common_vendor.f($data.dataList, (item, index, i0) => {
       return {
-        a: "07e72d3c-4-" + i0 + ",07e72d3c-0",
+        a: "07e72d3c-3-" + i0 + ",07e72d3c-0",
         b: common_vendor.t(item.name),
         c: common_vendor.t(item.title),
         d: index,
@@ -96,6 +105,12 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     l: common_vendor.p({
       show: $data.showGift,
       info: $data.giftInfo
+    }),
+    m: common_vendor.o(($event) => $data.showShop = false),
+    n: common_vendor.o($options.confirmShop),
+    o: common_vendor.p({
+      show: $data.showShop,
+      columns: [$data.shopList]
     })
   };
 }

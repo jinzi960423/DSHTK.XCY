@@ -11,7 +11,7 @@
             <view v-for="(item,index) in dataList" :key="index" class="row m-b-20 p-lr-20"
                 @click="$u.route('/pages/forward/forward')">
                 <net-image width="300rpx" height="300rpx"
-                    imageUrl="https://www.51pjdj.com/dshtk/images/tck_gift.png"></net-image>
+                    imageUrl="https://www.sfj365.com/dshtk/images/tck_gift.png"></net-image>
                 <view class="column m-l-20 flex1 p-b-10 p-t-10" style="justify-content: space-between;">
                     <view class="column">
                         <text class="fs32 fw-400 color-1d1d1d">矿泉水</text>

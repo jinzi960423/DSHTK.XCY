@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "白嫖",
-  "usingComponents": {}
+  "usingComponents": {
+    "net-image": "../../components/net-image/net-image"
+  }
 }

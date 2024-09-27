@@ -19,5 +19,6 @@
     "backgroundColorBottom": "#F2F2F2"
   },
   "lazyCodeLoading": "requiredComponents",
+  "permission": {},
   "usingComponents": {}
 }

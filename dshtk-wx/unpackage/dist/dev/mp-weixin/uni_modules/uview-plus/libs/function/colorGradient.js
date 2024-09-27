@@ -110,3 +110,4 @@ const colorGradient$1 = {
   colorToRgba
 };
 exports.colorGradient = colorGradient$1;
+exports.colorGradient$1 = colorGradient;

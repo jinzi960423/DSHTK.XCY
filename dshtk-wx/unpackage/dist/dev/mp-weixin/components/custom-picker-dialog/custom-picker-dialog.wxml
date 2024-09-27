@@ -1,0 +1,1 @@
+<view><u-picker wx:if="{{d}}" bindclose="{{a}}" bindcancel="{{b}}" bindconfirm="{{c}}" u-i="6591e198-0" bind:__l="__l" u-p="{{d}}"></u-picker></view>

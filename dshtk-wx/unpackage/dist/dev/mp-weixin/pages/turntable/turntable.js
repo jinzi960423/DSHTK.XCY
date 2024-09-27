@@ -29,7 +29,9 @@ const _sfc_main = {
           name: "谢谢参与"
         }
       ],
-      targetIndex: 0
+      targetIndex: 0,
+      //中奖的商品对应的小标
+      show: true
     };
   },
   onLoad() {
@@ -55,21 +57,28 @@ const _sfc_main = {
 if (!Array) {
   const _easycom_my_turntable_draw2 = common_vendor.resolveComponent("my-turntable-draw");
   const _easycom_bottom_support_info2 = common_vendor.resolveComponent("bottom-support-info");
-  (_easycom_my_turntable_draw2 + _easycom_bottom_support_info2)();
+  const _easycom_set_avatar_dialog2 = common_vendor.resolveComponent("set-avatar-dialog");
+  (_easycom_my_turntable_draw2 + _easycom_bottom_support_info2 + _easycom_set_avatar_dialog2)();
 }
 const _easycom_my_turntable_draw = () => "../../components/my-turntable-draw/my-turntable-draw.js";
 const _easycom_bottom_support_info = () => "../../components/bottom-support-info/bottom-support-info.js";
+const _easycom_set_avatar_dialog = () => "../../components/set-avatar-dialog/set-avatar-dialog.js";
 if (!Math) {
-  (_easycom_my_turntable_draw + _easycom_bottom_support_info)();
+  (_easycom_my_turntable_draw + _easycom_bottom_support_info + _easycom_set_avatar_dialog)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_vendor.sr("raffleWheel", "3f82645e-0"),
-    b: common_vendor.o($options.befoterClick),
-    c: common_vendor.o($options.afterClick),
-    d: common_vendor.p({
+    a: "overflow:" + ($data.show ? "hidden" : "auto"),
+    b: common_vendor.sr("raffleWheel", "3f82645e-0"),
+    c: common_vendor.o($options.befoterClick),
+    d: common_vendor.o($options.afterClick),
+    e: common_vendor.p({
       prizeList: $data.prizeList,
       targetIndex: $data.targetIndex
+    }),
+    f: common_vendor.o(($event) => $data.show = false),
+    g: common_vendor.p({
+      show: $data.show
     })
   };
 }

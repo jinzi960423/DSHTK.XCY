@@ -1,6 +1,6 @@
 <template>
     <view class="raffle-wheel">
-        <image src="https://www.51pjdj.com/dshtk/images/turntable.png" mode="aspectFit"
+        <image src="https://www.sfj365.com/dshtk/images/turntable.png" mode="aspectFit"
             style="position: absolute;width: 600rpx;height: 600rpx;">
         </image>
         <view class="raffle-wheel-box" style="width: 420rpx;height: 420rpx;">
@@ -18,7 +18,7 @@
                 </view>
             </view>
 
-            <image class="raffle-wheel__action" src="https://www.51pjdj.com/dshtk/images/pointer.png"
+            <image class="raffle-wheel__action" src="https://www.sfj365.com/dshtk/images/pointer.png"
                 @click="handleAction"></image>
         </view>
     </view>

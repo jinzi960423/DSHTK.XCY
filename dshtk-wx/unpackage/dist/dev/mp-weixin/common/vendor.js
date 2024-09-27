@@ -1532,8 +1532,8 @@ function populateParameters(fromRes, toRes) {
     appVersion: "1.0.0",
     appVersionCode: "100",
     appLanguage: getAppLanguage(hostLanguage),
-    uniCompileVersion: "4.24",
-    uniRuntimeVersion: "4.24",
+    uniCompileVersion: "4.28",
+    uniRuntimeVersion: "4.28",
     uniPlatform: "mp-weixin",
     deviceBrand,
     deviceModel: model,
@@ -7939,3 +7939,4 @@ exports.resolveComponent = resolveComponent;
 exports.s = s;
 exports.sr = sr;
 exports.t = t;
+exports.wx$1 = wx$1;

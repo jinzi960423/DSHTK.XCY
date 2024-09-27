@@ -2,12 +2,12 @@
     <view>
         <u-overlay :show="show">
             <view class="gift-view">
-                <text class="title">停一下！</text>
+                <text class="title">停一下!</text>
                 <text class="fs32 color-white m-t-30">恭喜你中奖了</text>
                 <view class="column-c-c m-t-40" style="position: relative;">
-                    <image src="https://www.51pjdj.com/dshtk/images/tck_bg.png"></image>
+                    <image src="https://www.sfj365.com/dshtk/images/tck_bg.png"></image>
                     <view class="column-c" style="position: absolute;top: 0;bottom: 0;justify-content: space-between;">
-                        <image src="https://www.51pjdj.com/dshtk/images/tck_gift.png" mode="aspectFit"
+                        <image src="https://www.sfj365.com/dshtk/images/tck_gift.png" mode="aspectFit"
                             style="width: 300rpx;height: 300rpx;">
                         </image>
                         <text class="title2">奖品在“小仓库”</text>
@@ -58,12 +58,10 @@
     }
 
     .title {
-        height: 92rpx;
         font-family: Alibaba PuHuiTi 3.0;
         font-weight: normal;
         font-size: 100rpx;
         color: #F8E8A9;
-        line-height: 55rpx;
     }
 
     .title2 {

@@ -1,6 +1,6 @@
 <template>
     <view class="column">
-        <image src="https://www.51pjdj.com/dshtk/images/personal_bg.png" mode="widthFix" style="width: 100%;">
+        <image src="https://www.sfj365.com/dshtk/images/personal_bg.png" mode="widthFix" style="width: 100%;">
         </image>
 
         <view class="content-bg p-tb-30 p-lr-30" style="padding-bottom: 100rpx;">
@@ -8,7 +8,7 @@
             <text>好友助力领好礼</text>
 
             <net-image height="300rpx" width="100%"
-                imageUrl="https://www.51pjdj.com/dshtk/images/tck_gift.png"></net-image>
+                imageUrl="https://www.sfj365.com/dshtk/images/tck_gift.png"></net-image>
 
             <view class="column-c-c m-t-30">
 
@@ -40,6 +40,12 @@
 
             }
         },
+        onLoad() {
+            /*
+            这个助力的二维码 扫码后会传两个参数，一个是门店id,一个是助力奖品id（可能为空），扫完后进入到微信授权页面，授权成功后如果是给别人助力呢，那得通过接口把当前授权的用户头像传给后端，如果是非助力情况下则不用，然后开始点击转盘抽奖
+             */
+        },
+
         methods: {
 
         }

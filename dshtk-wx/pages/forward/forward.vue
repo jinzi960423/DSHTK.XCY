@@ -1,14 +1,14 @@
 <template>
     <view class="column">
 
-        <image src="https://www.51pjdj.com/dshtk/images/personal_bg.png" mode="widthFix" style="width: 100%;"></image>
+        <image src="https://www.sfj365.com/dshtk/images/personal_bg.png" mode="widthFix" style="width: 100%;"></image>
 
         <text class="top-title">好友助力领好礼</text>
 
         <view class="content-bg p-tb-30 p-lr-30">
 
             <net-image height="300rpx" width="100%"
-                imageUrl="https://www.51pjdj.com/dshtk/images/tck_gift.png"></net-image>
+                imageUrl="https://www.sfj365.com/dshtk/images/tck_gift.png"></net-image>
 
             <view class="column-c-c m-t-30">
                 <text class="fs32 color-white row-c-c"

@@ -2,6 +2,7 @@
   "navigationStyle": "custom",
   "usingComponents": {
     "my-turntable-draw": "../../components/my-turntable-draw/my-turntable-draw",
-    "bottom-support-info": "../../components/bottom-support-info/bottom-support-info"
+    "bottom-support-info": "../../components/bottom-support-info/bottom-support-info",
+    "set-avatar-dialog": "../../components/set-avatar-dialog/set-avatar-dialog"
   }
 }

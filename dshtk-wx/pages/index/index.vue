@@ -8,6 +8,7 @@
 </template>
 
 <script>
+    import api from "@/apis/api.js";
     export default {
         data() {
             return {}
@@ -17,6 +18,15 @@
             uni.reLaunch({
                 url: '/pages/turntable/turntable'
             })
+
+            // api.textGet({
+            //     name: ''
+            // }).then((res) => {})
+
+            // api.textPost({
+            //     name: ''
+            // }).then((res) => {}).catch(() => {}).finally(() => {})
+
         },
     }
 </script>

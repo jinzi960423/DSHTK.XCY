@@ -1,6 +1,7 @@
 <template>
+    <page-meta :page-style="'overflow:'+(show?'hidden':'auto')"></page-meta>
     <view style="position: relative;">
-        <image src="https://www.51pjdj.com/dshtk/images/turntable_bg.jpg" mode="aspectFill"
+        <image src="https://www.sfj365.com/dshtk/images/turntable_bg.jpg" mode="aspectFill"
             style="width: 100vw;;height: 100vh;">
         </image>
         <view class="column" style="position: absolute;top: 0;bottom: 0;left: 0;right: 0;">
@@ -8,7 +9,7 @@
                 <text class="top-title">点一点，锦上添花！</text>
             </view>
             <view class="column-c-c" style="margin-top: 140rpx;">
-                <image src="https://www.51pjdj.com/dshtk/images/turntable_wz.png" mode="widthFix" style="width: 80%;">
+                <image src="https://www.sfj365.com/dshtk/images/turntable_wz.png" mode="widthFix" style="width: 80%;">
                 </image>
                 <text class="shop-title">沙县小吃</text>
                 <view style="margin-top: 100rpx;">
@@ -23,6 +24,8 @@
             </view>
         </view>
     </view>
+
+    <set-avatar-dialog :show="show" @close="show=false"></set-avatar-dialog>
 
 </template>
 
@@ -55,7 +58,8 @@
                         name: '谢谢参与',
                     }
                 ],
-                targetIndex: 0,
+                targetIndex: 0, //中奖的商品对应的小标
+                show: true
             };
         },
         onLoad() {

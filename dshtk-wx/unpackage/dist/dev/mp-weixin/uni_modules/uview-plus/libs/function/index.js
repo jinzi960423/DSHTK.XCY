@@ -495,6 +495,7 @@ const index = {
 exports.$parent = $parent;
 exports.addStyle = addStyle;
 exports.addUnit = addUnit;
+exports.deepClone = deepClone;
 exports.deepMerge = deepMerge;
 exports.getPx = getPx;
 exports.index = index;

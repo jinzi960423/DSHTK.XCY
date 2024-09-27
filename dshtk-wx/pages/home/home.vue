@@ -1,5 +1,5 @@
 <template>
-    <page-meta :page-style="'overflow:'+(showGift?'hidden':'auto')"></page-meta>
+    <page-meta :page-style="'overflow:'+(showGift || showShop?'hidden':'auto')"></page-meta>
     <view>
         <z-paging ref="paging" v-model="dataList" @query="refreshData">
             <template #top>
@@ -7,9 +7,10 @@
                     <u-navbar placeholder title="首页" autoBack></u-navbar>
                     <view class="row-c-c m-t-40">
                         <text class="fw-bold font-family color-1d1d1d p-lr-40 fs48">沙县小吃</text>
-                        <view style="position: absolute;right: 20rpx;">
-                            <u-icon name="reload" size="24rpx" color="#1d1d1d" label="切换" label-color="#1d1d1d"
-                                label-size="24rpx"></u-icon>
+                        <view style="position: absolute;right: 20rpx;" class="row-c" @click="showShop=true">
+                            <image src="https://www.sfj365.com/dshtk/images/switch.png"
+                                style="width: 24rpx;height: 24rpx;"></image>
+                            <text class="color-1d1d1d fs24 m-l-10">切换</text>
                         </view>
                     </view>
                     <view class="row-c-c m-t-20">
@@ -35,7 +36,12 @@
             </template>
         </z-paging>
     </view>
+
     <gift-dialog :show="showGift" :info="giftInfo" @close="showGift=false"></gift-dialog>
+
+    <custom-picker-dialog :show="showShop" @close="showShop=false" :columns="[shopList]"
+        @confirm="confirmShop"></custom-picker-dialog>
+
 </template>
 
 <script>
@@ -44,7 +50,18 @@
             return {
                 dataList: [],
                 showGift: true,
+                showShop: false,
                 giftInfo: null,
+                shopList: [{
+                    id: 0,
+                    name: '测试门店1'
+                }, {
+                    id: 1,
+                    name: '测试门店2'
+                }, {
+                    id: 2,
+                    name: '测试门店3'
+                }]
             };
         },
         onLoad(options) {
@@ -66,6 +83,10 @@
                     path: '/pages/mine/mine'
                 }])
             },
+
+            confirmShop(e) {
+                console.log('e', e)
+            }
         },
     }
 </script>

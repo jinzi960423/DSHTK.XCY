@@ -1,14 +1,14 @@
 export default {
 
     //保存token
-    setToken(token) {
+    setStorage(key, value) {
 
-        uni.setStorageSync('token', token)
+        uni.setStorageSync(key, value)
     },
 
     //获取token
-    getToken() {
+    getStorage(key) {
 
-        return uni.getStorageSync('token')
+        return uni.getStorageSync(key)
     },
 }

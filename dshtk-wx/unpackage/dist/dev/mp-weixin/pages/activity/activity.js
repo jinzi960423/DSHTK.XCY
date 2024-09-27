@@ -49,7 +49,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     c: common_vendor.p({
       width: "300rpx",
       height: "300rpx",
-      imageUrl: "https://www.51pjdj.com/dshtk/images/tck_gift.png"
+      imageUrl: "https://www.sfj365.com/dshtk/images/tck_gift.png"
     }),
     d: common_vendor.p({
       name: "arrow-right-double",

@@ -1,5 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+require("../../apis/httpload.js");
 const _sfc_main = {
   data() {
     return {};

@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "u-picker": "../../uni_modules/uview-plus/components/u-picker/u-picker"
+  }
+}

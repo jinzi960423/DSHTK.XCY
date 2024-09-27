@@ -1,12 +1,11 @@
 <template>
-    <view class="view-bg"
-        style="background-image: url('https://yiming-resource.oss-cn-shanghai.aliyuncs.com/wxapp/jiqiren_wx/zphx_bg.jpg')">
+    <view class="view-bg" style="background-image: url('https://www.sfj365.com/dshtk/images/zphx_bg.jpg')">
 
-        <view class="content-bg" style="background-image: url('/static/zphx_whitebg.png');">
+        <view class="content-bg" style="background-image: url('https://www.sfj365.com/dshtk/images/zphx_whitebg.png');">
 
             <view class="row-c-c">
                 <net-image height="60rpx" width="60rpx"
-                    imageUrl="https://www.51pjdj.com/dshtk/images/tck_gift.png"></net-image>
+                    imageUrl="https://www.sfj365.com/dshtk/images/tck_gift.png"></net-image>
                 <text class="fs28 m-l-10 fw-400 color-1d1d1d">鸡翅</text>
             </view>
 
