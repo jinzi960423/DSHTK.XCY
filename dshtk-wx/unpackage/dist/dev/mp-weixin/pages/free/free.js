@@ -1,8 +1,22 @@
 "use strict";
+const utils_common = require("../../utils/common.js");
+const utils_appStorage = require("../../utils/appStorage.js");
 const common_vendor = require("../../common/vendor.js");
 const _sfc_main = {
   data() {
-    return {};
+    return {
+      BusinessWeChat: ""
+    };
+  },
+  mounted() {
+    utils_common.commonutils.GetOpenId().then((openId) => {
+      this.openId = openId;
+    });
+    var businessId = utils_appStorage.appStorage.getStorage("businessId");
+    utils_common.commonutils.GetBusinessInfoById(businessId).then((businessInfo) => {
+      console.log(businessInfo);
+      this.BusinessWeChat = businessInfo.Data.BusinessWeChat;
+    });
   }
 };
 if (!Array) {
@@ -17,7 +31,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.p({
       width: "200rpx",
-      height: "200rpx"
+      height: "200rpx",
+      imageUrl: $data.BusinessWeChat
     })
   };
 }

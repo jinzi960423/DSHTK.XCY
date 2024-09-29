@@ -17,11 +17,11 @@ const _sfc_main = {
     },
     keyName: {
       type: String,
-      default: "name"
+      default: "BnsinessName"
     },
     keyId: {
       type: String,
-      default: "id"
+      default: "Id"
     }
   },
   computed: {

@@ -1,45 +1,114 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const utils_common = require("../../utils/common.js");
+const utils_appStorage = require("../../utils/appStorage.js");
+const homeApi = {
+  /**
+   * 获取首页的配置
+   **/
+  GetHomeConfigList(businessId) {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/GetHomeConfigList",
+        method: "GET",
+        data: {
+          BusinessId: businessId
+        },
+        success: function(res) {
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  },
+  /***
+  获取绑定过关系的商户
+  ****/
+  GetBusinessListByOpenId(openId) {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/GetBusinessListByOpenId",
+        method: "GET",
+        data: {
+          OpenId: openId
+        },
+        success: function(res) {
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  }
+};
 const _sfc_main = {
   data() {
     return {
       dataList: [],
-      showGift: true,
+      showGift: false,
       showShop: false,
       giftInfo: null,
-      shopList: [{
-        id: 0,
-        name: "测试门店1"
-      }, {
-        id: 1,
-        name: "测试门店2"
-      }, {
-        id: 2,
-        name: "测试门店3"
-      }]
+      shopList: [],
+      businessInfo: {}
     };
   },
   onLoad(options) {
+    console.log("传过来的值" + JSON.stringify(options));
+    console.log("传过来的值" + options.Id);
+    if (!options) {
+      this.showGift = false;
+    } else {
+      this.showGift = true;
+    }
     this.giftInfo = options;
   },
+  mounted() {
+    utils_common.commonutils.GetOpenId().then((openId) => {
+      this.openId = openId;
+      homeApi.GetBusinessListByOpenId(openId).then((data) => {
+        console.log(data);
+        this.shopList = data.Data;
+      });
+      this.initbusinessInfo();
+    });
+  },
   methods: {
-    refreshData() {
-      this.$refs.paging.complete([{
-        name: "白吃白喝",
-        title: "更多福利等你参与",
-        path: "/pages/free/free"
-      }, {
-        name: "霸王餐",
-        title: "500元进群",
-        path: "/pages/activity/activity"
-      }, {
-        name: "小仓库",
-        title: "我攒的家当都在这里",
-        path: "/pages/mine/mine"
-      }]);
+    openMap() {
+      common_vendor.wx$1.openLocation({
+        latitude: parseFloat(this.businessInfo.Longitude),
+        // 纬度  
+        longitude: parseFloat(this.businessInfo.Latitude),
+        // 经度  
+        name: this.businessInfo.BnsinessName,
+        // 地点名称  
+        address: this.businessInfo.Address,
+        // 地址的详细说明  
+        scale: 5,
+        // 缩放比例  
+        success: function(res) {
+          console.log("打开地图成功");
+        },
+        fail: function(err) {
+          console.log("打开地图失败", err);
+        }
+      });
     },
     confirmShop(e) {
-      console.log("e", e);
+      console.log("选中的值", e);
+      utils_appStorage.appStorage.setStorage("businessId", e.value[0].Id);
+      this.initbusinessInfo();
+    },
+    initbusinessInfo() {
+      var businessId = utils_appStorage.appStorage.getStorage("businessId");
+      utils_common.commonutils.GetBusinessInfoById(businessId).then((businessInfo) => {
+        this.businessInfo = businessInfo.Data;
+      });
+      homeApi.GetHomeConfigList(businessId).then((config) => {
+        this.dataList = config.Data;
+      });
     }
   }
 };
@@ -73,30 +142,32 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       title: "首页",
       autoBack: true
     }),
-    c: common_vendor.o(($event) => $data.showShop = true),
-    d: common_vendor.p({
+    c: common_vendor.t($data.businessInfo.BnsinessName),
+    d: common_vendor.o(($event) => $data.showShop = true),
+    e: common_vendor.o($options.openMap),
+    f: common_vendor.p({
       name: "map",
       color: "#1d1d1d",
       size: "24rpx",
-      label: "松江区茸梅路10号楼101室",
+      label: $data.businessInfo.Address,
       ["label-color"]: "#1d1d1d",
       ["label-size"]: "24rpx"
     }),
-    e: common_vendor.f($data.dataList, (item, index, i0) => {
+    g: common_vendor.f($data.dataList, (item, index, i0) => {
       return {
         a: "07e72d3c-3-" + i0 + ",07e72d3c-0",
-        b: common_vendor.t(item.name),
-        c: common_vendor.t(item.title),
-        d: index,
-        e: common_vendor.o(($event) => _ctx.$u.route(item.path), index)
+        b: common_vendor.p({
+          width: "705rpx",
+          height: "355rpx",
+          imageUrl: item.BackgroundImage
+        }),
+        c: common_vendor.t(item.FunctionName),
+        d: common_vendor.t(item.FunctionDescription),
+        e: index,
+        f: common_vendor.o(($event) => _ctx.$u.route(item.Path), index)
       };
     }),
-    f: common_vendor.p({
-      width: "705rpx",
-      height: "355rpx"
-    }),
-    g: common_vendor.sr("paging", "07e72d3c-0"),
-    h: common_vendor.o($options.refreshData),
+    h: common_vendor.sr("paging", "07e72d3c-0"),
     i: common_vendor.o(($event) => $data.dataList = $event),
     j: common_vendor.p({
       modelValue: $data.dataList

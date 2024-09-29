@@ -1,56 +1,190 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const utils_appStorage = require("../../utils/appStorage.js");
+const utils_common = require("../../utils/common.js");
+const turntableApi = {
+  /**
+   * 绑定用户和商户的关系
+   ***/
+  BindingBusiness(openId, businessId) {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/BindingBusiness",
+        method: "GET",
+        data: {
+          OpenId: openId,
+          BusinessId: businessId
+        },
+        success: function(res) {
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  },
+  /***
+   *  保存用户的中奖信息
+   **/
+  SaveWheelLottery(openId, businessId, prizeId) {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/WheelLottery",
+        method: "GET",
+        data: {
+          OpenId: openId,
+          BusinessId: businessId,
+          PrizeId: prizeId
+        },
+        success: function(res) {
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  },
+  /**
+   * 用户参与摇奖
+   **/
+  DrawLottery(businessId, openId) {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/DrawLottery",
+        method: "GET",
+        data: {
+          OpenId: openId,
+          BusinessId: businessId
+        },
+        success: function(res) {
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  },
+  /**
+   * 获取转盘的奖品列表
+   **/
+  GetPrizeConfigList(businessId) {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/GetDrawLotteryPrizeList",
+        method: "GET",
+        data: {
+          BusinessId: businessId
+        },
+        success: function(res) {
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  }
+};
 const _sfc_main = {
   data() {
     return {
-      prizeList: [
-        {
-          name: "可乐一瓶"
-        },
-        {
-          name: "鸡腿一个"
-        },
-        {
-          name: "矿泉水一瓶"
-        },
-        {
-          name: "谢谢参与"
-        },
-        {
-          name: "鸡腿一个"
-        },
-        {
-          name: "雪碧一瓶"
-        },
-        {
-          name: "鸡腿一个"
-        },
-        {
-          name: "谢谢参与"
-        }
-      ],
-      targetIndex: 0,
+      openId: "",
+      businessId: "2CCDB239-7F9E-4A4F-A16D-AF873D6964D0",
+      businessInfo: {
+        BnsinessName: ""
+      },
+      userInfoDialog: false,
+      prizeList: [],
+      targetIndex: 0
       //中奖的商品对应的小标
-      show: true
     };
   },
   onLoad() {
+  },
+  mounted() {
+    utils_common.commonutils.GetOpenId().then((openId) => {
+      this.openId = openId;
+      utils_appStorage.appStorage.setStorage("businessId", this.businessId);
+      turntableApi.BindingBusiness(openId, this.businessId);
+    });
+    utils_common.commonutils.GetUserInfo().then((data) => {
+      this.userInfoDialog = !data.Success;
+    });
+    turntableApi.GetPrizeConfigList(this.businessId).then((data) => {
+      console.log(data);
+      if (!data.Success) {
+        common_vendor.index.showModal({
+          title: "温馨提示",
+          content: data.Message,
+          showCancel: false,
+          success: function(res) {
+            if (res.confirm) {
+              common_vendor.index.$u.route("/pages/home/home", "");
+            }
+          }
+        });
+      }
+      this.prizeList = data.Data;
+    });
+    utils_common.commonutils.GetBusinessInfoById(this.businessId).then((data) => {
+      this.businessInfo = data.Data;
+    });
   },
   methods: {
     back() {
       common_vendor.index.navigateBack();
     },
     befoterClick(data) {
-      if (data.type == "start") {
-        this.targetIndex = 3;
-        data.callback && data.callback(this.targetIndex);
-      }
+      console.log(11);
+      turntableApi.DrawLottery(this.businessId, this.openId).then((drawData) => {
+        console.log(drawData);
+        if (drawData.Success) {
+          var Id = drawData.Data.Id;
+          for (var i = 0; i < this.prizeList.length; i++) {
+            if (this.prizeList[i].Id == Id) {
+              this.targetIndex = i;
+            }
+          }
+          if (data.type == "start") {
+            data.callback && data.callback(this.targetIndex);
+          }
+        } else {
+          common_vendor.index.showModal({
+            title: "温馨提示",
+            content: drawData.Message,
+            showCancel: false,
+            success: function(res) {
+              if (res.confirm) {
+                console.log("用户点击确定");
+                if (data.type == "start") {
+                  data.callback && data.callback(-1);
+                }
+                common_vendor.index.$u.route("/pages/home/home", "");
+              } else if (res.cancel) {
+                console.log("用户点击取消");
+              }
+            }
+          });
+        }
+      }).catch((error) => {
+        utils_common.commonutils.showToast(error, "error");
+      });
     },
+    //转盘结束后
     afterClick(data) {
       if (data.type == "end") {
         data.callback && data.callback();
-        common_vendor.index.$u.route("/pages/home/home", data.content);
+        console.log(data.content);
+        turntableApi.SaveWheelLottery(this.openId, this.businessId, data.content.Id).then((saveres) => {
+          common_vendor.index.$u.route("/pages/home/home", data.content);
+        });
       }
+    },
+    handleClose() {
+      this.userInfoDialog = false;
     }
   }
 };
@@ -68,17 +202,18 @@ if (!Math) {
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: "overflow:" + ($data.show ? "hidden" : "auto"),
-    b: common_vendor.sr("raffleWheel", "3f82645e-0"),
-    c: common_vendor.o($options.befoterClick),
-    d: common_vendor.o($options.afterClick),
-    e: common_vendor.p({
+    a: "overflow:" + (_ctx.show ? "hidden" : "auto"),
+    b: common_vendor.t($data.businessInfo.BnsinessName),
+    c: common_vendor.sr("raffleWheel", "3f82645e-0"),
+    d: common_vendor.o($options.befoterClick),
+    e: common_vendor.o($options.afterClick),
+    f: common_vendor.p({
       prizeList: $data.prizeList,
       targetIndex: $data.targetIndex
     }),
-    f: common_vendor.o(($event) => $data.show = false),
-    g: common_vendor.p({
-      show: $data.show
+    g: common_vendor.o($options.handleClose),
+    h: common_vendor.p({
+      show: $data.userInfoDialog
     })
   };
 }

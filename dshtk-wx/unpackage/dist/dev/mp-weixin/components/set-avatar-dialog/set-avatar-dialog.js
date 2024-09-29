@@ -1,7 +1,8 @@
 "use strict";
-const common_vendor = require("../../common/vendor.js");
 const utils_common = require("../../utils/common.js");
-const utils_appStorage = require("../../utils/appStorage.js");
+const common_vendor = require("../../common/vendor.js");
+const components_setAvatarDialog_set_avatar = require("./set_avatar.js");
+require("../../uni_modules/uview-plus/index.js");
 const _sfc_main = {
   name: "set-avatar-dialog",
   props: {
@@ -14,62 +15,51 @@ const _sfc_main = {
     return {
       headImg: "",
       nickName: "",
-      openid: ""
+      openId: ""
     };
   },
   mounted() {
-    var th = this;
-    console.log("页面加载了");
-    common_vendor.wx$1.login({
-      success(res) {
-        console.log(res);
-        if (res.code) {
-          common_vendor.wx$1.request({
-            url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/GetOpenId",
-            data: {
-              code: res.code
-            },
-            success: function(res2) {
-              console.log(res2);
-              utils_appStorage.appStorage.setStorage("openid", res2.data.Data);
-              th.openid = res2.data.Data;
-              console.log(res2.data.Data);
-            },
-            fail: function() {
-              return "";
-            }
-          });
-        } else {
-          console.log("登录失败！" + res.errMsg);
-        }
-      }
+    utils_common.commonutils.GetOpenId().then((id) => {
+      console.log("获取到的openid" + id);
+      this.openId = id;
+    }).catch((error) => {
+      console.error(error);
     });
   },
   methods: {
     close() {
       this.$emit("close");
     },
+    goSave() {
+      var th = this;
+      const host = utils_common.commonutils.baseUrl();
+      console.log(host);
+      console.log(this.openId);
+      if (this.headImg == "") {
+        utils_common.commonutils.showToast("请授权您的头像", "error");
+      } else if (this.nickName == "") {
+        utils_common.commonutils.showToast("请输入您的昵称", "error");
+      } else {
+        components_setAvatarDialog_set_avatar.set_avatar.saveUserInfo(this.openId, this.headImg, this.nickName).then((data) => {
+          console.log(data);
+          console.log(data.Success);
+          if (data.Success) {
+            utils_common.commonutils.showToast(data.Message, "success");
+            th.close();
+          } else {
+            utils_common.commonutils.showToast(data.Message, "error");
+          }
+        }).catch((error) => {
+          console.log(error);
+          utils_common.commonutils.showToast(error, "error");
+        });
+      }
+    },
+    //获取用户昵称
     blurInput(obj) {
       this.nickName = obj.detail.value;
     },
-    goSave() {
-      const host = utils_common.commonutils.baseUrl();
-      console.log(host);
-      if (this.headImg == "") {
-        common_vendor.index.showToast({
-          title: "请授权您的头像",
-          icon: "error",
-          duration: 850
-        });
-      } else if (this.nickName == "") {
-        common_vendor.index.showToast({
-          title: "请输入您的昵称",
-          icon: "error",
-          duration: 850
-        });
-      } else
-        ;
-    },
+    //获取用户头像
     chooseavatar(obj) {
       this.headImg = obj.detail.avatarUrl;
     }

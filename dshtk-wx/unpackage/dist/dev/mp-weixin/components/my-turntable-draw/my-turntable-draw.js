@@ -99,22 +99,25 @@ const _sfc_main = {
       });
     },
     rotoreAction(index) {
-      let _rotates = 0;
-      if (this.isShow) {
-        let _len = this.prizeList.length - 1;
-        _rotates = (_len - index) * this.degs + 360 * this.ringCount;
-        this.isShow = false;
-        this.rotates += _rotates + this.degs / 2;
+      if (index < 0) {
+        this.isClick = true;
       } else {
-        _rotates = -(index - this.isRoteIndex) * this.degs + 360 * this.ringCount;
-        this.rotates += _rotates;
+        let _rotates = 0;
+        if (this.isShow) {
+          let _len = this.prizeList.length - 1;
+          _rotates = (_len - index) * this.degs + 360 * this.ringCount;
+          this.isShow = false;
+          this.rotates += _rotates + this.degs / 2;
+        } else {
+          _rotates = -(index - this.isRoteIndex) * this.degs + 360 * this.ringCount;
+          this.rotates += _rotates;
+        }
+        this.isRoteIndex = index;
+        this.setTimeOut();
       }
-      this.isRoteIndex = index;
-      this.setTimeOut();
     },
     setTimeOut() {
       setTimeout(() => {
-        console.log("转动结束");
         this.$emit("afterClick", {
           type: "end",
           content: this.prizeList[this.targetIndex],
@@ -124,7 +127,7 @@ const _sfc_main = {
       }, this.duration * 1e3 + 100);
     },
     endAction() {
-      console.log("本次选中的：" + this.prizeList[this.targetIndex].name);
+      console.log("本次选中的：" + this.prizeList[this.targetIndex].Name);
     }
   }
 };
@@ -133,7 +136,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     a: common_vendor.f($props.prizeList, (item, index, i0) => {
       return {
         a: common_vendor.s("transform: rotate(" + $data.degs * index + "deg) skewY(" + $data.skew + "deg);background: " + (index % 2 > 0 ? $data.color1 : $data.color2) + ";"),
-        b: common_vendor.t(item.name),
+        b: common_vendor.t(item.Remark),
         c: common_vendor.s("transform: translateX(-50%) rotate(" + ($data.degs * index + $data.degs / 2) + "deg);width: " + $data.textWidth + ";"),
         d: index
       };
