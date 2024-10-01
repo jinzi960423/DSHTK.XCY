@@ -40,8 +40,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     b: common_vendor.t($data.BnsinessName),
     c: common_vendor.p({
-      width: "200rpx",
-      height: "200rpx",
+      width: "180rpx",
+      height: "180rpx",
       imageUrl: $data.BusinessWeChat
     })
   };

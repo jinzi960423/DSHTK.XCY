@@ -150,8 +150,6 @@ const _sfc_main = {
   },
   onLoad(options) {
     this.id = options.id;
-    this.businessId = options.businessId;
-    this.sourceOpenId = options.openId;
   },
   mounted() {
     if (this.businessId == "") {
@@ -202,7 +200,7 @@ const _sfc_main = {
     befoterClick(data) {
       turntableApi.WarehouseLike(this.id, this.openId).then((likeData) => {
         console.log(likeData);
-        if (this.id != "") {
+        if (this.id != "" && this.id != void 0) {
           utils_common.commonutils.showToast(likeData.Message, "success");
         }
         turntableApi.DrawLottery(this.businessId, this.openId).then((drawData) => {

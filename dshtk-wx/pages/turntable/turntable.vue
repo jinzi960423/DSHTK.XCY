@@ -49,9 +49,9 @@
 		},
 		onLoad(options) {
 			this.id = options.id;
-			this.businessId = options.businessId;
-			this.sourceOpenId = options.openId;
-			
+			//this.businessId = options.businessId;
+			//this.sourceOpenId = options.openId;
+
 		},
 		mounted() {
 			if (this.businessId == "") {
@@ -107,7 +107,7 @@
 			befoterClick(data) {
 				turntableApi.WarehouseLike(this.id, this.openId).then(likeData => {
 					console.log(likeData)
-					if (this.id != "") {
+					if (this.id != "" && this.id != undefined) {
 						commonutils.showToast(likeData.Message, "success");
 					}
 					turntableApi.DrawLottery(this.businessId, this.openId).then(drawData => {
