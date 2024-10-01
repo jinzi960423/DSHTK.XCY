@@ -15,7 +15,7 @@
 			</view>
 			<view class="row m-t-40" style="flex-wrap: wrap;">
 				<view v-for="(item,index) in likeList" :key="index" class="column-c-c m-b-30 m-r-20">
-					<net-image width="90rpx" height="90rpx" radius="45rpx" :imageUrl="item.WxIcon"></net-image>
+					<net-image width="90rpx" height="90rpx" radius="45rpx" imageUrl="https://www.sfj365.com/dshtk/images/user.png"></net-image>
 					<text class="zhuli-bg row-c-c">已助力</text>
 				</view>
 			</view>

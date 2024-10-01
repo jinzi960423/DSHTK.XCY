@@ -102,25 +102,25 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     e: common_vendor.f($data.likeList, (item, index, i0) => {
       return {
         a: "167fdda7-1-" + i0,
-        b: common_vendor.p({
-          width: "90rpx",
-          height: "90rpx",
-          radius: "45rpx",
-          imageUrl: item.WxIcon
-        }),
-        c: index
+        b: index
       };
+    }),
+    f: common_vendor.p({
+      width: "90rpx",
+      height: "90rpx",
+      radius: "45rpx",
+      imageUrl: "https://www.sfj365.com/dshtk/images/user.png"
     })
   } : !$data.shareShow ? {
-    g: common_vendor.p({
+    h: common_vendor.p({
       height: "300rpx",
       width: "100%",
       imageUrl: $data.warehouseInfo.ImgUrl
     }),
-    h: common_vendor.t($data.warehouseInfo.Remark),
-    i: common_vendor.o((...args) => $options.UserAssist && $options.UserAssist(...args))
+    i: common_vendor.t($data.warehouseInfo.Remark),
+    j: common_vendor.o((...args) => $options.UserAssist && $options.UserAssist(...args))
   } : {}, {
-    f: !$data.shareShow
+    g: !$data.shareShow
   });
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-167fdda7"]]);

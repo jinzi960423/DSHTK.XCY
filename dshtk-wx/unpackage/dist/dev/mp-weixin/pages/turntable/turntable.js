@@ -150,6 +150,8 @@ const _sfc_main = {
   },
   onLoad(options) {
     this.id = options.id;
+    this.businessId = options.businessId;
+    this.sourceOpenId = options.openId;
   },
   mounted() {
     if (this.businessId == "") {
