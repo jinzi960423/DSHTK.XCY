@@ -1,9 +1,8 @@
 <template>
-	<view class="raffle-wheel">
-		<image src="https://www.sfj365.com/dshtk/images/turntable.png" mode="aspectFit"
-			style="position: absolute;width: 600rpx;height: 600rpx;">
-		</image>
-		<view class="raffle-wheel-box" style="width: 420rpx;height: 420rpx;">
+	<view class="raffle-wheel" style="background-image: url('https://www.sfj365.com/dshtk/images/turntable.png');">
+
+		<view class="raffle-wheel-box">
+
 			<view class="raffle-wheel-show"
 				:style="'transform: rotate(' + rotates + 'deg);transition-duration: ' + duration + 's;'">
 				<view class="item-block" v-for="(item, index) in prizeList" :key="index">
@@ -20,8 +19,11 @@
 
 			<image class="raffle-wheel__action" src="https://www.sfj365.com/dshtk/images/pointer.png"
 				@click="handleAction"></image>
+
 		</view>
+
 	</view>
+
 </template>
 
 <script>
@@ -118,28 +120,24 @@
 				})
 			},
 			rotoreAction(index) {
-				if (index < 0) {
-					this.isClick = true
+				let _rotates = 0
+				if (this.isShow) {
+					let _len = this.prizeList.length - 1
+					// 第一次角度 => (总项 - 当前项) * 角度 + 360 * 圈数
+					_rotates = (_len - index) * this.degs + 360 * this.ringCount
+					this.isShow = false
+					this.rotates += _rotates + (this.degs / 2)
 				} else {
-					let _rotates = 0
-					if (this.isShow) {
-						let _len = this.prizeList.length - 1
-						// 第一次角度 => (总项 - 当前项) * 角度 + 360 * 圈数
-						_rotates = (_len - index) * this.degs + 360 * this.ringCount
-						this.isShow = false
-						this.rotates += _rotates + (this.degs / 2)
-					} else {
-						// 不是第一次 => 
-						_rotates = -(index - this.isRoteIndex) * this.degs + 360 * this.ringCount
-						this.rotates += _rotates
-					}
-					this.isRoteIndex = index
-					this.setTimeOut()
+					// 不是第一次 => 
+					_rotates = -(index - this.isRoteIndex) * this.degs + 360 * this.ringCount
+					this.rotates += _rotates
 				}
+				this.isRoteIndex = index
+				this.setTimeOut()
 			},
 			setTimeOut() {
 				setTimeout(() => {
-					//console.log('转动结束')
+					console.log('转动结束')
 					this.$emit('afterClick', {
 						type: 'end',
 						content: this.prizeList[this.targetIndex],
@@ -149,7 +147,7 @@
 				}, this.duration * 1000 + 100)
 			},
 			endAction() {
-				console.log('本次选中的：' + this.prizeList[this.targetIndex].Name)
+				console.log('本次选中的：' + this.prizeList[this.targetIndex].name)
 			}
 		}
 	}
@@ -158,7 +156,6 @@
 <style lang="scss" scoped>
 	.raffle-wheel {
 		position: relative;
-		margin: 0 auto;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -170,11 +167,13 @@
 	}
 
 	.raffle-wheel-box {
-		border-radius: 50%;
+		border-radius: 210rpx;
 		overflow: hidden;
 		position: relative;
 		top: -50rpx;
 		left: 10rpx;
+		width: 420rpx;
+		height: 420rpx;
 	}
 
 	.raffle-wheel-show {
@@ -182,12 +181,15 @@
 		height: 100%;
 		position: relative;
 		overflow: hidden;
+		border-radius: 50%;
 	}
 
 	.item-block {
 		width: 100%;
 		height: 100%;
 		position: absolute;
+		border-radius: 50%;
+		overflow: hidden;
 	}
 
 	.item-view-block {

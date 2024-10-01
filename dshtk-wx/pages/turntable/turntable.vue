@@ -1,31 +1,34 @@
-<template>
-	<page-meta :page-style="'overflow:'+(show?'hidden':'auto')"></page-meta>
-	<view style="position: relative;">
-		<image src="https://www.sfj365.com/dshtk/images/turntable_bg.jpg" mode="aspectFill"
-			style="width: 100vw;;height: 100vh;">
-		</image>
-		<view class="column" style="position: absolute;top: 0;bottom: 0;left: 0;right: 0;">
-			<view class="row-c" style="margin-top: 120rpx;margin-left: 40rpx;">
-				<text class="top-title">点一点，锦上添花！</text>
-			</view>
-			<view class="column-c-c" style="margin-top: 140rpx;">
-				<image src="https://www.sfj365.com/dshtk/images/turntable_wz.png" mode="widthFix" style="width: 80%;">
-				</image>
-				<text class="shop-title">{{businessInfo.BnsinessName}}</text>
-				<view style="margin-top: 100rpx;">
-					<my-turntable-draw ref="raffleWheel" :prizeList="prizeList" :targetIndex="targetIndex"
-						@befoterClick="befoterClick" @afterClick="afterClick">
-					</my-turntable-draw>
-				</view>
-				<text class="m-t-40 fs28" style="color: #4E3531;">奖品由门店提供，消费时领取。</text>
-				<view class="m-t-40 p-b-30">
-					<bottom-support-info></bottom-support-info>
-				</view>
-			</view>
-		</view>
-	</view>
+<template> 
+   <page-meta :page-style="'overflow:'+(show?'hidden':'auto')"></page-meta>
+    <view class="view-bg" style="background-image: url('https://www.sfj365.com/dshtk/images/turntable_bg.jpg')">
 
-	<set-avatar-dialog :show="userInfoDialog" @close="handleClose"></set-avatar-dialog>
+        <view class="column">
+            <view class="row-c" style="margin-top: 80rpx;margin-left: 40rpx;">
+                <text class="top-title">点一点，锦上添花！</text>
+            </view>
+            <view class="column-c-c" style="margin-top: 80rpx;">
+                <image src="https://www.sfj365.com/dshtk/images/turntable_wz.png" style="width: 600rpx;height: 100rpx;">
+                </image>
+                <text class="shop-title">{{businessInfo.BnsinessName}}</text>
+                <view style="margin-top: 40rpx;">
+                    <my-turntable-draw ref="raffleWheel" :prizeList="prizeList" :targetIndex="targetIndex"
+                        @befoterClick="befoterClick" @afterClick="afterClick">
+                    </my-turntable-draw>
+                </view>
+                <text class="m-t-40 fs28" style="color: #4E3531;">奖品由门店提供，消费时领取。</text>
+                <view class="m-t-40">
+                    <bottom-support-info></bottom-support-info>
+                </view>
+            </view>
+        </view>
+    </view>
+
+   <set-avatar-dialog :show="userInfoDialog" @close="handleClose"></set-avatar-dialog>
+
+
+
+
+
 
 </template>
 
@@ -166,19 +169,27 @@
 </script>
 
 <style lang="scss" scoped>
-	.top-title {
-		font-weight: normal;
-		font-size: 37rpx;
-		color: #FFFFFF;
-		font-family: Alibaba PuHuiTi 3.0;
-	}
-
-	.shop-title {
-		height: 70rpx;
-		font-family: Alibaba PuHuiTi 3.0;
-		font-weight: normal;
-		font-size: 73rpx;
-		color: #FFFFFF;
-		margin-top: 30rpx;
-	}
+	 .view-bg {
+	        padding-top: 22rpx;
+	        background-size: cover;
+	        background-repeat: no-repeat;
+	        width: 100vw;
+	        height: 100vh;
+	    }
+	
+	    .top-title {
+	        font-weight: normal;
+	        font-size: 37rpx;
+	        color: #FFFFFF;
+	        font-family: Alibaba PuHuiTi 3.0;
+	    }
+	
+	    .shop-title {
+	        height: 70rpx;
+	        font-family: Alibaba PuHuiTi 3.0;
+	        font-weight: normal;
+	        font-size: 73rpx;
+	        color: #FFFFFF;
+	        margin-top: 30rpx;
+	    }
 </style>

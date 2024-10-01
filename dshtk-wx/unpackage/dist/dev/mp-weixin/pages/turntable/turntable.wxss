@@ -23,6 +23,13 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.view-bg.data-v-3f82645e {
+  padding-top: 22rpx;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100vw;
+  height: 100vh;
+}
 .top-title.data-v-3f82645e {
   font-weight: normal;
   font-size: 37rpx;

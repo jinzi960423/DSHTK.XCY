@@ -99,25 +99,22 @@ const _sfc_main = {
       });
     },
     rotoreAction(index) {
-      if (index < 0) {
-        this.isClick = true;
+      let _rotates = 0;
+      if (this.isShow) {
+        let _len = this.prizeList.length - 1;
+        _rotates = (_len - index) * this.degs + 360 * this.ringCount;
+        this.isShow = false;
+        this.rotates += _rotates + this.degs / 2;
       } else {
-        let _rotates = 0;
-        if (this.isShow) {
-          let _len = this.prizeList.length - 1;
-          _rotates = (_len - index) * this.degs + 360 * this.ringCount;
-          this.isShow = false;
-          this.rotates += _rotates + this.degs / 2;
-        } else {
-          _rotates = -(index - this.isRoteIndex) * this.degs + 360 * this.ringCount;
-          this.rotates += _rotates;
-        }
-        this.isRoteIndex = index;
-        this.setTimeOut();
+        _rotates = -(index - this.isRoteIndex) * this.degs + 360 * this.ringCount;
+        this.rotates += _rotates;
       }
+      this.isRoteIndex = index;
+      this.setTimeOut();
     },
     setTimeOut() {
       setTimeout(() => {
+        console.log("转动结束");
         this.$emit("afterClick", {
           type: "end",
           content: this.prizeList[this.targetIndex],
@@ -127,7 +124,7 @@ const _sfc_main = {
       }, this.duration * 1e3 + 100);
     },
     endAction() {
-      console.log("本次选中的：" + this.prizeList[this.targetIndex].Name);
+      console.log("本次选中的：" + this.prizeList[this.targetIndex].name);
     }
   }
 };

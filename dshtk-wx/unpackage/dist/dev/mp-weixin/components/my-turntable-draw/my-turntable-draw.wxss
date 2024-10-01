@@ -25,7 +25,6 @@
 /* 文章场景相关 */
 .raffle-wheel.data-v-33b0ffec {
   position: relative;
-  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,22 +35,27 @@
   height: 600rpx;
 }
 .raffle-wheel-box.data-v-33b0ffec {
-  border-radius: 50%;
+  border-radius: 210rpx;
   overflow: hidden;
   position: relative;
   top: -50rpx;
   left: 10rpx;
+  width: 420rpx;
+  height: 420rpx;
 }
 .raffle-wheel-show.data-v-33b0ffec {
   width: 100%;
   height: 100%;
   position: relative;
   overflow: hidden;
+  border-radius: 50%;
 }
 .item-block.data-v-33b0ffec {
   width: 100%;
   height: 100%;
   position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
 }
 .item-view-block.data-v-33b0ffec {
   position: absolute;
