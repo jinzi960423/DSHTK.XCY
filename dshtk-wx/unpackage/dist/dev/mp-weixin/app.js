@@ -4,8 +4,8 @@ const common_vendor = require("./common/vendor.js");
 const uni_modules_uviewPlus_index = require("./uni_modules/uview-plus/index.js");
 if (!Math) {
   "./pages/index/index.js";
-  "./pages/activity/activity.js";
   "./pages/home/home.js";
+  "./pages/activity/activity.js";
   "./pages/forward/forward.js";
   "./pages/friendHelp/friendHelp.js";
   "./pages/mine/mine.js";

@@ -4,6 +4,51 @@ const utils_appStorage = require("../../utils/appStorage.js");
 const utils_common = require("../../utils/common.js");
 const turntableApi = {
   /**
+   * 保存微信用户的的相关信息
+   * @param {Object} openid
+   * @param {Object} headImg
+   * @param {Object} nickName
+   */
+  saveUserInfo(openid, headImg, nickName) {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/SaveUserInfo",
+        method: "POST",
+        data: {
+          OpenId: openid,
+          NickName: nickName,
+          WxIcon: headImg
+        },
+        success: function(res) {
+          console.log(res.data);
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  },
+  //好友助力
+  WarehouseLike(warehouseId, openId) {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/WarehouseLike",
+        method: "GET",
+        data: {
+          WarehouseId: warehouseId,
+          OpenId: openId
+        },
+        success: function(res) {
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  },
+  /**
    * 绑定用户和商户的关系
    ***/
   BindingBusiness(openId, businessId) {
@@ -91,6 +136,7 @@ const turntableApi = {
 const _sfc_main = {
   data() {
     return {
+      id: "f290c26b-54a2-443d-8303-d468784acfc4",
       openId: "",
       businessId: "2CCDB239-7F9E-4A4F-A16D-AF873D6964D0",
       businessInfo: {
@@ -102,16 +148,32 @@ const _sfc_main = {
       //中奖的商品对应的小标
     };
   },
-  onLoad() {
+  onLoad(options) {
+    this.id = options.id;
+    this.businessId = options.businessId;
+    this.sourceOpenId = options.openId;
   },
   mounted() {
+    if (this.businessId == "") {
+      common_vendor.index.showModal({
+        title: "温馨提示",
+        content: "无效的商户二维码",
+        showCancel: false,
+        success: function(res) {
+          if (res.confirm)
+            ;
+        }
+      });
+    }
     utils_common.commonutils.GetOpenId().then((openId) => {
       this.openId = openId;
       utils_appStorage.appStorage.setStorage("businessId", this.businessId);
       turntableApi.BindingBusiness(openId, this.businessId);
     });
     utils_common.commonutils.GetUserInfo().then((data) => {
-      this.userInfoDialog = !data.Success;
+      if (!data.Success) {
+        turntableApi.saveUserInfo(this.openId, "", "点上花");
+      }
     });
     turntableApi.GetPrizeConfigList(this.businessId).then((data) => {
       console.log(data);
@@ -138,39 +200,32 @@ const _sfc_main = {
       common_vendor.index.navigateBack();
     },
     befoterClick(data) {
-      console.log(11);
-      turntableApi.DrawLottery(this.businessId, this.openId).then((drawData) => {
-        console.log(drawData);
-        if (drawData.Success) {
-          var Id = drawData.Data.Id;
-          for (var i = 0; i < this.prizeList.length; i++) {
-            if (this.prizeList[i].Id == Id) {
-              this.targetIndex = i;
-            }
-          }
-          if (data.type == "start") {
-            data.callback && data.callback(this.targetIndex);
-          }
-        } else {
-          common_vendor.index.showModal({
-            title: "温馨提示",
-            content: drawData.Message,
-            showCancel: false,
-            success: function(res) {
-              if (res.confirm) {
-                console.log("用户点击确定");
-                if (data.type == "start") {
-                  data.callback && data.callback(-1);
-                }
-                common_vendor.index.$u.route("/pages/home/home", "");
-              } else if (res.cancel) {
-                console.log("用户点击取消");
+      turntableApi.WarehouseLike(this.id, this.openId).then((likeData) => {
+        console.log(likeData);
+        if (this.id != "") {
+          utils_common.commonutils.showToast(likeData.Message, "success");
+        }
+        turntableApi.DrawLottery(this.businessId, this.openId).then((drawData) => {
+          console.log(drawData);
+          if (drawData.Success) {
+            var Id = drawData.Data.Id;
+            for (var i = 0; i < this.prizeList.length; i++) {
+              if (this.prizeList[i].Id == Id) {
+                this.targetIndex = i;
               }
             }
-          });
-        }
-      }).catch((error) => {
-        utils_common.commonutils.showToast(error, "error");
+            if (data.type == "start") {
+              data.callback && data.callback(this.targetIndex);
+            }
+          } else {
+            if (data.type == "start") {
+              this.targetIndex = 5;
+              data.callback && data.callback(this.targetIndex);
+            }
+          }
+        }).catch((error) => {
+          utils_common.commonutils.showToast(error, "error");
+        });
       });
     },
     //转盘结束后

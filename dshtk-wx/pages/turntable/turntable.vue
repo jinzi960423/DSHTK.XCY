@@ -36,6 +36,7 @@
 	export default {
 		data() {
 			return {
+				id: "f290c26b-54a2-443d-8303-d468784acfc4",
 				openId: "",
 				businessId: "2CCDB239-7F9E-4A4F-A16D-AF873D6964D0",
 				businessInfo: {
@@ -46,10 +47,25 @@
 				targetIndex: 0, //中奖的商品对应的小标
 			};
 		},
-		onLoad() {
-
+		onLoad(options) {
+			this.id = options.id;
+			this.businessId = options.businessId;
+			this.sourceOpenId = options.openId;
+			
 		},
 		mounted() {
+			if (this.businessId == "") {
+				uni.showModal({
+					title: '温馨提示',
+					content: "无效的商户二维码",
+					showCancel: false,
+					success: function(res) {
+						if (res.confirm) {
+							//uni.$u.route('/pages/home/home', '')
+						}
+					}
+				});
+			}
 			commonutils.GetOpenId().then(openId => {
 				this.openId = openId;
 				appStorage.setStorage("businessId", this.businessId);
@@ -57,7 +73,10 @@
 			})
 			commonutils.GetUserInfo().then(data => {
 				//console.log(data)
-				this.userInfoDialog = !data.Success;
+				//this.userInfoDialog = !data.Success;
+				if (!data.Success) {
+					turntableApi.saveUserInfo(this.openId, '', '点上花')
+				}
 			})
 			//获取转盘的奖品列表
 			turntableApi.GetPrizeConfigList(this.businessId).then(data => {
@@ -86,40 +105,45 @@
 				uni.navigateBack()
 			},
 			befoterClick(data) {
-				console.log(11)
-				turntableApi.DrawLottery(this.businessId, this.openId).then(drawData => {
-					console.log(drawData)
-					if (drawData.Success) {
-						var Id = drawData.Data.Id;
-						for (var i = 0; i < this.prizeList.length; i++) {
-							if (this.prizeList[i].Id == Id) {
-								this.targetIndex = i; //中奖的数据下标
-							}
-						}
-						if (data.type == 'start') {
-							data.callback && data.callback(this.targetIndex)
-						}
-					} else {
-						uni.showModal({
-							title: '温馨提示',
-							content: drawData.Message,
-							showCancel: false,
-							success: function(res) {
-								if (res.confirm) {
-									console.log('用户点击确定');
-									if (data.type == 'start') {
-										data.callback && data.callback(-1)
-									}
-									uni.$u.route('/pages/home/home', '')
-								} else if (res.cancel) {
-									console.log('用户点击取消');
+				turntableApi.WarehouseLike(this.id, this.openId).then(likeData => {
+					console.log(likeData)
+					if (this.id != "") {
+						commonutils.showToast(likeData.Message, "success");
+					}
+					turntableApi.DrawLottery(this.businessId, this.openId).then(drawData => {
+						console.log(drawData)
+						if (drawData.Success) {
+							var Id = drawData.Data.Id;
+							for (var i = 0; i < this.prizeList.length; i++) {
+								if (this.prizeList[i].Id == Id) {
+									this.targetIndex = i; //中奖的数据下标
 								}
 							}
-						});
-
-					}
-				}).catch(error => {
-					commonutils.showToast(error, "error");
+							if (data.type == 'start') {
+								data.callback && data.callback(this.targetIndex)
+							}
+						} else {
+							if (data.type == 'start') {
+								this.targetIndex = 5;
+								data.callback && data.callback(this.targetIndex)
+							}
+							// uni.showModal({
+							// 	title: '温馨提示',
+							// 	content: drawData.Message,
+							// 	showCancel: false,
+							// 	success: function(res) {
+							// 		if (res.confirm) {
+							// 			if (data.type == 'start') {
+							// 				data.callback && data.callback(-1)
+							// 			}
+							// 			uni.$u.route('/pages/home/home', '')
+							// 		}
+							// 	}
+							// });
+						}
+					}).catch(error => {
+						commonutils.showToast(error, "error");
+					})
 				})
 			},
 			//转盘结束后

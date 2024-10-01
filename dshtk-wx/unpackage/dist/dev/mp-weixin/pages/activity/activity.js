@@ -1,14 +1,112 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const utils_common = require("../../utils/common.js");
+const utils_appStorage = require("../../utils/appStorage.js");
+const activityApi = {
+  /***
+  获取集赞中的
+  ****/
+  GetWarehouseEntity(openId, prizeId, businessId) {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/GetWarehouseEntity",
+        method: "GET",
+        data: {
+          OpenId: openId,
+          PrizeId: prizeId,
+          BusinessId: businessId
+        },
+        success: function(res) {
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  },
+  /**
+   * 获取活动列表
+   **/
+  GetPrizeList(businessId) {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/GetPrizeList",
+        method: "GET",
+        data: {
+          BusinessId: businessId
+        },
+        success: function(res) {
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  }
+};
 const _sfc_main = {
   data() {
     return {
-      dataList: []
+      openId: "",
+      businessInfo: {},
+      prizeList: [],
+      businessId: ""
     };
   },
+  mounted() {
+    utils_common.commonutils.GetOpenId().then((openId) => {
+      this.openId = openId;
+      this.businessId = utils_appStorage.appStorage.getStorage("businessId");
+      utils_common.commonutils.GetBusinessInfoById(this.businessId).then((businessInfo) => {
+        this.businessInfo = businessInfo.Data;
+      });
+      activityApi.GetPrizeList(this.businessId).then((prizeList) => {
+        this.prizeList = prizeList.Data;
+      });
+    });
+  },
   methods: {
-    refreshData() {
-      this.$refs.paging.complete([1, 2, 3, 4, 5]);
+    openMap() {
+      common_vendor.wx$1.openLocation({
+        latitude: parseFloat(this.businessInfo.Longitude),
+        // 纬度  
+        longitude: parseFloat(this.businessInfo.Latitude),
+        // 经度  
+        name: this.businessInfo.BnsinessName,
+        // 地点名称  
+        address: this.businessInfo.Address,
+        // 地址的详细说明  
+        scale: 13,
+        // 缩放比例  
+        success: function(res) {
+          console.log("打开地图成功");
+        },
+        fail: function(err) {
+          console.log("打开地图失败", err);
+        }
+      });
+    },
+    JumpPage(prizeId) {
+      console.log(prizeId);
+      activityApi.GetWarehouseEntity(this.openId, prizeId, this.businessId).then((data) => {
+        console.log(data);
+        if (data.Success) {
+          common_vendor.index.$u.route("/pages/forward/forward?Id=" + data.Data.Id + "&businessId=" + this.businessId + "&openId=" + this.openId);
+        } else {
+          common_vendor.index.showModal({
+            title: "温馨提示",
+            content: data.Message,
+            showCancel: false,
+            success: function(res) {
+              if (res.confirm) {
+                common_vendor.index.$u.route("/pages/mine/mine");
+              }
+            }
+          });
+        }
+      });
     }
   }
 };
@@ -30,28 +128,32 @@ if (!Math) {
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_vendor.p({
+    a: common_vendor.t($data.businessInfo.BnsinessName),
+    b: common_vendor.o($options.openMap),
+    c: common_vendor.p({
       name: "map",
       color: "#1d1d1d",
       size: "24rpx",
-      label: "松江区茸梅路10号楼101室",
+      label: $data.businessInfo.Address,
       ["label-color"]: "#1d1d1d",
       ["label-size"]: "24rpx"
     }),
-    b: common_vendor.f($data.dataList, (item, index, i0) => {
+    d: common_vendor.f($data.prizeList, (item, index, i0) => {
       return {
         a: "da48f91d-2-" + i0 + ",da48f91d-0",
-        b: "da48f91d-3-" + i0 + ",da48f91d-0",
-        c: index,
-        d: common_vendor.o(($event) => _ctx.$u.route("/pages/forward/forward"), index)
+        b: common_vendor.p({
+          width: "300rpx",
+          height: "300rpx",
+          imageUrl: item.ImgUrl
+        }),
+        c: common_vendor.t(item.Name),
+        d: common_vendor.t(item.PrizeLike),
+        e: "da48f91d-3-" + i0 + ",da48f91d-0",
+        f: index,
+        g: common_vendor.o(($event) => $options.JumpPage(item.Id), index)
       };
     }),
-    c: common_vendor.p({
-      width: "300rpx",
-      height: "300rpx",
-      imageUrl: "https://www.sfj365.com/dshtk/images/tck_gift.png"
-    }),
-    d: common_vendor.p({
+    e: common_vendor.p({
       name: "arrow-right-double",
       size: "28rpx",
       color: "white",
@@ -60,11 +162,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       ["label-size"]: "28rpx",
       labelPos: "left"
     }),
-    e: common_vendor.sr("paging", "da48f91d-0"),
-    f: common_vendor.o($options.refreshData),
-    g: common_vendor.o(($event) => $data.dataList = $event),
+    f: common_vendor.sr("paging", "da48f91d-0"),
+    g: common_vendor.o(($event) => $data.prizeList = $event),
     h: common_vendor.p({
-      modelValue: $data.dataList
+      modelValue: $data.prizeList
     })
   };
 }

@@ -10,6 +10,10 @@ const _sfc_main = {
     info: {
       type: Object,
       default: null
+    },
+    imageUrl: {
+      type: String,
+      default: ""
     }
   },
   data() {
@@ -33,13 +37,14 @@ if (!Math) {
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_vendor.o($options.close),
-    b: common_vendor.p({
+    a: $props.imageUrl,
+    b: common_vendor.o($options.close),
+    c: common_vendor.p({
       name: "close-circle",
       color: "white",
       size: "60rpx"
     }),
-    c: common_vendor.p({
+    d: common_vendor.p({
       show: $props.show
     })
   };

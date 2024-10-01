@@ -1,6 +1,5 @@
 import appStorage from './appStorage.js'
-export default {
-
+export default { 
 	//服务器接口
 	baseUrl() {
 		return 'https://www.sfj365.com/dshtk.web/'
@@ -46,7 +45,6 @@ export default {
 						OpenId: openid
 					},
 					success: function(res) {
-						console.log(res)
 						resolve(res.data);
 					},
 					fail: function() {
@@ -80,27 +78,21 @@ export default {
 									code: res.code
 								},
 								success: function(res) {
-									console.log(res)
 									appStorage.setStorage("openid", res.data.Data)
-
-									console.log(res.data.Data);
 									resolve(res.data.Data);
 
 								},
 								fail: function() {
 									reject('获取openid失败');
-
 								}
 							})
 						} else {
 							console.log('登录失败！' + res.errMsg)
 							reject('登录失败！' + res.errMsg);
-
 						}
 					}
 				})
 			}
 		})
 	}
-
 }

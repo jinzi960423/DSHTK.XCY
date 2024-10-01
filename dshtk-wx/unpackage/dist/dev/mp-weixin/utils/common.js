@@ -47,7 +47,6 @@ const commonutils = {
             OpenId: openid
           },
           success: function(res) {
-            console.log(res);
             resolve(res.data);
           },
           fail: function() {
@@ -80,9 +79,7 @@ const commonutils = {
                   code: res.code
                 },
                 success: function(res2) {
-                  console.log(res2);
                   utils_appStorage.appStorage.setStorage("openid", res2.data.Data);
-                  console.log(res2.data.Data);
                   resolve(res2.data.Data);
                 },
                 fail: function() {

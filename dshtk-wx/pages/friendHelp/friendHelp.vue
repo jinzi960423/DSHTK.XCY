@@ -12,8 +12,7 @@
 
             <view class="column-c-c m-t-30">
 
-                <text class="fs32 color-white row-c-c m-b-30"
-                    style="background-color: #FF6C4E;height:60rpx;border-radius: 30rpx;padding: 0 60rpx;">
+                <text class="fs32 color-white row-c-c m-b-30"   style="background-color: #FF6C4E;height:60rpx;border-radius: 30rpx;padding: 0 60rpx;">
                     可乐一瓶
                 </text>
 

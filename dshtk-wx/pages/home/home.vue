@@ -37,7 +37,7 @@
 		</z-paging>
 	</view>
 
-	<gift-dialog :show="showGift" :info="giftInfo" @close="showGift=false"></gift-dialog>
+	<gift-dialog :show="showGift" :info="giftInfo" @close="showGift=false" :imageUrl="imageUrl"></gift-dialog>
 
 	<custom-picker-dialog :show="showShop" @close="showShop=false" :columns="[shopList]"
 		@confirm="confirmShop"></custom-picker-dialog>
@@ -57,17 +57,18 @@
 				giftInfo: null,
 				shopList: [],
 				businessInfo: {},
+				imageUrl: "",
 			};
 		},
 		onLoad(options) {
-			console.log("传过来的值"+ JSON.stringify(options));
-				console.log("传过来的值"+ options.Id);
-			if (!options) {
+			this.giftInfo = options 
+			if (options.Id == undefined) {
 				this.showGift = false;
 			} else {
 				this.showGift = true;
+				this.imageUrl=options.ImgUrl
 			}
-			this.giftInfo = options
+
 		},
 		mounted() {
 			commonutils.GetOpenId().then(openId => {
@@ -87,7 +88,7 @@
 					longitude: parseFloat(this.businessInfo.Latitude), // 经度  
 					name: this.businessInfo.BnsinessName, // 地点名称  
 					address: this.businessInfo.Address, // 地址的详细说明  
-					scale: 5, // 缩放比例  
+					scale: 13, // 缩放比例  
 					success: function(res) {
 						console.log('打开地图成功');
 					},

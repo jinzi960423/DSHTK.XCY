@@ -1,10 +1,47 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const utils_common = require("../../utils/common.js");
+const utils_appStorage = require("../../utils/appStorage.js");
+const mineApi = {
+  /**
+   * 获取我的小仓库
+   **/
+  GetPrizeListByOpenId(businessId, openId) {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/GetPrizeListByOpenId",
+        method: "GET",
+        data: {
+          BusinessId: businessId,
+          OpenId: openId
+        },
+        success: function(res) {
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  }
+};
 const _sfc_main = {
   data() {
     return {
-      dataList: [1, 2, 3, 4]
+      userInfo: {},
+      dataList: []
     };
+  },
+  mounted() {
+    var businessId = utils_appStorage.appStorage.getStorage("businessId");
+    utils_common.commonutils.GetOpenId().then((openid) => {
+      mineApi.GetPrizeListByOpenId(businessId, openid).then((dataList) => {
+        this.dataList = dataList.Data;
+      });
+    });
+    utils_common.commonutils.GetUserInfo().then((userInfo) => {
+      this.userInfo = userInfo.Data;
+    });
   }
 };
 if (!Array) {
@@ -22,21 +59,25 @@ if (!Math) {
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.p({
+      imageUrl: $data.userInfo.WxIcon,
       radius: "46rpx"
     }),
-    b: common_vendor.f($data.dataList, (item, index, i0) => {
+    b: common_vendor.t($data.userInfo.NickName),
+    c: common_vendor.f($data.dataList, (item, index, i0) => {
       return {
         a: "7c2ebfa5-1-" + i0,
-        b: "7c2ebfa5-2-" + i0,
-        c: index,
-        d: common_vendor.o(($event) => _ctx.$u.route("/pages/redemption/redemption"), index)
+        b: common_vendor.p({
+          width: "60rpx",
+          height: "60rpx",
+          radius: "30rpx",
+          imageUrl: item.ImgUrl
+        }),
+        c: common_vendor.t(item.Name),
+        d: common_vendor.t(item.Count),
+        e: "7c2ebfa5-2-" + i0,
+        f: index,
+        g: common_vendor.o(($event) => _ctx.$u.route("/pages/redemption/redemption?PrizeId=" + item.PrizeId), index)
       };
-    }),
-    c: common_vendor.p({
-      width: "60rpx",
-      height: "60rpx",
-      radius: "30rpx",
-      imageUrl: "https://www.sfj365.com/dshtk/images/tck_gift.png"
     }),
     d: common_vendor.p({
       name: "arrow-right",

@@ -29,6 +29,7 @@
   width: 100vw;
   height: 100vh;
   background-color: white;
+  padding-top: 65rpx;
 }
 .bp_01.data-v-cc172b39 {
   background-size: cover;
@@ -43,4 +44,16 @@
   background-position: center center;
   height: 190rpx;
   width: 640rpx;
+}
+.shopName.data-v-cc172b39 {
+  background: #FD5703;
+  border-radius: 13rpx;
+  font-family: Alibaba PuHuiTi 3;
+  font-weight: normal;
+  font-size: 40rpx;
+  color: #FFFFFF;
+  position: absolute;
+  right: 20rpx;
+  top: 40rpx;
+  padding: 5rpx 10rpx;
 }

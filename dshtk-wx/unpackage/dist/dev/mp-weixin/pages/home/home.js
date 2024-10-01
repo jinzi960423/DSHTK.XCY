@@ -52,18 +52,18 @@ const _sfc_main = {
       showShop: false,
       giftInfo: null,
       shopList: [],
-      businessInfo: {}
+      businessInfo: {},
+      imageUrl: ""
     };
   },
   onLoad(options) {
-    console.log("传过来的值" + JSON.stringify(options));
-    console.log("传过来的值" + options.Id);
-    if (!options) {
+    this.giftInfo = options;
+    if (options.Id == void 0) {
       this.showGift = false;
     } else {
       this.showGift = true;
+      this.imageUrl = options.ImgUrl;
     }
-    this.giftInfo = options;
   },
   mounted() {
     utils_common.commonutils.GetOpenId().then((openId) => {
@@ -86,7 +86,7 @@ const _sfc_main = {
         // 地点名称  
         address: this.businessInfo.Address,
         // 地址的详细说明  
-        scale: 5,
+        scale: 13,
         // 缩放比例  
         success: function(res) {
           console.log("打开地图成功");
@@ -175,7 +175,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     k: common_vendor.o(($event) => $data.showGift = false),
     l: common_vendor.p({
       show: $data.showGift,
-      info: $data.giftInfo
+      info: $data.giftInfo,
+      imageUrl: $data.imageUrl
     }),
     m: common_vendor.o(($event) => $data.showShop = false),
     n: common_vendor.o($options.confirmShop),

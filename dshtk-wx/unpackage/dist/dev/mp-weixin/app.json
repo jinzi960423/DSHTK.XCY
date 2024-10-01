@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/activity/activity",
     "pages/home/home",
+    "pages/activity/activity",
     "pages/forward/forward",
     "pages/friendHelp/friendHelp",
     "pages/mine/mine",
@@ -12,7 +12,7 @@
   ],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "",
+    "navigationBarTitleText": "分享页面",
     "navigationBarBackgroundColor": "#FFFFFF",
     "backgroundColor": "#FFFFFF",
     "backgroundColorTop": "#FFFFFF",
