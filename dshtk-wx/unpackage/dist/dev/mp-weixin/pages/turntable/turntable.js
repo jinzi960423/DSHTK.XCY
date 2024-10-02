@@ -154,45 +154,81 @@ const _sfc_main = {
     this.sourceOpenId = options.openId;
   },
   mounted() {
-    if (this.businessId == "") {
-      common_vendor.index.showModal({
-        title: "温馨提示",
-        content: "无效的商户二维码",
-        showCancel: false,
-        success: function(res) {
-          if (res.confirm)
-            ;
+    common_vendor.index.getLocation({
+      type: "wgs84",
+      success: function(res) {
+        console.log("当前位置的经度：" + res.longitude);
+        console.log("当前位置的纬度：" + res.latitude);
+        var longitude = parseFloat(res.longitude);
+        var latitude = parseFloat(res.latitude);
+        if (longitude < 105.17 || longitude > 110.12 || latitude < 28.1 || latitude > 32.13) {
+          common_vendor.index.showModal({
+            title: "温馨提示",
+            content: "当前活动仅限重庆地区！",
+            showCancel: false,
+            success: function(res2) {
+              if (res2.confirm) {
+                common_vendor.wx$1.exitMiniProgram();
+              }
+            }
+          });
+        } else {
+          if (this.businessId == "") {
+            common_vendor.index.showModal({
+              title: "温馨提示",
+              content: "无效的商户二维码",
+              showCancel: false,
+              success: function(res2) {
+                if (res2.confirm) {
+                  common_vendor.wx$1.exitMiniProgram();
+                }
+              }
+            });
+          }
+          utils_common.commonutils.GetOpenId().then((openId) => {
+            this.openId = openId;
+            utils_appStorage.appStorage.setStorage("businessId", this.businessId);
+            turntableApi.BindingBusiness(openId, this.businessId);
+          });
+          utils_common.commonutils.GetUserInfo().then((data) => {
+            if (!data.Success) {
+              turntableApi.saveUserInfo(this.openId, "", "点上花");
+            }
+          });
+          turntableApi.GetPrizeConfigList(this.businessId).then((data) => {
+            console.log(data);
+            if (!data.Success) {
+              common_vendor.index.showModal({
+                title: "温馨提示",
+                content: data.Message,
+                showCancel: false,
+                success: function(res2) {
+                  if (res2.confirm) {
+                    common_vendor.index.$u.route("/pages/home/home", "");
+                  }
+                }
+              });
+            }
+            this.prizeList = data.Data;
+          });
+          utils_common.commonutils.GetBusinessInfoById(this.businessId).then((data) => {
+            this.businessInfo = data.Data;
+          });
         }
-      });
-    }
-    utils_common.commonutils.GetOpenId().then((openId) => {
-      this.openId = openId;
-      utils_appStorage.appStorage.setStorage("businessId", this.businessId);
-      turntableApi.BindingBusiness(openId, this.businessId);
-    });
-    utils_common.commonutils.GetUserInfo().then((data) => {
-      if (!data.Success) {
-        turntableApi.saveUserInfo(this.openId, "", "点上花");
-      }
-    });
-    turntableApi.GetPrizeConfigList(this.businessId).then((data) => {
-      console.log(data);
-      if (!data.Success) {
+      },
+      fail: function(error) {
+        console.error("获取位置失败：", error);
         common_vendor.index.showModal({
           title: "温馨提示",
-          content: data.Message,
+          content: "获取位置失败,请打开我的>设置>个人信息与权限 允许获取位置信息",
           showCancel: false,
           success: function(res) {
             if (res.confirm) {
-              common_vendor.index.$u.route("/pages/home/home", "");
+              common_vendor.wx$1.exitMiniProgram();
             }
           }
         });
       }
-      this.prizeList = data.Data;
-    });
-    utils_common.commonutils.GetBusinessInfoById(this.businessId).then((data) => {
-      this.businessInfo = data.Data;
     });
   },
   methods: {

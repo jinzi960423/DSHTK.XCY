@@ -69,10 +69,13 @@ const _sfc_main = {
     utils_common.commonutils.GetOpenId().then((openId) => {
       this.openId = openId;
       homeApi.GetBusinessListByOpenId(openId).then((data) => {
-        console.log(data);
         this.shopList = data.Data;
+        var businessId = utils_appStorage.appStorage.getStorage("businessId");
+        if (businessId == "" || businessId == void 0) {
+          utils_appStorage.appStorage.setStorage("businessId", data.Data[0].Id);
+        }
+        this.initbusinessInfo();
       });
-      this.initbusinessInfo();
     });
   },
   methods: {

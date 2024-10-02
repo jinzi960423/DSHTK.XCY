@@ -19,6 +19,14 @@
     "backgroundColorBottom": "#F2F2F2"
   },
   "lazyCodeLoading": "requiredComponents",
-  "permission": {},
+  "permission": {
+    "scope.userLocation": {
+      "desc": "将获取你的具体位置信息，用于帮助用户浏览所在位置的零活信息"
+    }
+  },
+  "requiredPrivateInfos": [
+    "getLocation",
+    "chooseLocation"
+  ],
   "usingComponents": {}
 }

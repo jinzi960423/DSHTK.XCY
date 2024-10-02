@@ -21,7 +21,7 @@ export default {
 				url: th.baseUrl() + 'api/WeChatProgram/GetBusinessById',
 				method: "GET",
 				data: {
-					BusinessId: businessId,
+					BusinessId: businessId, 
 				},
 				success: function(res) {
 					resolve(res.data);

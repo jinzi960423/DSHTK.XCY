@@ -61,24 +61,26 @@
 			};
 		},
 		onLoad(options) {
-			this.giftInfo = options 
+			this.giftInfo = options
 			if (options.Id == undefined) {
 				this.showGift = false;
 			} else {
 				this.showGift = true;
-				this.imageUrl=options.ImgUrl
+				this.imageUrl = options.ImgUrl
 			}
-
 		},
 		mounted() {
 			commonutils.GetOpenId().then(openId => {
 				this.openId = openId;
 				homeApi.GetBusinessListByOpenId(openId).then(data => {
-					console.log(data)
 					this.shopList = data.Data;
-
+					var businessId = appStorage.getStorage("businessId");
+					if (businessId == "" || businessId == undefined) {
+						appStorage.setStorage("businessId", data.Data[0].Id);
+					}
+					this.initbusinessInfo()
 				})
-				this.initbusinessInfo()
+				
 			})
 		},
 		methods: {

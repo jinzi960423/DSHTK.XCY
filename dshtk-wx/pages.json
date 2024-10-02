@@ -57,6 +57,14 @@
 			}
 		}
 	],
+	"requiredPrivateInfos": [
+		"getLocation"
+	],
+	"permission": {
+		"scope.userLocation": {
+			"desc": "获取用户位置信息用于填写收货地址"
+		}
+	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "分享页面",
