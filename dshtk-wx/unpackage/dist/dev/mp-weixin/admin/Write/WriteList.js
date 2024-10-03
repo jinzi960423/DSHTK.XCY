@@ -6,16 +6,15 @@ const _sfc_main = {
   data() {
     return {
       adminId: "",
-      status: "contentrefresh",
+      status: "more",
       listData: [],
       Page: 1,
-      Limit: 10,
+      Limit: 30,
       reload: false,
-      adpid: "",
       contentText: {
         contentdown: "上拉加载更多",
         contentrefresh: "加载中",
-        contentnomore: "加载中~~"
+        contentnomore: "没有更多数据了~~"
       }
     };
   },
@@ -26,11 +25,13 @@ const _sfc_main = {
   onPullDownRefresh() {
   },
   onReachBottom() {
+    this.status = "more";
     this.getList();
   },
   methods: {
     getList() {
       if (!this.reload) {
+        this.status = "loading";
         admin_Write_Write.writeApi.GetPrizeListByBusinessId(this.adminId, this.Page, this.Limit).then((data) => {
           console.log(data);
           this.listData = this.listData.concat(data.Data);
