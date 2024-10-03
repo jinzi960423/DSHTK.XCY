@@ -1,9 +1,12 @@
 {
   "pages": [
     "admin/home/home",
+    "admin/business/edit",
     "admin/Write/WriteList",
     "pages/index/index",
     "admin/login/login",
+    "admin/login/updatePwd",
+    "admin/business/list",
     "pages/home/home",
     "pages/activity/activity",
     "pages/forward/forward",

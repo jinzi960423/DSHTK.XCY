@@ -42,6 +42,15 @@ const _sfc_main = {
     }
   },
   methods: {
+    businessList: function() {
+      common_vendor.index.$u.route("/admin/business/list");
+    },
+    addBusinessInfo: function() {
+      common_vendor.index.$u.route("/admin/business/edit");
+    },
+    updatePwd: function() {
+      common_vendor.index.$u.route("/admin/login/updatePwd");
+    },
     WriteList: function() {
       common_vendor.index.$u.route("/admin/Write/WriteList");
     },
@@ -126,22 +135,45 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       padding: true
     }),
     h: common_vendor.p({
-      type: "refresh",
+      type: "plus-filled",
       size: 30,
       color: "#777"
     }),
-    i: common_vendor.p({
-      type: "paperplane-filled",
+    i: common_vendor.o((...args) => $options.addBusinessInfo && $options.addBusinessInfo(...args)),
+    j: common_vendor.p({
+      type: "cart-filled",
       size: 30,
       color: "#777"
     }),
-    j: common_vendor.o((...args) => $options.loginOut && $options.loginOut(...args)),
-    k: common_vendor.p({
+    k: common_vendor.o((...args) => $options.businessList && $options.businessList(...args)),
+    l: common_vendor.p({
       column: 3,
       ["show-border"]: false,
       square: false
     }),
-    l: common_vendor.p({
+    m: common_vendor.p({
+      title: "管理员操作",
+      type: "line",
+      padding: true
+    }),
+    n: common_vendor.p({
+      type: "refresh",
+      size: 30,
+      color: "#777"
+    }),
+    o: common_vendor.o((...args) => $options.updatePwd && $options.updatePwd(...args)),
+    p: common_vendor.p({
+      type: "paperplane-filled",
+      size: 30,
+      color: "#777"
+    }),
+    q: common_vendor.o((...args) => $options.loginOut && $options.loginOut(...args)),
+    r: common_vendor.p({
+      column: 3,
+      ["show-border"]: false,
+      square: false
+    }),
+    s: common_vendor.p({
       title: "系统管理",
       type: "line",
       padding: true

@@ -2,28 +2,43 @@
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "admin/home/home",
-			"style": { 
+			"style": {
 				"navigationBarTitleText": "商户管理"
 			}
-		},{
+		}, {
+			"path": "admin/business/edit",
+			"style": {
+				"navigationBarTitleText": "新增商户"
+			}
+		}, {
 			"path": "admin/Write/WriteList",
-			"style": { 
+			"style": {
 				"navigationBarTitleText": "核销记录"
 			}
-		},{
+		}, {
 			"path": "pages/index/index",
 			"style": {
 				"navigationStyle": "custom"
 			}
 		},
-		
 		{
 			"path": "admin/login/login",
-			"style": { 
+			"style": {
 				"navigationBarTitleText": "登录"
 			}
 		},
-		
+		{
+			"path": "admin/login/updatePwd",
+			"style": {
+				"navigationBarTitleText": "修改密码"
+			}
+		},
+		{
+			"path": "admin/business/list",
+			"style": {
+				"navigationBarTitleText": "商户列表"
+			}
+		},
 		{
 			"path": "pages/home/home",
 			"style": {

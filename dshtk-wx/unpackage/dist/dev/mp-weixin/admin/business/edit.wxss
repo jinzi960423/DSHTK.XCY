@@ -1,0 +1,64 @@
+
+.submit-button.data-v-1199a384 {
+		margin-top: 20px;
+		width: 100%;
+		background-color: #2979ff;
+		color: #fff;
+		border: none;
+		border-radius: 4px;
+}
+.uni-list-cell-db.data-v-1199a384 {
+		width: 100%;
+		display: flex;
+		padding: 8px 13px;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		background-color: #FFFFFF;
+}
+.nvue-page-root.data-v-1199a384 {
+		background-color: #F8F8F8;
+		padding-bottom: 20px;
+}
+.page-title.data-v-1199a384 {
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		padding: 1rpx;
+}
+.uni-common-mt.data-v-1199a384 {
+		padding: 15rpx;
+}
+.title.data-v-1199a384 {
+		padding: 5px 13px;
+}
+.uni-form-item__title.data-v-1199a384 {
+		font-size: 16px;
+		line-height: 24px;
+}
+.uni-input-wrapper.data-v-1199a384 {
+		padding: 8px 13px;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		background-color: #FFFFFF;
+}
+.uni-input.data-v-1199a384 {
+		height: 28px;
+		line-height: 28px;
+		font-size: 15px;
+		padding: 0px;
+		flex: 1;
+		background-color: #FFFFFF;
+}
+.uni-icon.data-v-1199a384 {
+		font-family: uniicons;
+		font-size: 24px;
+		font-weight: normal;
+		font-style: normal;
+		width: 24px;
+		height: 24px;
+		line-height: 24px;
+		color: #999999;
+}
+.uni-eye-active.data-v-1199a384 {
+		color: #007AFF;
+}

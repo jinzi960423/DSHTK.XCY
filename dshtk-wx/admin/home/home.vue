@@ -23,10 +23,28 @@
 			</uni-grid>
 		</uni-section>
 
+
+		<uni-section title="管理员操作" type="line" padding>
+			<uni-grid :column="3" :show-border="false" :square="false">
+				<uni-grid-item>
+					<view class="grid-item-box" @click="addBusinessInfo" style="background-color: #fff;">
+						<uni-icons type="plus-filled" :size="30" color="#777" />
+						<text class="text">新增商户</text>
+					</view>
+				</uni-grid-item>
+				<uni-grid-item>
+					<view class="grid-item-box" @click="businessList" style="background-color: #fff;">
+						<uni-icons type="cart-filled" :size="30" color="#777" />
+						<text class="text">商户列表</text>
+					</view>
+				</uni-grid-item>
+			</uni-grid>
+		</uni-section>
+
 		<uni-section title="系统管理" type="line" padding>
 			<uni-grid :column="3" :show-border="false" :square="false">
 				<uni-grid-item>
-					<view class="grid-item-box" style="background-color: #fff;">
+					<view class="grid-item-box" @click="updatePwd" style="background-color: #fff;">
 						<uni-icons type="refresh" :size="30" color="#777" />
 						<text class="text">修改密码</text>
 					</view>
@@ -62,7 +80,16 @@
 			}
 		},
 		methods: {
-			WriteList:function(){
+			businessList:function(){
+				uni.$u.route('/admin/business/list')
+			},
+			addBusinessInfo: function() {
+				uni.$u.route('/admin/business/edit')
+			},
+			updatePwd: function() {
+				uni.$u.route('/admin/login/updatePwd')
+			},
+			WriteList: function() {
 				uni.$u.route('/admin/Write/WriteList')
 			},
 			loginOut: function() {

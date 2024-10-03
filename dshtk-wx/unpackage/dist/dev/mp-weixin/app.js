@@ -4,9 +4,12 @@ const common_vendor = require("./common/vendor.js");
 const uni_modules_uviewPlus_index = require("./uni_modules/uview-plus/index.js");
 if (!Math) {
   "./admin/home/home.js";
+  "./admin/business/edit.js";
   "./admin/Write/WriteList.js";
   "./pages/index/index.js";
   "./admin/login/login.js";
+  "./admin/login/updatePwd.js";
+  "./admin/business/list.js";
   "./pages/home/home.js";
   "./pages/activity/activity.js";
   "./pages/forward/forward.js";

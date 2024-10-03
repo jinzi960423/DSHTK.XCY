@@ -1,13 +1,14 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const login = require("../../login.js");
-const utils_appStorage = require("../../utils/appStorage.js");
 const utils_common = require("../../utils/common.js");
 const _sfc_main = {
   data() {
     return {
       username: "",
-      password: ""
+      password: "",
+      newPwd: "",
+      confirmPwd: ""
     };
   },
   methods: {
@@ -18,15 +19,20 @@ const _sfc_main = {
         utils_common.commonutils.showToast("请输入账号", "error");
       } else if (this.password == "") {
         utils_common.commonutils.showToast("请输入密码", "error");
+      } else if (this.newPwd == "") {
+        utils_common.commonutils.showToast("请输入新密码", "error");
+      } else if (this.confirmPwd == "") {
+        utils_common.commonutils.showToast("请再次输入新密码", "error");
+      } else if (this.confirmPwd != this.newPwd) {
+        utils_common.commonutils.showToast("再次输入新密码不正确", "error");
       } else {
-        login.loginApi.BusinessLogin(this.username, this.password).then((data) => {
+        login.loginApi.updatePwd(this.username, this.password, this.newPwd).then((data) => {
           console.log(data);
           if (data.Success) {
-            utils_common.commonutils.showToast("登录成功", "success");
-            utils_appStorage.appStorage.setStorage("adminId", data.Data.Id);
+            utils_common.commonutils.showToast("密码修改成功", "success");
             common_vendor.index.$u.route("/admin/home/home");
           } else {
-            utils_common.commonutils.showToast(data.Message, "error");
+            utils_common.commonutils.showToast("密码修改失败，请稍后重试", "error");
           }
         });
       }
@@ -51,10 +57,22 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     c: common_vendor.o(($event) => $data.password = $event),
     d: common_vendor.p({
       type: "password",
-      placeholder: "请输入密码",
+      placeholder: "请输入旧密码",
       modelValue: $data.password
     }),
-    e: common_vendor.o((...args) => $options.handleSubmit && $options.handleSubmit(...args))
+    e: common_vendor.o(($event) => $data.newPwd = $event),
+    f: common_vendor.p({
+      type: "password",
+      placeholder: "请输入新密码",
+      modelValue: $data.newPwd
+    }),
+    g: common_vendor.o(($event) => $data.confirmPwd = $event),
+    h: common_vendor.p({
+      type: "password",
+      placeholder: "再次输入新密码",
+      modelValue: $data.confirmPwd
+    }),
+    i: common_vendor.o((...args) => $options.handleSubmit && $options.handleSubmit(...args))
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);
