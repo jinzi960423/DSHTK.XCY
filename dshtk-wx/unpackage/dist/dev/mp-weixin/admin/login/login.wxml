@@ -1,0 +1,1 @@
+<view class="login-page"><uni-easyinput wx:if="{{b}}" u-i="c8eb8c9e-0" bind:__l="__l" bindupdateModelValue="{{a}}" u-p="{{b}}"/><view style="height:10px"></view><uni-easyinput wx:if="{{d}}" u-i="c8eb8c9e-1" bind:__l="__l" bindupdateModelValue="{{c}}" u-p="{{d}}"/><button bindtap="{{e}}" class="submit-button">登录</button></view>

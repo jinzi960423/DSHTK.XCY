@@ -1,6 +1,9 @@
 {
   "pages": [
+    "admin/home/home",
+    "admin/Write/WriteList",
     "pages/index/index",
+    "admin/login/login",
     "pages/home/home",
     "pages/activity/activity",
     "pages/forward/forward",

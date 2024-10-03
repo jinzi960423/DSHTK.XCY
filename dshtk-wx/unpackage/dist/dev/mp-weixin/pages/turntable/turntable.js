@@ -138,7 +138,8 @@ const _sfc_main = {
     return {
       id: "f290c26b-54a2-443d-8303-d468784acfc4",
       openId: "",
-      businessId: "2CCDB239-7F9E-4A4F-A16D-AF873D6964D0",
+      businessId: "14209525-E343-4996-B71F-813AC8494C35",
+      sourceOpenId: "",
       businessInfo: {
         BnsinessName: ""
       },
@@ -154,6 +155,7 @@ const _sfc_main = {
     this.sourceOpenId = options.openId;
   },
   mounted() {
+    var that = this;
     common_vendor.index.getLocation({
       type: "wgs84",
       success: function(res) {
@@ -173,7 +175,7 @@ const _sfc_main = {
             }
           });
         } else {
-          if (this.businessId == "") {
+          if (that.businessId == "") {
             common_vendor.index.showModal({
               title: "温馨提示",
               content: "无效的商户二维码",
@@ -186,16 +188,16 @@ const _sfc_main = {
             });
           }
           utils_common.commonutils.GetOpenId().then((openId) => {
-            this.openId = openId;
-            utils_appStorage.appStorage.setStorage("businessId", this.businessId);
-            turntableApi.BindingBusiness(openId, this.businessId);
+            that.openId = openId;
+            utils_appStorage.appStorage.setStorage("businessId", that.businessId);
+            turntableApi.BindingBusiness(openId, that.businessId);
           });
           utils_common.commonutils.GetUserInfo().then((data) => {
             if (!data.Success) {
-              turntableApi.saveUserInfo(this.openId, "", "点上花");
+              turntableApi.saveUserInfo(that.openId, "", "点上花");
             }
           });
-          turntableApi.GetPrizeConfigList(this.businessId).then((data) => {
+          turntableApi.GetPrizeConfigList(that.businessId).then((data) => {
             console.log(data);
             if (!data.Success) {
               common_vendor.index.showModal({
@@ -209,10 +211,10 @@ const _sfc_main = {
                 }
               });
             }
-            this.prizeList = data.Data;
+            that.prizeList = data.Data;
           });
-          utils_common.commonutils.GetBusinessInfoById(this.businessId).then((data) => {
-            this.businessInfo = data.Data;
+          utils_common.commonutils.GetBusinessInfoById(that.businessId).then((data) => {
+            that.businessInfo = data.Data;
           });
         }
       },

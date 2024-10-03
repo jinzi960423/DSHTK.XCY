@@ -1,0 +1,160 @@
+<template>
+	<view class="container">
+		<uni-section title="商户管理" type="line" padding>
+			<uni-grid :column="3" :show-border="false" :square="false">
+				<uni-grid-item>
+					<view class="grid-item-box" @click="scanCode" style="background-color: #fff;">
+						<uni-icons type="scan" :size="30" color="#777" />
+						<text class="text">奖品核销</text>
+					</view>
+				</uni-grid-item>
+				<uni-grid-item>
+					<view class="grid-item-box" @click="WriteList" style="background-color: #fff;">
+						<uni-icons type="cart-filled" :size="30" color="#777" />
+						<text class="text">核销记录</text>
+					</view>
+				</uni-grid-item>
+				<uni-grid-item>
+					<view class="grid-item-box" style="background-color: #fff;">
+						<uni-icons type="gear-filled" :size="30" color="#777" />
+						<text class="text">商铺装修</text>
+					</view>
+				</uni-grid-item>
+			</uni-grid>
+		</uni-section>
+
+		<uni-section title="系统管理" type="line" padding>
+			<uni-grid :column="3" :show-border="false" :square="false">
+				<uni-grid-item>
+					<view class="grid-item-box" style="background-color: #fff;">
+						<uni-icons type="refresh" :size="30" color="#777" />
+						<text class="text">修改密码</text>
+					</view>
+				</uni-grid-item>
+				<uni-grid-item>
+					<view class="grid-item-box" @click="loginOut" style="background-color: #fff;">
+						<uni-icons type="paperplane-filled" :size="30" color="#777" />
+						<text class="text">退出登录</text>
+					</view>
+				</uni-grid-item>
+
+			</uni-grid>
+		</uni-section>
+	</view>
+</template>
+<script>
+	import homeApi from './home.js'
+	import appStorage from '../../utils/appStorage.js'
+	import commonutils from '../../utils/common.js'
+	export default {
+		components: {},
+		data() {
+			return {
+				adminId: "",
+				dynamicList: [],
+			}
+		},
+		onLoad() {
+			var adminId = appStorage.getStorage("adminId")
+			this.adminId = adminId;
+			if (adminId == "" || adminId == undefined) {
+				uni.$u.route('/admin/login/login')
+			}
+		},
+		methods: {
+			WriteList:function(){
+				uni.$u.route('/admin/Write/WriteList')
+			},
+			loginOut: function() {
+				appStorage.setStorage("adminId", "")
+				uni.$u.route('/admin/login/login')
+			},
+			// 调用扫一扫功能  
+			scanCode: function() {
+				var that = this;
+				wx.scanCode({
+					onlyFromCamera: false, // 是否只从相机扫码，不允许从相册选择图片  
+					scanType: ['qrCode', 'barCode'], // 可以指定扫码的类型  
+					success: function(res) {
+						var result = res.result // 将扫码结果设置到页面的数据中  
+						homeApi.WriteOff(result, that.adminId).then(data => {
+							if (data.Success) {
+								commonutils.showToast("核销成功，券号:" + result, 'success')
+							} else {
+								uni.showModal({
+									title: '温馨提示',
+									content: "核销失败，请重试，券号:" + result,
+									showCancel: false,
+									success: function(res) {
+										if (res.confirm) {
+
+										}
+									}
+								});
+							}
+						})
+
+
+						//commonutils.showToast(result, "success")
+
+					},
+					fail: function(err) {
+						commonutils.showToast("取消核销", "none")
+
+					}
+				});
+			},
+		}
+	}
+</script>
+
+<style lang="scss">
+	.image {
+		width: 25px;
+		height: 25px;
+	}
+
+	.text {
+		font-size: 14px;
+		margin-top: 5px;
+	}
+
+
+	.grid-dynamic-box {
+		margin-bottom: 15px;
+	}
+
+	.grid-item-box {
+		flex: 1;
+		// position: relative;
+
+		display: flex;
+
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding: 15px 0;
+	}
+
+	.grid-item-box-row {
+		flex: 1;
+		// position: relative;
+
+		display: flex;
+
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		padding: 15px 0;
+	}
+
+	.grid-dot {
+		position: absolute;
+		top: 5px;
+		right: 15px;
+	}
+
+	.swiper {
+		height: 420px;
+	}
+</style>

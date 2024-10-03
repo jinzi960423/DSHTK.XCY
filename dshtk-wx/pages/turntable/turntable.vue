@@ -41,7 +41,8 @@
 			return {
 				id: "f290c26b-54a2-443d-8303-d468784acfc4",
 				openId: "",
-				businessId: "2CCDB239-7F9E-4A4F-A16D-AF873D6964D0",
+				businessId: "14209525-E343-4996-B71F-813AC8494C35",
+				sourceOpenId:"",
 				businessInfo: {
 					BnsinessName: ""
 				},
@@ -57,6 +58,7 @@
 
 		},
 		mounted() {
+			var that =this;
 			uni.getLocation({
 				type: 'wgs84',
 				success: function(res) {
@@ -82,7 +84,7 @@
 							}
 						});
 					} else {
-						if (this.businessId == "") {
+						if (that.businessId == "") {
 							uni.showModal({
 								title: '温馨提示',
 								content: "无效的商户二维码",
@@ -95,19 +97,19 @@
 							});
 						}
 						commonutils.GetOpenId().then(openId => {
-							this.openId = openId;
-							appStorage.setStorage("businessId", this.businessId);
-							turntableApi.BindingBusiness(openId, this.businessId)
+							that.openId = openId;
+							appStorage.setStorage("businessId", that.businessId);
+							turntableApi.BindingBusiness(openId, that.businessId)
 						})
 						commonutils.GetUserInfo().then(data => {
 							//console.log(data)
 							//this.userInfoDialog = !data.Success;
 							if (!data.Success) {
-								turntableApi.saveUserInfo(this.openId, '', '点上花')
+								turntableApi.saveUserInfo(that.openId, '', '点上花')
 							}
 						})
 						//获取转盘的奖品列表
-						turntableApi.GetPrizeConfigList(this.businessId).then(data => {
+						turntableApi.GetPrizeConfigList(that.businessId).then(data => {
 							console.log(data)
 							if (!data.Success) {
 								uni.showModal({
@@ -121,11 +123,11 @@
 									}
 								});
 							}
-							this.prizeList = data.Data;
+							that.prizeList = data.Data;
 						})
 						//获取商户的详细信息
-						commonutils.GetBusinessInfoById(this.businessId).then(data => {
-							this.businessInfo = data.Data;
+						commonutils.GetBusinessInfoById(that.businessId).then(data => {
+							that.businessInfo = data.Data;
 						})
 					}
 				},
