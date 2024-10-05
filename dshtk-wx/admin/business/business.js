@@ -1,12 +1,147 @@
-import commonutils from "../../utils/common.js"
+import common from "../../utils/common.js"
 
 export default {
+	DeletePrize(id){
+		return new Promise((resolve, reject) => {
+			//发起网络请求
+			wx.request({
+				url: common.baseUrl() + 'api/WeChatProgram/DeletePrize',
+				method: "GET",
+				data: {
+					Id:id
+				},
+				success: function(res) {
+					console.log(res.data);
+					resolve(res.data);
+				},
+				fail: function() {
+					reject('网络异常，操作失败');
+				}
+			})
+		})
+	},
+	PrizeSave(data) {
+		return new Promise((resolve, reject) => {
+			//发起网络请求
+			wx.request({
+				url: common.baseUrl() + 'api/WeChatProgram/PrizeSave',
+				method: "POST",
+				data: data,
+				success: function(res) {
+					console.log(res.data);
+					resolve(res.data);
+				},
+				fail: function() {
+					reject('网络异常，操作失败');
+				}
+			})
+		})
+	},
+	GetPrizeEntity(prizeId) {
+		return new Promise((resolve, reject) => {
+			//发起网络请求
+			wx.request({
+				url: common.baseUrl() + 'api/WeChatProgram/GetPrizeEntity',
+				method: "GET",
+				data: {
+					PrizeId: prizeId,
+				},
+				success: function(res) {
+					console.log(res.data);
+					resolve(res.data);
+				},
+				fail: function() {
+					reject('网络异常，操作失败');
+				}
+			})
+		})
+	},
+	GetPrizeConfigList(id, page, limit, keyWord) {
+		return new Promise((resolve, reject) => {
+			//发起网络请求
+			wx.request({
+				url: common.baseUrl() + 'api/WeChatProgram/GetPrizeConfigList?Id=' + id,
+				method: "POST",
+				data: {
+					Page: page,
+					Limit: limit,
+					KeyWord: keyWord
+				},
+				success: function(res) {
+					console.log(res.data);
+					resolve(res.data);
+				},
+				fail: function() {
+					reject('网络异常，操作失败');
+				}
+			})
+		})
+	},
+	ConfigUpdateList(data) {
+		return new Promise((resolve, reject) => {
+			//发起网络请求
+			wx.request({
+				url: common.baseUrl() + 'api/WeChatProgram/UpdateList',
+				method: "POST",
+				data: data,
+				success: function(res) {
+					console.log(res.data);
+					resolve(res.data);
+				},
+				fail: function() {
+					reject('网络异常，操作失败');
+				}
+			})
+		})
+	},
+	GetBusinessConfigListById(id) {
+		return new Promise((resolve, reject) => {
+			//发起网络请求
+			wx.request({
+				url: common.baseUrl() + 'api/WeChatProgram/GetBusinessConfigListById',
+				method: "GET",
+				data: {
+					Id: id,
+				},
+				success: function(res) {
+					console.log(res.data);
+					resolve(res.data);
+
+				},
+				fail: function() {
+					reject('网络异常，操作失败');
+				}
+			})
+		})
+	},
+	GetBusinessListByUid(uid, page, limit) {
+		return new Promise((resolve, reject) => {
+			//发起网络请求
+			wx.request({
+				url: common.baseUrl() + 'api/WeChatProgram/GetBusinessListByUid',
+				method: "GET",
+				data: {
+					Uid: uid,
+					Page: page,
+					Limit: limit,
+				},
+				success: function(res) {
+					console.log(res.data);
+					resolve(res.data);
+
+				},
+				fail: function() {
+					reject('网络异常，操作失败');
+				}
+			})
+		})
+	},
 	//保存商户信息
 	BusinessSave(business) {
 		return new Promise((resolve, reject) => {
 			//发起网络请求
 			wx.request({
-				url: commonutils.baseUrl() + 'api/WeChatProgram/BusinessSave',
+				url: common.baseUrl() + 'api/WeChatProgram/BusinessSave',
 				method: "POST",
 				data: business,
 				success: function(res) {
@@ -24,7 +159,7 @@ export default {
 		return new Promise((resolve, reject) => {
 			//发起网络请求
 			wx.request({
-				url: commonutils.baseUrl() + 'api/WeChatProgram/GetCityLimitsList',
+				url: common.baseUrl() + 'api/WeChatProgram/GetCityLimitsList',
 				method: "GET",
 				data: {},
 				success: function(res) {
@@ -44,7 +179,7 @@ export default {
 				title: "上传中..."
 			});
 			uni.uploadFile({
-				url: commonutils.baseUrl() + 'Attachment/UploadFile',
+				url: common.baseUrl() + 'Attachment/UploadFile',
 				// 要上传文件对象-h5和微信小程序上传参数不一样只能存在一个
 				// H5上传
 				// file: tempFilePaths,

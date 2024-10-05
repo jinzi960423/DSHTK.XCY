@@ -1,11 +1,18 @@
 <template>
 	<view class="login-page">
-		<uni-easyinput v-model="username" placeholder="请输入账号" />
-		<div style="height: 10px;"></div>
-		<uni-easyinput v-model="password" type="password" placeholder="请输入密码" />
+		<view class="uni-form-item uni-column">
+			<view class="uni-input-wrapper">
+				<input class="uni-input" v-model="username" placeholder="请输入账号" />
+			</view>
+		</view>
+		<view class="uni-form-item uni-column">
+			<view class="uni-input-wrapper">
+				<input class="uni-input" type="password" v-model="password" placeholder="请输入密码" />
+			</view>
+		</view>
 		<button @click="handleSubmit" class="submit-button">登录</button>
 	</view>
-</template> 
+</template>
 <script>
 	import loginApi from './login.js';
 	import appStorage from '../../utils/appStorage.js'
@@ -27,11 +34,16 @@
 				} else if (this.password == "") {
 					commonutils.showToast('请输入密码', 'error')
 				} else {
+					uni.showLoading({
+						title: "正在登录.."
+					});
 					loginApi.BusinessLogin(this.username, this.password).then(data => {
 						console.log(data)
+						uni.hideLoading();
 						if (data.Success) {
 							commonutils.showToast('登录成功', 'success')
 							appStorage.setStorage("adminId", data.Data.Id);
+							appStorage.setStorage("isAdmin", data.Data.IsAdmin ?? "");
 							uni.$u.route('/admin/home/home')
 						} else {
 							commonutils.showToast(data.Message, 'error')

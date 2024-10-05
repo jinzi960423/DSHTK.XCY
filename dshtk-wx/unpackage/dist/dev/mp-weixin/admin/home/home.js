@@ -31,27 +31,36 @@ const _sfc_main = {
   data() {
     return {
       adminId: "",
+      isAdmin: false,
       dynamicList: []
     };
   },
   onLoad() {
     var adminId = utils_appStorage.appStorage.getStorage("adminId");
+    var Admin = utils_appStorage.appStorage.getStorage("isAdmin");
+    this.isAdmin = Admin == "Y";
     this.adminId = adminId;
     if (adminId == "" || adminId == void 0) {
       common_vendor.index.$u.route("/admin/login/login");
     }
   },
   methods: {
+    configBusiness: function() {
+      common_vendor.index.$u.route("/admin/business/edit?Id=" + this.adminId);
+    },
+    prizeList: function() {
+      common_vendor.index.$u.route("/admin/business/prizeList?Id=" + this.adminId);
+    },
+    configFunction: function() {
+      common_vendor.index.$u.route("/admin/business/homeConfig?Id=" + this.adminId);
+    },
     businessList: function() {
       common_vendor.index.$u.route("/admin/business/list");
-    },
-    addBusinessInfo: function() {
-      common_vendor.index.$u.route("/admin/business/edit");
     },
     updatePwd: function() {
       common_vendor.index.$u.route("/admin/login/updatePwd");
     },
-    WriteList: function() {
+    writeList: function() {
       common_vendor.index.$u.route("/admin/Write/WriteList");
     },
     loginOut: function() {
@@ -68,8 +77,21 @@ const _sfc_main = {
         // 可以指定扫码的类型  
         success: function(res) {
           var result = res.result;
+          common_vendor.index.showLoading({
+            title: "核销中.."
+          });
           homeApi.WriteOff(result, that.adminId).then((data) => {
+            common_vendor.index.hideLoading();
             if (data.Success) {
+              common_vendor.index.showModal({
+                title: "温馨提示",
+                content: "核销成功,券号:" + result,
+                showCancel: false,
+                success: function(res2) {
+                  if (res2.confirm)
+                    ;
+                }
+              });
               utils_common.commonutils.showToast("核销成功，券号:" + result, "success");
             } else {
               common_vendor.index.showModal({
@@ -85,7 +107,6 @@ const _sfc_main = {
           });
         },
         fail: function(err) {
-          utils_common.commonutils.showToast("取消核销", "none");
         }
       });
     }
@@ -106,79 +127,95 @@ if (!Math) {
   (_easycom_uni_icons + _easycom_uni_grid_item + _easycom_uni_grid + _easycom_uni_section)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return {
-    a: common_vendor.p({
-      type: "scan",
+  return common_vendor.e({
+    a: $data.isAdmin
+  }, $data.isAdmin ? {
+    b: common_vendor.p({
+      type: "list",
       size: 30,
       color: "#777"
     }),
-    b: common_vendor.o((...args) => $options.scanCode && $options.scanCode(...args)),
-    c: common_vendor.p({
-      type: "cart-filled",
-      size: 30,
-      color: "#777"
-    }),
-    d: common_vendor.o((...args) => $options.WriteList && $options.WriteList(...args)),
-    e: common_vendor.p({
-      type: "gear-filled",
-      size: 30,
-      color: "#777"
-    }),
-    f: common_vendor.p({
+    c: common_vendor.o((...args) => $options.businessList && $options.businessList(...args)),
+    d: common_vendor.p({
       column: 3,
       ["show-border"]: false,
       square: false
     }),
-    g: common_vendor.p({
-      title: "商户管理",
+    e: common_vendor.p({
+      title: "管理员操作",
       type: "line",
       padding: true
-    }),
-    h: common_vendor.p({
-      type: "plus-filled",
+    })
+  } : {
+    f: common_vendor.p({
+      type: "scan",
       size: 30,
       color: "#777"
     }),
-    i: common_vendor.o((...args) => $options.addBusinessInfo && $options.addBusinessInfo(...args)),
-    j: common_vendor.p({
+    g: common_vendor.o((...args) => $options.scanCode && $options.scanCode(...args)),
+    h: common_vendor.p({
       type: "cart-filled",
       size: 30,
       color: "#777"
     }),
-    k: common_vendor.o((...args) => $options.businessList && $options.businessList(...args)),
+    i: common_vendor.o((...args) => $options.writeList && $options.writeList(...args)),
+    j: common_vendor.p({
+      type: "shop",
+      size: 30,
+      color: "#777"
+    }),
+    k: common_vendor.o((...args) => $options.configFunction && $options.configFunction(...args)),
     l: common_vendor.p({
       column: 3,
       ["show-border"]: false,
       square: false
     }),
     m: common_vendor.p({
-      title: "管理员操作",
-      type: "line",
-      padding: true
-    }),
-    n: common_vendor.p({
-      type: "refresh",
+      type: "compose",
       size: 30,
       color: "#777"
     }),
-    o: common_vendor.o((...args) => $options.updatePwd && $options.updatePwd(...args)),
-    p: common_vendor.p({
-      type: "paperplane-filled",
+    n: common_vendor.o((...args) => $options.configBusiness && $options.configBusiness(...args)),
+    o: common_vendor.p({
+      type: "gift-filled",
       size: 30,
       color: "#777"
     }),
-    q: common_vendor.o((...args) => $options.loginOut && $options.loginOut(...args)),
-    r: common_vendor.p({
+    p: common_vendor.o((...args) => $options.prizeList && $options.prizeList(...args)),
+    q: common_vendor.p({
       column: 3,
       ["show-border"]: false,
       square: false
     }),
+    r: common_vendor.p({
+      title: "商户管理",
+      type: "line",
+      padding: true
+    })
+  }, {
     s: common_vendor.p({
+      type: "refresh",
+      size: 30,
+      color: "#777"
+    }),
+    t: common_vendor.o((...args) => $options.updatePwd && $options.updatePwd(...args)),
+    v: common_vendor.p({
+      type: "paperplane-filled",
+      size: 30,
+      color: "#777"
+    }),
+    w: common_vendor.o((...args) => $options.loginOut && $options.loginOut(...args)),
+    x: common_vendor.p({
+      column: 3,
+      ["show-border"]: false,
+      square: false
+    }),
+    y: common_vendor.p({
       title: "系统管理",
       type: "line",
       padding: true
     })
-  };
+  });
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render]]);
 wx.createPage(MiniProgramPage);

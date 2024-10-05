@@ -19,11 +19,16 @@ const _sfc_main = {
       } else if (this.password == "") {
         utils_common.commonutils.showToast("请输入密码", "error");
       } else {
+        common_vendor.index.showLoading({
+          title: "正在登录.."
+        });
         login.loginApi.BusinessLogin(this.username, this.password).then((data) => {
           console.log(data);
+          common_vendor.index.hideLoading();
           if (data.Success) {
             utils_common.commonutils.showToast("登录成功", "success");
             utils_appStorage.appStorage.setStorage("adminId", data.Data.Id);
+            utils_appStorage.appStorage.setStorage("isAdmin", data.Data.IsAdmin ?? "");
             common_vendor.index.$u.route("/admin/home/home");
           } else {
             utils_common.commonutils.showToast(data.Message, "error");
@@ -33,27 +38,12 @@ const _sfc_main = {
     }
   }
 };
-if (!Array) {
-  const _easycom_uni_easyinput2 = common_vendor.resolveComponent("uni-easyinput");
-  _easycom_uni_easyinput2();
-}
-const _easycom_uni_easyinput = () => "../../uni_modules/uni-easyinput/components/uni-easyinput/uni-easyinput.js";
-if (!Math) {
-  _easycom_uni_easyinput();
-}
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_vendor.o(($event) => $data.username = $event),
-    b: common_vendor.p({
-      placeholder: "请输入账号",
-      modelValue: $data.username
-    }),
-    c: common_vendor.o(($event) => $data.password = $event),
-    d: common_vendor.p({
-      type: "password",
-      placeholder: "请输入密码",
-      modelValue: $data.password
-    }),
+    a: $data.username,
+    b: common_vendor.o(($event) => $data.username = $event.detail.value),
+    c: $data.password,
+    d: common_vendor.o(($event) => $data.password = $event.detail.value),
     e: common_vendor.o((...args) => $options.handleSubmit && $options.handleSubmit(...args))
   };
 }

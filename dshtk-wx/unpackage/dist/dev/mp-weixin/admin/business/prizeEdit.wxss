@@ -1,9 +1,9 @@
 
-.uni-input-wrapper.data-v-1199a384 {
+.uni-input-wrapper.data-v-5852fc39 {
 		border: 1px solid #777;
 		border-radius: 5px;
 }
-.submit-button.data-v-1199a384 {
+.submit-button.data-v-5852fc39 {
 		margin-top: 20px;
 		width: 100%;
 		background-color: #2979ff;
@@ -11,7 +11,7 @@
 		border: none;
 		border-radius: 4px;
 }
-.uni-list-cell-db.data-v-1199a384 {
+.uni-list-cell-db.data-v-5852fc39 {
 		width: 100%;
 		display: flex;
 		padding: 8px 13px;
@@ -19,33 +19,33 @@
 		flex-wrap: nowrap;
 		background-color: #FFFFFF;
 }
-.nvue-page-root.data-v-1199a384 {
+.nvue-page-root.data-v-5852fc39 {
 		background-color: #F8F8F8;
 		padding-bottom: 20px;
 }
-.page-title.data-v-1199a384 {
+.page-title.data-v-5852fc39 {
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
 		padding: 1rpx;
 }
-.uni-common-mt.data-v-1199a384 {
+.uni-common-mt.data-v-5852fc39 {
 		padding: 15rpx;
 }
-.title.data-v-1199a384 {
+.title.data-v-5852fc39 {
 		padding: 5px 13px;
 }
-.uni-form-item__title.data-v-1199a384 {
+.uni-form-item__title.data-v-5852fc39 {
 		font-size: 16px;
 		line-height: 24px;
 }
-.uni-input-wrapper.data-v-1199a384 {
+.uni-input-wrapper.data-v-5852fc39 {
 		padding: 8px 13px;
 		flex-direction: row;
 		flex-wrap: nowrap;
 		background-color: #FFFFFF;
 }
-.uni-input.data-v-1199a384 {
+.uni-input.data-v-5852fc39 {
 		height: 28px;
 		line-height: 28px;
 		font-size: 15px;
@@ -53,7 +53,7 @@
 		flex: 1;
 		background-color: #FFFFFF;
 }
-.uni-icon.data-v-1199a384 {
+.uni-icon.data-v-5852fc39 {
 		font-family: uniicons;
 		font-size: 24px;
 		font-weight: normal;
@@ -63,6 +63,6 @@
 		line-height: 24px;
 		color: #999999;
 }
-.uni-eye-active.data-v-1199a384 {
+.uni-eye-active.data-v-5852fc39 {
 		color: #007AFF;
 }

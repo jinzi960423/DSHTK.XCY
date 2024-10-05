@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "首页设置",
+  "usingComponents": {
+    "uni-file-picker": "../../uni_modules/uni-file-picker/components/uni-file-picker/uni-file-picker",
+    "uni-section": "../../uni_modules/uni-section/components/uni-section/uni-section"
+  }
+}

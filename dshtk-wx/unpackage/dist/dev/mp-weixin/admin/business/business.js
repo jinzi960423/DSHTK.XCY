@@ -2,6 +2,132 @@
 const common_vendor = require("../../common/vendor.js");
 const utils_common = require("../../utils/common.js");
 const businessApi = {
+  DeletePrize(id) {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/DeletePrize",
+        method: "GET",
+        data: {
+          Id: id
+        },
+        success: function(res) {
+          console.log(res.data);
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  },
+  PrizeSave(data) {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/PrizeSave",
+        method: "POST",
+        data,
+        success: function(res) {
+          console.log(res.data);
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  },
+  GetPrizeEntity(prizeId) {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/GetPrizeEntity",
+        method: "GET",
+        data: {
+          PrizeId: prizeId
+        },
+        success: function(res) {
+          console.log(res.data);
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  },
+  GetPrizeConfigList(id, page, limit, keyWord) {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/GetPrizeConfigList?Id=" + id,
+        method: "POST",
+        data: {
+          Page: page,
+          Limit: limit,
+          KeyWord: keyWord
+        },
+        success: function(res) {
+          console.log(res.data);
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  },
+  ConfigUpdateList(data) {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/UpdateList",
+        method: "POST",
+        data,
+        success: function(res) {
+          console.log(res.data);
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  },
+  GetBusinessConfigListById(id) {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/GetBusinessConfigListById",
+        method: "GET",
+        data: {
+          Id: id
+        },
+        success: function(res) {
+          console.log(res.data);
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  },
+  GetBusinessListByUid(uid, page, limit) {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/GetBusinessListByUid",
+        method: "GET",
+        data: {
+          Uid: uid,
+          Page: page,
+          Limit: limit
+        },
+        success: function(res) {
+          console.log(res.data);
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  },
   //保存商户信息
   BusinessSave(business) {
     return new Promise((resolve, reject) => {

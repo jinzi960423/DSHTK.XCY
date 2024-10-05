@@ -1,11 +1,11 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const admin_business_business = require("./business.js");
-const utils_appStorage = require("../../utils/appStorage.js");
+const utils_common = require("../../utils/common.js");
 const _sfc_main = {
   data() {
     return {
-      adminId: "",
+      Id: "",
       status: "more",
       listData: [],
       Page: 1,
@@ -18,11 +18,13 @@ const _sfc_main = {
       }
     };
   },
-  onLoad() {
-    this.adminId = utils_appStorage.appStorage.getStorage("adminId");
+  onLoad(options) {
+    var Id = options.Id;
+    if (Id == void 0) {
+      Id = "";
+    }
+    this.Id = Id;
     this.getList();
-  },
-  mounted() {
   },
   onPullDownRefresh() {
   },
@@ -31,27 +33,40 @@ const _sfc_main = {
     this.getList();
   },
   methods: {
-    addBusiness() {
-      common_vendor.index.$u.route("/admin/business/edit");
+    del(Id) {
+      var th = this;
+      common_vendor.index.showModal({
+        title: "温馨提示",
+        content: "确认删除当前数据吗?",
+        showCancel: true,
+        success: function(res) {
+          if (res.confirm) {
+            admin_business_business.businessApi.DeletePrize(Id).then((data) => {
+              utils_common.commonutils.showToast("删除成功", "success");
+              th.Page = 1;
+              th.listData = [];
+              th.reload = false;
+              th.getList();
+            });
+          }
+        }
+      });
     },
-    prizeList(Id) {
-      common_vendor.index.$u.route("/admin/business/prizeList?Id=" + Id);
-    },
-    homeConfig(Id) {
-      common_vendor.index.$u.route("/admin/business/homeConfig?Id=" + Id);
+    addPrize() {
+      common_vendor.index.$u.route("/admin/business/prizeEdit");
     },
     edit(Id) {
-      common_vendor.index.$u.route("/admin/business/edit?Id=" + Id);
+      common_vendor.index.$u.route("/admin/business/prizeEdit?Id=" + Id);
     },
     getList() {
       var th = this;
       if (!this.reload) {
         this.status = "loading";
-        admin_business_business.businessApi.GetBusinessListByUid(this.adminId, this.Page, this.Limit).then((data) => {
+        admin_business_business.businessApi.GetPrizeConfigList(this.Id, this.Page, this.Limit, "").then((data) => {
           console.log(data);
-          this.listData = this.listData.concat(data.Data);
+          this.listData = this.listData.concat(data.Data.data);
           this.Page = this.Page + 1;
-          if (data.Data.length == 0 || data.Data.length < th.Limit) {
+          if (data.Data.data.length == 0 || data.Data.data.length < th.Limit) {
             this.status = "nomore";
             this.reload = true;
           }
@@ -72,7 +87,7 @@ if (!Math) {
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_vendor.o($options.addBusiness),
+    a: common_vendor.o($options.addPrize),
     b: common_vendor.p({
       type: "plus-filled",
       size: 60,
@@ -80,13 +95,15 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     c: common_vendor.f($data.listData, (value, index, i0) => {
       return {
-        a: value.BusinessActivity,
-        b: common_vendor.t(value.BnsinessName),
-        c: common_vendor.t(value.Address),
-        d: common_vendor.o(($event) => $options.homeConfig(value.Id), index),
-        e: common_vendor.o(($event) => $options.prizeList(value.Id), index),
-        f: common_vendor.o(($event) => $options.edit(value.Id), index),
-        g: index
+        a: value.ImgUrl,
+        b: common_vendor.t(value.Remark),
+        c: common_vendor.t(value.Total),
+        d: common_vendor.t(value.IssuedCount),
+        e: common_vendor.t(value.State == "Y" ? "是" : "否"),
+        f: common_vendor.t(value.PrizeLike),
+        g: common_vendor.o(($event) => $options.del(value.Id), index),
+        h: common_vendor.o(($event) => $options.edit(value.Id), index),
+        i: index
       };
     }),
     d: common_vendor.p({

@@ -1,12 +1,25 @@
 <template>
 	<view class="login-page">
-		<uni-easyinput v-model="username" placeholder="请输入账号" />
-		<div style="height: 10px;"></div>
-		<uni-easyinput v-model="password" type="password" placeholder="请输入旧密码" />
-		<div style="height: 10px;"></div>
-		<uni-easyinput v-model="newPwd" type="password" placeholder="请输入新密码" />
-		<div style="height: 10px;"></div>
-		<uni-easyinput v-model="confirmPwd" type="password" placeholder="再次输入新密码" />
+		<view class="uni-form-item uni-column">
+			<view class="uni-input-wrapper">
+				<input class="uni-input" v-model="username" placeholder="请输入账号" />
+			</view>
+		</view>
+		<view class="uni-form-item uni-column">
+			<view class="uni-input-wrapper">
+				<input class="uni-input" v-model="password" type="password" placeholder="请输入旧密码" />
+			</view>
+		</view>
+		<view class="uni-form-item uni-column">
+			<view class="uni-input-wrapper">
+				<input class="uni-input" v-model="newPwd" type="password" placeholder="请输入新密码" />
+			</view>
+		</view>
+		<view class="uni-form-item uni-column">
+			<view class="uni-input-wrapper">
+				<input class="uni-input" v-model="confirmPwd" type="password" placeholder="再次输入新密码" />
+			</view>
+		</view>
 		<button @click="handleSubmit" class="submit-button">确认修改</button>
 	</view>
 </template>
@@ -39,10 +52,14 @@
 				} else if (this.confirmPwd != this.newPwd) {
 					commonutils.showToast('再次输入新密码不正确', 'error')
 				} else {
+					uni.showLoading({
+						title: "正在更新"
+					});
 					loginApi.updatePwd(this.username, this.password, this.newPwd).then(data => {
 						console.log(data)
+						uni.hideLoading();
 						if (data.Success) {
-							commonutils.showToast('密码修改成功', 'success') 
+							commonutils.showToast('密码修改成功', 'success')
 							uni.$u.route('/admin/home/home')
 						} else {
 							commonutils.showToast("密码修改失败，请稍后重试", 'error')

@@ -1,11 +1,13 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
 const admin_business_business = require("./business.js");
+const utils_appStorage = require("../../utils/appStorage.js");
 const utils_common = require("../../utils/common.js");
 const _sfc_main = {
   data() {
     return {
       index: 0,
+      isAdmin: false,
       CityLimitsList: [{
         "Id": "",
         "CityName": "请选择"
@@ -23,7 +25,9 @@ const _sfc_main = {
         BusinessWeChat: "",
         BusinessActivity: "",
         CityId: "",
-        State: "Y"
+        State: "Y",
+        CreateUid: "",
+        IsAdmin: "N"
       }
     };
   },
@@ -55,20 +59,52 @@ const _sfc_main = {
     this.businessInfo.Id = Id;
   },
   mounted() {
-    var th = this;
-    if (th.businessInfo.Id == "" || th.businessInfo.Id == void 0) {
-      common_vendor.index.getLocation({
-        type: "wgs84",
-        success: function(res) {
-          console.log("当前位置的经度：" + res.longitude);
-          console.log("当前位置的纬度：" + res.latitude);
-          th.businessInfo.Latitude = res.latitude;
-          th.businessInfo.Longitude = res.longitude;
-        }
-      });
+    var adminId = utils_appStorage.appStorage.getStorage("adminId");
+    var Admin = utils_appStorage.appStorage.getStorage("isAdmin");
+    this.isAdmin = Admin == "Y";
+    this.businessInfo.CreateUid = adminId;
+    if (adminId == "" || adminId == void 0) {
+      common_vendor.index.$u.route("/admin/login/login");
     }
+    var th = this;
     admin_business_business.businessApi.GetCityLimitsList().then((data) => {
       th.CityLimitsList = th.CityLimitsList.concat(data.Data);
+      if (th.businessInfo.Id == "" || th.businessInfo.Id == void 0) {
+        common_vendor.index.getLocation({
+          type: "wgs84",
+          success: function(res) {
+            console.log("当前位置的经度longitude：" + res.longitude);
+            console.log("当前位置的纬度latitude：" + res.latitude);
+            th.businessInfo.Latitude = res.latitude;
+            th.businessInfo.Longitude = res.longitude;
+          }
+        });
+      } else {
+        utils_common.commonutils.GetBusinessInfoById(th.businessInfo.Id).then((data2) => {
+          th.businessInfo = data2.Data;
+          for (var i = 0; i < th.CityLimitsList.length; i++) {
+            if (th.CityLimitsList[i].Id == th.businessInfo.CityId) {
+              th.index = i;
+            }
+          }
+          th.businessWeChat = [];
+          if (th.businessInfo.BusinessWeChat != "") {
+            th.businessWeChat.push({
+              name: "",
+              path: th.businessInfo.BusinessWeChat,
+              url: th.businessInfo.BusinessWeChat
+            });
+          }
+          if (th.businessInfo.BusinessActivity != "") {
+            th.businessActivity = [];
+            th.businessActivity.push({
+              name: "",
+              path: th.businessInfo.BusinessActivity,
+              url: th.businessInfo.BusinessActivity
+            });
+          }
+        });
+      }
     });
   },
   methods: {
@@ -91,11 +127,18 @@ const _sfc_main = {
       } else if (this.businessInfo.BusinessActivity == "") {
         utils_common.commonutils.showToast("请上传活动图片", "error");
       } else {
+        common_vendor.index.showLoading({
+          title: "更新中..."
+        });
         admin_business_business.businessApi.BusinessSave(this.businessInfo).then((resData) => {
+          common_vendor.index.hideLoading();
           console.log(resData);
           if (resData.Success) {
-            utils_common.commonutils.showToast("保存成功", "success");
             th.businessInfo = resData.Data;
+            utils_common.commonutils.showToast("保存成功", "success");
+            setTimeout(function() {
+              common_vendor.index.navigateBack();
+            }, 1500);
           } else {
             utils_common.commonutils.showToast("保存失败", "error");
           }
@@ -153,7 +196,7 @@ if (!Math) {
   _easycom_uni_file_picker();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return {
+  return common_vendor.e({
     a: common_vendor.t($data.CityLimitsList[$data.index].CityName),
     b: common_vendor.o((...args) => $options.bindPickerChange && $options.bindPickerChange(...args)),
     c: $data.index,
@@ -162,19 +205,23 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     f: common_vendor.o(($event) => $data.businessInfo.BnsinessName = $event.detail.value),
     g: $data.businessInfo.Address,
     h: common_vendor.o(($event) => $data.businessInfo.Address = $event.detail.value),
-    i: $data.businessInfo.Account,
-    j: common_vendor.o(($event) => $data.businessInfo.Account = $event.detail.value),
-    k: $data.businessInfo.Password,
-    l: common_vendor.o(($event) => $data.businessInfo.Password = $event.detail.value),
-    m: $data.businessInfo.Longitude,
-    n: common_vendor.o(($event) => $data.businessInfo.Longitude = $event.detail.value),
-    o: $data.businessInfo.Latitude,
-    p: common_vendor.o(($event) => $data.businessInfo.Latitude = $event.detail.value),
-    q: common_vendor.o($options.businessWeChatSelect),
-    r: common_vendor.o($options.success),
-    s: common_vendor.o($options.progress),
-    t: common_vendor.o(($event) => $data.businessWeChat = $event),
-    v: common_vendor.p({
+    i: $data.isAdmin ? "" : "disabled",
+    j: $data.businessInfo.Account,
+    k: common_vendor.o(($event) => $data.businessInfo.Account = $event.detail.value),
+    l: $data.isAdmin
+  }, $data.isAdmin ? {
+    m: $data.businessInfo.Password,
+    n: common_vendor.o(($event) => $data.businessInfo.Password = $event.detail.value)
+  } : {}, {
+    o: $data.businessInfo.Longitude,
+    p: common_vendor.o(($event) => $data.businessInfo.Longitude = $event.detail.value),
+    q: $data.businessInfo.Latitude,
+    r: common_vendor.o(($event) => $data.businessInfo.Latitude = $event.detail.value),
+    s: common_vendor.o($options.businessWeChatSelect),
+    t: common_vendor.o($options.success),
+    v: common_vendor.o($options.progress),
+    w: common_vendor.o(($event) => $data.businessWeChat = $event),
+    x: common_vendor.p({
       limit: "1",
       ["auto-upload"]: true,
       fileMediatype: "image",
@@ -183,11 +230,11 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       ["source-type"]: _ctx.sourceType,
       modelValue: $data.businessWeChat
     }),
-    w: common_vendor.o($options.businessActivitySelect),
-    x: common_vendor.o($options.success),
-    y: common_vendor.o($options.progress),
-    z: common_vendor.o(($event) => $data.businessActivity = $event),
-    A: common_vendor.p({
+    y: common_vendor.o($options.businessActivitySelect),
+    z: common_vendor.o($options.success),
+    A: common_vendor.o($options.progress),
+    B: common_vendor.o(($event) => $data.businessActivity = $event),
+    C: common_vendor.p({
       limit: "1",
       ["auto-upload"]: true,
       fileMediatype: "image",
@@ -195,8 +242,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       ["source-type"]: _ctx.sourceType,
       modelValue: $data.businessActivity
     }),
-    B: common_vendor.o((...args) => $options.businessSave && $options.businessSave(...args))
-  };
+    D: common_vendor.o((...args) => $options.businessSave && $options.businessSave(...args))
+  });
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-1199a384"]]);
 wx.createPage(MiniProgramPage);

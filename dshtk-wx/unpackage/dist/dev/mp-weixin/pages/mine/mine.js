@@ -59,7 +59,7 @@ if (!Math) {
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.p({
-      imageUrl: $data.userInfo.WxIcon,
+      imageUrl: "https://www.sfj365.com/dshtk/images/user.png",
       radius: "46rpx"
     }),
     b: common_vendor.t($data.userInfo.NickName),

@@ -2,7 +2,7 @@
 	<view class="column">
 		<image src="https://www.sfj365.com/dshtk/images/personal_bg.png" mode="widthFix" style="width: 100%;"></image>
 		<view class="content-bg p-lr-30 column-c-c">
-			<net-image style="width: 92rpx;height: 92rpx;" :imageUrl="userInfo.WxIcon" radius="46rpx"></net-image>
+			<net-image style="width: 92rpx;height: 92rpx;" imageUrl="https://www.sfj365.com/dshtk/images/user.png" radius="46rpx"></net-image>
 			<text class="m-t-30 color-1d1d1d fs28 font-family fw-400">{{userInfo.NickName}}</text>
 		</view>
 		<view class="row-c m-t-30">

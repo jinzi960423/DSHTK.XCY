@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "(新增/编辑)商户",
+  "navigationBarTitleText": "奖品(新增/编辑)",
   "usingComponents": {
     "uni-file-picker": "../../uni_modules/uni-file-picker/components/uni-file-picker/uni-file-picker"
   }

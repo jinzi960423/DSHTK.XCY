@@ -1,6 +1,18 @@
 <template>
 	<view class="container">
-		<uni-section title="商户管理" type="line" padding>
+		
+		<uni-section v-if="isAdmin" title="管理员操作" type="line" padding>
+			<uni-grid :column="3" :show-border="false" :square="false">
+				<uni-grid-item>
+					<view class="grid-item-box" @click="businessList" style="background-color: #fff;">
+						<uni-icons type="list" :size="30" color="#777" />
+						<text class="text">商户列表</text>
+					</view>
+				</uni-grid-item>
+			</uni-grid>
+		</uni-section>
+		
+		<uni-section v-else title="商户管理" type="line" padding>
 			<uni-grid :column="3" :show-border="false" :square="false">
 				<uni-grid-item>
 					<view class="grid-item-box" @click="scanCode" style="background-color: #fff;">
@@ -9,38 +21,35 @@
 					</view>
 				</uni-grid-item>
 				<uni-grid-item>
-					<view class="grid-item-box" @click="WriteList" style="background-color: #fff;">
+					<view class="grid-item-box" @click="writeList" style="background-color: #fff;">
 						<uni-icons type="cart-filled" :size="30" color="#777" />
 						<text class="text">核销记录</text>
 					</view>
 				</uni-grid-item>
 				<uni-grid-item>
-					<view class="grid-item-box" style="background-color: #fff;">
-						<uni-icons type="gear-filled" :size="30" color="#777" />
-						<text class="text">商铺装修</text>
+					<view class="grid-item-box" @click="configFunction" style="background-color: #fff;">
+						<uni-icons type="shop" :size="30" color="#777" />
+						<text class="text">首页设置</text>
 					</view>
 				</uni-grid-item>
 			</uni-grid>
-		</uni-section>
-
-
-		<uni-section title="管理员操作" type="line" padding>
 			<uni-grid :column="3" :show-border="false" :square="false">
 				<uni-grid-item>
-					<view class="grid-item-box" @click="addBusinessInfo" style="background-color: #fff;">
-						<uni-icons type="plus-filled" :size="30" color="#777" />
-						<text class="text">新增商户</text>
+					<view class="grid-item-box" @click="configBusiness" style="background-color: #fff;">
+						<uni-icons type="compose" :size="30" color="#777" />
+						<text class="text">基本信息</text>
 					</view>
 				</uni-grid-item>
 				<uni-grid-item>
-					<view class="grid-item-box" @click="businessList" style="background-color: #fff;">
-						<uni-icons type="cart-filled" :size="30" color="#777" />
-						<text class="text">商户列表</text>
+					<view class="grid-item-box" @click="prizeList" style="background-color: #fff;">
+						<uni-icons type="gift-filled" :size="30" color="#777" />
+						<text class="text">奖品管理</text>
 					</view>
 				</uni-grid-item>
 			</uni-grid>
 		</uni-section>
 
+ 
 		<uni-section title="系统管理" type="line" padding>
 			<uni-grid :column="3" :show-border="false" :square="false">
 				<uni-grid-item>
@@ -69,27 +78,37 @@
 		data() {
 			return {
 				adminId: "",
+				isAdmin: false,
 				dynamicList: [],
 			}
 		},
 		onLoad() {
 			var adminId = appStorage.getStorage("adminId")
+			var Admin = appStorage.getStorage("isAdmin")
+			this.isAdmin = Admin == "Y";
 			this.adminId = adminId;
 			if (adminId == "" || adminId == undefined) {
 				uni.$u.route('/admin/login/login')
 			}
 		},
 		methods: {
-			businessList:function(){
+			configBusiness:function(){
+				uni.$u.route('/admin/business/edit?Id=' + this.adminId)
+			},
+			prizeList: function() {
+				uni.$u.route('/admin/business/prizeList?Id=' + this.adminId)
+			},
+			configFunction: function() {
+				uni.$u.route('/admin/business/homeConfig?Id=' + this.adminId)
+			},
+			businessList: function() {
 				uni.$u.route('/admin/business/list')
 			},
-			addBusinessInfo: function() {
-				uni.$u.route('/admin/business/edit')
-			},
+
 			updatePwd: function() {
 				uni.$u.route('/admin/login/updatePwd')
 			},
-			WriteList: function() {
+			writeList: function() {
 				uni.$u.route('/admin/Write/WriteList')
 			},
 			loginOut: function() {
@@ -104,8 +123,22 @@
 					scanType: ['qrCode', 'barCode'], // 可以指定扫码的类型  
 					success: function(res) {
 						var result = res.result // 将扫码结果设置到页面的数据中  
+						uni.showLoading({
+							title: "核销中.."
+						});
 						homeApi.WriteOff(result, that.adminId).then(data => {
+							uni.hideLoading();
 							if (data.Success) {
+								uni.showModal({
+									title: '温馨提示',
+									content: "核销成功,券号:" + result,
+									showCancel: false,
+									success: function(res) {
+										if (res.confirm) {
+								
+										}
+									}
+								});
 								commonutils.showToast("核销成功，券号:" + result, 'success')
 							} else {
 								uni.showModal({
@@ -126,8 +159,7 @@
 
 					},
 					fail: function(err) {
-						commonutils.showToast("取消核销", "none")
-
+						//commonutils.showToast("取消核销", "none")
 					}
 				});
 			},

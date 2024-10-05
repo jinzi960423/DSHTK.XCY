@@ -30,13 +30,14 @@ const _sfc_main = {
   },
   methods: {
     getList() {
+      var th = this;
       if (!this.reload) {
         this.status = "loading";
         admin_Write_Write.writeApi.GetPrizeListByBusinessId(this.adminId, this.Page, this.Limit).then((data) => {
           console.log(data);
           this.listData = this.listData.concat(data.Data);
           this.Page = this.Page + 1;
-          if (data.Data.length == 0) {
+          if (data.Data.length == 0 || data.Data.length < th.Limit) {
             this.status = "nomore";
             this.reload = true;
           }

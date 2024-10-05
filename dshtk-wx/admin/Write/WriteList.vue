@@ -36,7 +36,7 @@
 				listData: [],
 				Page: 1,
 				Limit: 30,
-				reload: false, 
+				reload: false,
 				contentText: {
 					contentdown: '上拉加载更多',
 					contentrefresh: '加载中',
@@ -58,17 +58,16 @@
 			this.status = 'more';
 			this.getList();
 		},
-		methods: {
-
+		methods: { 
 			getList() {
-			 
+				var th = this;
 				if (!this.reload) {
 					this.status = 'loading';
 					writeApi.GetPrizeListByBusinessId(this.adminId, this.Page, this.Limit).then(data => {
 						console.log(data)
 						this.listData = this.listData.concat(data.Data);
-						this.Page=this.Page+1;
-						if (data.Data.length == 0) {
+						this.Page = this.Page + 1;
+						if (data.Data.length == 0 ||  data.Data.length < th.Limit) {
 							this.status = "nomore";
 							this.reload = true;
 						}

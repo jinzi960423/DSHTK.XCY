@@ -4,19 +4,22 @@ const common_vendor = require("./common/vendor.js");
 const uni_modules_uviewPlus_index = require("./uni_modules/uview-plus/index.js");
 if (!Math) {
   "./admin/home/home.js";
+  "./pages/turntable/turntable.js";
+  "./admin/business/prizeEdit.js";
+  "./admin/business/prizeList.js";
+  "./admin/business/homeConfig.js";
+  "./admin/business/list.js";
   "./admin/business/edit.js";
   "./admin/Write/WriteList.js";
   "./pages/index/index.js";
   "./admin/login/login.js";
   "./admin/login/updatePwd.js";
-  "./admin/business/list.js";
   "./pages/home/home.js";
   "./pages/activity/activity.js";
   "./pages/forward/forward.js";
   "./pages/friendHelp/friendHelp.js";
   "./pages/mine/mine.js";
   "./pages/redemption/redemption.js";
-  "./pages/turntable/turntable.js";
   "./pages/free/free.js";
 }
 const _sfc_main = {

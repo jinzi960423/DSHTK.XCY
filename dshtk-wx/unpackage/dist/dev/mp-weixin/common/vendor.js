@@ -7932,9 +7932,39 @@ const pages = [
     }
   },
   {
+    path: "pages/turntable/turntable",
+    style: {
+      navigationStyle: "custom"
+    }
+  },
+  {
+    path: "admin/business/prizeEdit",
+    style: {
+      navigationBarTitleText: "奖品(新增/编辑)"
+    }
+  },
+  {
+    path: "admin/business/prizeList",
+    style: {
+      navigationBarTitleText: "奖品管理"
+    }
+  },
+  {
+    path: "admin/business/homeConfig",
+    style: {
+      navigationBarTitleText: "首页设置"
+    }
+  },
+  {
+    path: "admin/business/list",
+    style: {
+      navigationBarTitleText: "商户列表"
+    }
+  },
+  {
     path: "admin/business/edit",
     style: {
-      navigationBarTitleText: "新增商户"
+      navigationBarTitleText: "(新增/编辑)商户"
     }
   },
   {
@@ -7959,12 +7989,6 @@ const pages = [
     path: "admin/login/updatePwd",
     style: {
       navigationBarTitleText: "修改密码"
-    }
-  },
-  {
-    path: "admin/business/list",
-    style: {
-      navigationBarTitleText: "商户列表"
     }
   },
   {
@@ -8002,12 +8026,6 @@ const pages = [
     path: "pages/redemption/redemption",
     style: {
       navigationBarTitleText: "赠品核销"
-    }
-  },
-  {
-    path: "pages/turntable/turntable",
-    style: {
-      navigationStyle: "custom"
     }
   },
   {

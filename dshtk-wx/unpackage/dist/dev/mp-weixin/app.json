@@ -1,19 +1,22 @@
 {
   "pages": [
     "admin/home/home",
+    "pages/turntable/turntable",
+    "admin/business/prizeEdit",
+    "admin/business/prizeList",
+    "admin/business/homeConfig",
+    "admin/business/list",
     "admin/business/edit",
     "admin/Write/WriteList",
     "pages/index/index",
     "admin/login/login",
     "admin/login/updatePwd",
-    "admin/business/list",
     "pages/home/home",
     "pages/activity/activity",
     "pages/forward/forward",
     "pages/friendHelp/friendHelp",
     "pages/mine/mine",
     "pages/redemption/redemption",
-    "pages/turntable/turntable",
     "pages/free/free"
   ],
   "window": {
