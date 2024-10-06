@@ -27,7 +27,8 @@ const _sfc_main = {
         CityId: "",
         State: "Y",
         CreateUid: "",
-        IsAdmin: "N"
+        IsAdmin: "N",
+        IsOnline: "Y"
       }
     };
   },
@@ -108,6 +109,15 @@ const _sfc_main = {
     });
   },
   methods: {
+    switchChange: function(e) {
+      console.log("picker发送选择改变，携带值为：" + e.detail.value);
+      this.SwitchState = e.detail.value;
+      if (e.detail.value) {
+        this.businessInfo.IsOnline = "Y";
+      } else {
+        this.businessInfo.IsOnline = "N";
+      }
+    },
     businessSave: function() {
       var th = this;
       if (this.businessInfo.BnsinessName == "") {
@@ -213,15 +223,20 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     m: $data.businessInfo.Password,
     n: common_vendor.o(($event) => $data.businessInfo.Password = $event.detail.value)
   } : {}, {
-    o: $data.businessInfo.Longitude,
-    p: common_vendor.o(($event) => $data.businessInfo.Longitude = $event.detail.value),
-    q: $data.businessInfo.Latitude,
-    r: common_vendor.o(($event) => $data.businessInfo.Latitude = $event.detail.value),
-    s: common_vendor.o($options.businessWeChatSelect),
-    t: common_vendor.o($options.success),
-    v: common_vendor.o($options.progress),
-    w: common_vendor.o(($event) => $data.businessWeChat = $event),
-    x: common_vendor.p({
+    o: $data.isAdmin
+  }, $data.isAdmin ? {
+    p: _ctx.PrizeInfo.IsOnline == "Y" ? "checked" : "",
+    q: common_vendor.o((...args) => $options.switchChange && $options.switchChange(...args))
+  } : {}, {
+    r: $data.businessInfo.Longitude,
+    s: common_vendor.o(($event) => $data.businessInfo.Longitude = $event.detail.value),
+    t: $data.businessInfo.Latitude,
+    v: common_vendor.o(($event) => $data.businessInfo.Latitude = $event.detail.value),
+    w: common_vendor.o($options.businessWeChatSelect),
+    x: common_vendor.o($options.success),
+    y: common_vendor.o($options.progress),
+    z: common_vendor.o(($event) => $data.businessWeChat = $event),
+    A: common_vendor.p({
       limit: "1",
       ["auto-upload"]: true,
       fileMediatype: "image",
@@ -230,11 +245,11 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       ["source-type"]: _ctx.sourceType,
       modelValue: $data.businessWeChat
     }),
-    y: common_vendor.o($options.businessActivitySelect),
-    z: common_vendor.o($options.success),
-    A: common_vendor.o($options.progress),
-    B: common_vendor.o(($event) => $data.businessActivity = $event),
-    C: common_vendor.p({
+    B: common_vendor.o($options.businessActivitySelect),
+    C: common_vendor.o($options.success),
+    D: common_vendor.o($options.progress),
+    E: common_vendor.o(($event) => $data.businessActivity = $event),
+    F: common_vendor.p({
       limit: "1",
       ["auto-upload"]: true,
       fileMediatype: "image",
@@ -242,7 +257,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       ["source-type"]: _ctx.sourceType,
       modelValue: $data.businessActivity
     }),
-    D: common_vendor.o((...args) => $options.businessSave && $options.businessSave(...args))
+    G: common_vendor.o((...args) => $options.businessSave && $options.businessSave(...args))
   });
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-1199a384"]]);

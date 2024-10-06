@@ -74,7 +74,7 @@ const _sfc_main = {
   },
   methods: {
     UserAssist() {
-      common_vendor.index.$u.route("/pages/turntable/turntable?id=" + this.id + "&businessId=" + this.businessId + "&sourceOpenId=" + this.openId);
+      common_vendor.index.$u.route("/pages/turntable/turntable?id=" + this.id + "&bId=" + this.businessId + "&sourceOpenId=" + this.openId);
     }
   }
 };

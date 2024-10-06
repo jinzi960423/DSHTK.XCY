@@ -53,8 +53,8 @@
 		},
 		onLoad(options) {
 			this.id = options.id;
-			//this.businessId = options.businessId;
-			this.sourceOpenId = options.openId;
+			this.businessId = options.bId;
+			this.sourceOpenId = options.sourceOpenId;
 
 		},
 		mounted() {

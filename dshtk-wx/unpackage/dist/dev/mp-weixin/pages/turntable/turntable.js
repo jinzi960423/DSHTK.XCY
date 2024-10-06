@@ -169,7 +169,8 @@ const _sfc_main = {
   },
   onLoad(options) {
     this.id = options.id;
-    this.sourceOpenId = options.openId;
+    this.businessId = options.bId;
+    this.sourceOpenId = options.sourceOpenId;
   },
   mounted() {
     var that = this;

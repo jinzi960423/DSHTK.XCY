@@ -87,7 +87,7 @@
 		},
 		methods: {
 			UserAssist() {
-                 uni.$u.route('/pages/turntable/turntable?id='+this.id+"&businessId="+this.businessId+"&sourceOpenId="+this.openId)
+                 uni.$u.route('/pages/turntable/turntable?id='+this.id+"&bId="+this.businessId+"&sourceOpenId="+this.openId)
 			}
 		}
 	}

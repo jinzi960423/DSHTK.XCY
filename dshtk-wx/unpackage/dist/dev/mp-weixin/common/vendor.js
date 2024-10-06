@@ -7926,6 +7926,13 @@ const createSubpackageApp = initCreateSubpackageApp();
 }
 const pages = [
   {
+    path: "pages/home/home",
+    style: {
+      navigationStyle: "custom",
+      backgroundColorBottom: "#FFFFFF"
+    }
+  },
+  {
     path: "admin/home/home",
     style: {
       navigationBarTitleText: "商户管理"
@@ -7935,6 +7942,12 @@ const pages = [
     path: "pages/turntable/turntable",
     style: {
       navigationStyle: "custom"
+    }
+  },
+  {
+    path: "admin/business/qrCode",
+    style: {
+      navigationBarTitleText: "物料二维码"
     }
   },
   {
@@ -7989,13 +8002,6 @@ const pages = [
     path: "admin/login/updatePwd",
     style: {
       navigationBarTitleText: "修改密码"
-    }
-  },
-  {
-    path: "pages/home/home",
-    style: {
-      navigationStyle: "custom",
-      backgroundColorBottom: "#FFFFFF"
     }
   },
   {

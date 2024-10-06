@@ -138,7 +138,7 @@ if (!Math) {
   (_easycom_u_navbar + _easycom_u_icon + _easycom_net_image + _easycom_bottom_support_info + _easycom_safe_bottom_view + _easycom_z_paging + _easycom_gift_dialog + _easycom_custom_picker_dialog)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-  return {
+  return common_vendor.e({
     a: "overflow:" + ($data.showGift || $data.showShop ? "hidden" : "auto"),
     b: common_vendor.p({
       placeholder: true,
@@ -146,9 +146,12 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       autoBack: true
     }),
     c: common_vendor.t($data.businessInfo.BnsinessName),
-    d: common_vendor.o(($event) => $data.showShop = true),
-    e: common_vendor.o($options.openMap),
-    f: common_vendor.p({
+    d: $data.businessInfo.IsOnline == "Y"
+  }, $data.businessInfo.IsOnline == "Y" ? {
+    e: common_vendor.o(($event) => $data.showShop = true)
+  } : {}, {
+    f: common_vendor.o($options.openMap),
+    g: common_vendor.p({
       name: "map",
       color: "#1d1d1d",
       size: "24rpx",
@@ -156,7 +159,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       ["label-color"]: "#1d1d1d",
       ["label-size"]: "24rpx"
     }),
-    g: common_vendor.f($data.dataList, (item, index, i0) => {
+    h: common_vendor.f($data.dataList, (item, index, i0) => {
       return {
         a: "07e72d3c-3-" + i0 + ",07e72d3c-0",
         b: common_vendor.p({
@@ -170,24 +173,24 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         f: common_vendor.o(($event) => _ctx.$u.route(item.Path), index)
       };
     }),
-    h: common_vendor.sr("paging", "07e72d3c-0"),
-    i: common_vendor.o(($event) => $data.dataList = $event),
-    j: common_vendor.p({
+    i: common_vendor.sr("paging", "07e72d3c-0"),
+    j: common_vendor.o(($event) => $data.dataList = $event),
+    k: common_vendor.p({
       modelValue: $data.dataList
     }),
-    k: common_vendor.o(($event) => $data.showGift = false),
-    l: common_vendor.p({
+    l: common_vendor.o(($event) => $data.showGift = false),
+    m: common_vendor.p({
       show: $data.showGift,
       info: $data.giftInfo,
       imageUrl: $data.imageUrl
     }),
-    m: common_vendor.o(($event) => $data.showShop = false),
-    n: common_vendor.o($options.confirmShop),
-    o: common_vendor.p({
+    n: common_vendor.o(($event) => $data.showShop = false),
+    o: common_vendor.o($options.confirmShop),
+    p: common_vendor.p({
       show: $data.showShop,
       columns: [$data.shopList]
     })
-  };
+  });
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-07e72d3c"]]);
 wx.createPage(MiniProgramPage);

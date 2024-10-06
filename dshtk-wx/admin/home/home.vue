@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		
+
 		<uni-section v-if="isAdmin" title="管理员操作" type="line" padding>
 			<uni-grid :column="3" :show-border="false" :square="false">
 				<uni-grid-item>
@@ -11,7 +11,7 @@
 				</uni-grid-item>
 			</uni-grid>
 		</uni-section>
-		
+
 		<uni-section v-else title="商户管理" type="line" padding>
 			<uni-grid :column="3" :show-border="false" :square="false">
 				<uni-grid-item>
@@ -46,10 +46,16 @@
 						<text class="text">奖品管理</text>
 					</view>
 				</uni-grid-item>
+				<uni-grid-item>
+					<view class="grid-item-box" @click="qrCode" style="background-color: #fff;">
+						<uni-icons type="image-filled" :size="30" color="#777" />
+						<text class="text">物料二维码</text>
+					</view>
+				</uni-grid-item>
 			</uni-grid>
 		</uni-section>
 
- 
+
 		<uni-section title="系统管理" type="line" padding>
 			<uni-grid :column="3" :show-border="false" :square="false">
 				<uni-grid-item>
@@ -92,7 +98,10 @@
 			}
 		},
 		methods: {
-			configBusiness:function(){
+			qrCode: function() {
+				uni.$u.route('/admin/business/qrCode?Id=' + this.adminId)
+			},
+			configBusiness: function() {
 				uni.$u.route('/admin/business/edit?Id=' + this.adminId)
 			},
 			prizeList: function() {
@@ -135,7 +144,7 @@
 									showCancel: false,
 									success: function(res) {
 										if (res.confirm) {
-								
+
 										}
 									}
 								});

@@ -45,6 +45,9 @@ const _sfc_main = {
     }
   },
   methods: {
+    qrCode: function() {
+      common_vendor.index.$u.route("/admin/business/qrCode?Id=" + this.adminId);
+    },
     configBusiness: function() {
       common_vendor.index.$u.route("/admin/business/edit?Id=" + this.adminId);
     },
@@ -183,34 +186,40 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     p: common_vendor.o((...args) => $options.prizeList && $options.prizeList(...args)),
     q: common_vendor.p({
+      type: "image-filled",
+      size: 30,
+      color: "#777"
+    }),
+    r: common_vendor.o((...args) => $options.qrCode && $options.qrCode(...args)),
+    s: common_vendor.p({
       column: 3,
       ["show-border"]: false,
       square: false
     }),
-    r: common_vendor.p({
+    t: common_vendor.p({
       title: "商户管理",
       type: "line",
       padding: true
     })
   }, {
-    s: common_vendor.p({
+    v: common_vendor.p({
       type: "refresh",
       size: 30,
       color: "#777"
     }),
-    t: common_vendor.o((...args) => $options.updatePwd && $options.updatePwd(...args)),
-    v: common_vendor.p({
+    w: common_vendor.o((...args) => $options.updatePwd && $options.updatePwd(...args)),
+    x: common_vendor.p({
       type: "paperplane-filled",
       size: 30,
       color: "#777"
     }),
-    w: common_vendor.o((...args) => $options.loginOut && $options.loginOut(...args)),
-    x: common_vendor.p({
+    y: common_vendor.o((...args) => $options.loginOut && $options.loginOut(...args)),
+    z: common_vendor.p({
       column: 3,
       ["show-border"]: false,
       square: false
     }),
-    y: common_vendor.p({
+    A: common_vendor.p({
       title: "系统管理",
       type: "line",
       padding: true

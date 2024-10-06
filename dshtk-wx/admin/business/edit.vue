@@ -44,6 +44,15 @@
 					<input class="uni-input" placeholder="请输入商户密码" v-model="businessInfo.Password" />
 				</view>
 			</view>
+			<view class="uni-form-item uni-column" v-if="isAdmin">
+				<view class="title"><text class="uni-form-item__title">转盘抽奖<text style="color: red;">*</text></text>
+				</view>
+				<view>
+					<switch :checked="PrizeInfo.IsOnline=='Y'?'checked':''" @change="switchChange"
+						style="color: #2979ff;" />
+				</view>
+			</view>
+			
 			<view class="uni-form-item uni-column" style="display: none;">
 				<view class="title"><text class="uni-form-item__title">当前经度<text style="color: red;">*</text></text>
 				</view>
@@ -114,6 +123,7 @@
 					State: "Y",
 					CreateUid: "",
 					IsAdmin: "N",
+					IsOnline:"Y",
 				}
 			}
 		},
@@ -198,6 +208,15 @@
 			});
 		},
 		methods: {
+			switchChange:function(e){
+				console.log('picker发送选择改变，携带值为：' + e.detail.value)
+				this.SwitchState = e.detail.value
+				if (e.detail.value) {
+					this.businessInfo.IsOnline = 'Y'
+				} else {
+					this.businessInfo.IsOnline = 'N'
+				}
+			},
 			businessSave: function() {
 				var th = this;
 				if (this.businessInfo.BnsinessName == "") {

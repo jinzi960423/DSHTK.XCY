@@ -1,14 +1,25 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/home/home",
+			"style": {
+				"navigationStyle": "custom",
+				"backgroundColorBottom": "#FFFFFF"
+			}
+		}, {
 			"path": "admin/home/home",
 			"style": {
 				"navigationBarTitleText": "商户管理"
 			}
-		},{
+		}, {
 			"path": "pages/turntable/turntable",
 			"style": {
 				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "admin/business/qrCode",
+			"style": {
+				"navigationBarTitleText": "物料二维码"
 			}
 		}, {
 			"path": "admin/business/prizeEdit",
@@ -21,12 +32,12 @@
 				"navigationBarTitleText": "奖品管理"
 			}
 		},
-		  {
+		{
 			"path": "admin/business/homeConfig",
 			"style": {
 				"navigationBarTitleText": "首页设置"
 			}
-		},{
+		}, {
 			"path": "admin/business/list",
 			"style": {
 				"navigationBarTitleText": "商户列表"
@@ -59,14 +70,6 @@
 				"navigationBarTitleText": "修改密码"
 			}
 		},
-
-		{
-			"path": "pages/home/home",
-			"style": {
-				"navigationStyle": "custom",
-				"backgroundColorBottom": "#FFFFFF"
-			}
-		},
 		{
 			"path": "pages/activity/activity",
 			"style": {
@@ -97,7 +100,7 @@
 			"style": {
 				"navigationBarTitleText": "赠品核销"
 			}
-		}, 
+		},
 		{
 			"path": "pages/free/free",
 			"style": {
