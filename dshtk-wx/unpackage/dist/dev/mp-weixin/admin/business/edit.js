@@ -225,7 +225,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   } : {}, {
     o: $data.isAdmin
   }, $data.isAdmin ? {
-    p: _ctx.PrizeInfo.IsOnline == "Y" ? "checked" : "",
+    p: $data.businessInfo.IsOnline == "Y" ? "checked" : "",
     q: common_vendor.o((...args) => $options.switchChange && $options.switchChange(...args))
   } : {}, {
     r: $data.businessInfo.Longitude,

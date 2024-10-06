@@ -70,6 +70,7 @@
 		data() {
 			return {
 				Id: "",
+				BusinessId:"",
 				ImgUrl: [],
 				SwitchState: true,
 				PrizeInfo: {
@@ -90,14 +91,20 @@
 		},
 		onLoad(options) {
 			var Id = options.Id;
+			
 			if (Id == undefined) {
 				Id = "";
 			}
 			this.Id = Id
+			var BusinessId = options.BusinessId;
+			if (BusinessId == undefined) {
+				Id = "";
+			}
+			this.BusinessId = BusinessId
 		},
 		mounted() {
 			var adminId = appStorage.getStorage("adminId")
-			this.PrizeInfo.BusinessId=adminId;
+			this.PrizeInfo.BusinessId=this.BusinessId;
 			if (adminId == "" || adminId == undefined) {
 				uni.$u.route('/admin/login/login')
 			}

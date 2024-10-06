@@ -7,6 +7,7 @@ const _sfc_main = {
   data() {
     return {
       Id: "",
+      BusinessId: "",
       ImgUrl: [],
       SwitchState: true,
       PrizeInfo: {
@@ -31,10 +32,15 @@ const _sfc_main = {
       Id = "";
     }
     this.Id = Id;
+    var BusinessId = options.BusinessId;
+    if (BusinessId == void 0) {
+      Id = "";
+    }
+    this.BusinessId = BusinessId;
   },
   mounted() {
     var adminId = utils_appStorage.appStorage.getStorage("adminId");
-    this.PrizeInfo.BusinessId = adminId;
+    this.PrizeInfo.BusinessId = this.BusinessId;
     if (adminId == "" || adminId == void 0) {
       common_vendor.index.$u.route("/admin/login/login");
     }

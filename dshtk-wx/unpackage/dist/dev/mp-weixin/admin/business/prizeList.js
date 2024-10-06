@@ -53,7 +53,7 @@ const _sfc_main = {
       });
     },
     addPrize() {
-      common_vendor.index.$u.route("/admin/business/prizeEdit");
+      common_vendor.index.$u.route("/admin/business/prizeEdit?BusinessId=" + this.Id);
     },
     edit(Id) {
       common_vendor.index.$u.route("/admin/business/prizeEdit?Id=" + Id);

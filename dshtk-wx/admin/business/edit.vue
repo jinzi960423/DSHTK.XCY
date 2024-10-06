@@ -48,7 +48,7 @@
 				<view class="title"><text class="uni-form-item__title">转盘抽奖<text style="color: red;">*</text></text>
 				</view>
 				<view>
-					<switch :checked="PrizeInfo.IsOnline=='Y'?'checked':''" @change="switchChange"
+					<switch :checked="businessInfo.IsOnline=='Y'?'checked':''" @change="switchChange"
 						style="color: #2979ff;" />
 				</view>
 			</view>

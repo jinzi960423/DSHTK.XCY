@@ -96,7 +96,7 @@
 				});
 			},
 			addPrize() {
-				uni.$u.route('/admin/business/prizeEdit');
+				uni.$u.route('/admin/business/prizeEdit?BusinessId=' + this.Id);
 			},
 			edit(Id) {
 				uni.$u.route('/admin/business/prizeEdit?Id=' + Id);

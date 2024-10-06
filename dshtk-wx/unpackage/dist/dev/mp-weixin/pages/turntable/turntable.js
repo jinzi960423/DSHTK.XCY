@@ -154,9 +154,9 @@ const turntableApi = {
 const _sfc_main = {
   data() {
     return {
-      id: "f290c26b-54a2-443d-8303-d468784acfc4",
+      id: "",
       openId: "",
-      businessId: "14209525-E343-4996-B71F-813AC8494C35",
+      businessId: "",
       sourceOpenId: "",
       businessInfo: {
         BnsinessName: ""
@@ -171,6 +171,10 @@ const _sfc_main = {
     this.id = options.id;
     this.businessId = options.bId;
     this.sourceOpenId = options.sourceOpenId;
+    var scene = options.scene;
+    if (scene != "" && scene != null && scene != void 0) {
+      this.businessId = scene;
+    }
   },
   mounted() {
     var that = this;
