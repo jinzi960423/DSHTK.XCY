@@ -86,8 +86,8 @@
 		methods: {
 			openMap() {
 				wx.openLocation({
-					latitude: parseFloat(this.businessInfo.Longitude), // 纬度  
-					longitude: parseFloat(this.businessInfo.Latitude), // 经度  
+					latitude:parseFloat(this.businessInfo.Latitude) , // 纬度  
+					longitude: parseFloat(this.businessInfo.Longitude), // 经度  
 					name: this.businessInfo.BnsinessName, // 地点名称  
 					address: this.businessInfo.Address, // 地址的详细说明  
 					scale: 13, // 缩放比例  

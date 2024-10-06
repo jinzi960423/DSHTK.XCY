@@ -81,9 +81,9 @@ const _sfc_main = {
   methods: {
     openMap() {
       common_vendor.wx$1.openLocation({
-        latitude: parseFloat(this.businessInfo.Longitude),
+        latitude: parseFloat(this.businessInfo.Latitude),
         // 纬度  
-        longitude: parseFloat(this.businessInfo.Latitude),
+        longitude: parseFloat(this.businessInfo.Longitude),
         // 经度  
         name: this.businessInfo.BnsinessName,
         // 地点名称  
