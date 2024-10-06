@@ -45,7 +45,7 @@
 				</view>
 			</view>
 			<view class="uni-form-item uni-column" v-if="isAdmin">
-				<view class="title"><text class="uni-form-item__title">转盘抽奖<text style="color: red;">*</text></text>
+				<view class="title"><text class="uni-form-item__title">是否联动<text style="color: red;">*</text></text>
 				</view>
 				<view>
 					<switch :checked="businessInfo.IsOnline=='Y'?'checked':''" @change="switchChange"
