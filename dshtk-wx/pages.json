@@ -1,128 +1,134 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-			"path": "pages/home/home",
-			"style": {
-				"navigationStyle": "custom",
-				"backgroundColorBottom": "#FFFFFF"
-			}
-		}, {
-			"path": "admin/home/home",
-			"style": {
-				"navigationBarTitleText": "商户管理"
-			}
-		}, {
-			"path": "pages/turntable/turntable",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		}, {
-			"path": "admin/business/qrCode",
-			"style": {
-				"navigationBarTitleText": "物料二维码"
-			}
-		}, {
-			"path": "admin/business/prizeEdit",
-			"style": {
-				"navigationBarTitleText": "奖品(新增/编辑)"
-			}
-		}, {
-			"path": "admin/business/prizeList",
-			"style": {
-				"navigationBarTitleText": "奖品管理"
-			}
-		},
-		{
-			"path": "admin/business/homeConfig",
-			"style": {
-				"navigationBarTitleText": "首页设置"
-			}
-		}, {
-			"path": "admin/business/list",
-			"style": {
-				"navigationBarTitleText": "商户列表"
-			}
-		}, {
-			"path": "admin/business/edit",
-			"style": {
-				"navigationBarTitleText": "(新增/编辑)商户"
-			}
-		}, {
-			"path": "admin/Write/WriteList",
-			"style": {
-				"navigationBarTitleText": "核销记录"
-			}
-		}, {
-			"path": "pages/index/index",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "admin/login/login",
-			"style": {
-				"navigationBarTitleText": "登录"
-			}
-		},
-		{
-			"path": "admin/login/updatePwd",
-			"style": {
-				"navigationBarTitleText": "修改密码"
-			}
-		},
-		{
-			"path": "pages/activity/activity",
-			"style": {
-				"navigationBarTitleText": "活动"
-			}
-		},
+    "pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+        {
+            "path": "pages/home/home",
+            "style": {
+                "navigationStyle": "custom",
+                "backgroundColorBottom": "#FFFFFF"
+            }
+        }, {
+            "path": "admin/home/home",
+            "style": {
+                "navigationBarTitleText": "商户管理"
+            }
+        }, {
+            "path": "pages/turntable/turntable",
+            "style": {
+                "navigationStyle": "custom"
+            }
+        }, {
+            "path": "admin/business/qrCode",
+            "style": {
+                "navigationBarTitleText": "物料二维码"
+            }
+        }, {
+            "path": "admin/business/prizeEdit",
+            "style": {
+                "navigationBarTitleText": "奖品(新增/编辑)"
+            }
+        }, {
+            "path": "admin/business/prizeList",
+            "style": {
+                "navigationBarTitleText": "奖品管理"
+            }
+        },
+        {
+            "path": "admin/business/homeConfig",
+            "style": {
+                "navigationBarTitleText": "首页设置"
+            }
+        }, {
+            "path": "admin/business/list",
+            "style": {
+                "navigationBarTitleText": "商户列表"
+            }
+        }, {
+            "path": "admin/business/edit",
+            "style": {
+                "navigationBarTitleText": "(新增/编辑)商户"
+            }
+        }, {
+            "path": "admin/Write/WriteList",
+            "style": {
+                "navigationBarTitleText": "核销记录"
+            }
+        }, {
+            "path": "pages/index/index",
+            "style": {
+                "navigationStyle": "custom"
+            }
+        },
+        {
+            "path": "admin/login/login",
+            "style": {
+                "navigationBarTitleText": "登录"
+            }
+        },
+        {
+            "path": "admin/login/updatePwd",
+            "style": {
+                "navigationBarTitleText": "修改密码"
+            }
+        },
+        {
+            "path": "pages/activity/activity",
+            "style": {
+                "navigationBarTitleText": "活动"
+            }
+        },
 
-		{
-			"path": "pages/forward/forward",
-			"style": {
-				"navigationBarTitleText": "转发积赞"
-			}
-		},
-		{
-			"path": "pages/friendHelp/friendHelp",
-			"style": {
-				"navigationBarTitleText": "好友助力"
-			}
-		},
-		{
-			"path": "pages/mine/mine",
-			"style": {
-				"navigationBarTitleText": "小仓库"
-			}
-		},
-		{
-			"path": "pages/redemption/redemption",
-			"style": {
-				"navigationBarTitleText": "赠品核销"
-			}
-		},
-		{
-			"path": "pages/free/free",
-			"style": {
-				"navigationBarTitleText": "白嫖"
-			}
-		}
-	],
-	"requiredPrivateInfos": [
-		"getLocation"
-	],
-	"permission": {
-		"scope.userLocation": {
-			"desc": "获取用户位置信息用于填写收货地址"
-		}
-	},
-	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "分享页面",
-		"navigationBarBackgroundColor": "#FFFFFF",
-		"backgroundColor": "#FFFFFF",
-		"backgroundColorTop": "#FFFFFF",
-		"backgroundColorBottom": "#F2F2F2"
-	},
-	"uniIdRouter": {}
+        {
+            "path": "pages/forward/forward",
+            "style": {
+                "navigationBarTitleText": "转发积赞"
+            }
+        },
+        {
+            "path": "pages/friendHelp/friendHelp",
+            "style": {
+                "navigationBarTitleText": "好友助力"
+            }
+        },
+        {
+            "path": "pages/mine/mine",
+            "style": {
+                "navigationBarTitleText": "小仓库"
+            }
+        },
+        {
+            "path": "pages/redemption/redemption",
+            "style": {
+                "navigationBarTitleText": "赠品核销"
+            }
+        },
+        {
+            "path": "pages/free/free",
+            "style": {
+                "navigationBarTitleText": "白嫖"
+            }
+        },
+        {
+            "path": "pages/loadingPage/loadingPage",
+            "style": {
+                "navigationBarTitleText": "点一点，锦上添花"
+            }
+        }
+    ],
+    "requiredPrivateInfos": [
+        "getLocation"
+    ],
+    "permission": {
+        "scope.userLocation": {
+            "desc": "获取用户位置信息用于填写收货地址"
+        }
+    },
+    "globalStyle": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "分享页面",
+        "navigationBarBackgroundColor": "#FFFFFF",
+        "backgroundColor": "#FFFFFF",
+        "backgroundColorTop": "#FFFFFF",
+        "backgroundColorBottom": "#F2F2F2"
+    },
+    "uniIdRouter": {}
 }
