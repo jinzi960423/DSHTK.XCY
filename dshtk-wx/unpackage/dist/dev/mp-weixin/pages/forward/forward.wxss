@@ -29,7 +29,7 @@
   color: #FFFFFF;
   width: 100%;
   text-align: center;
-  margin-top: -300rpx;
+  margin-top: -350rpx;
 }
 .content-bg.data-v-167fdda7 {
   background: #FFFFFF;

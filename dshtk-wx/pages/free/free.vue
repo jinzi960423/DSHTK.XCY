@@ -1,9 +1,7 @@
  <template>
 
  	<view style="position: relative;">
-
- 		<net-image width="750rpx" height="640rpx" :imageUrl="BusinessActivity"></net-image>
-
+ 		<net-image width="1080rpx" height="725rpx" :imageUrl="BusinessActivity"></net-image>
  		<view style="position: absolute;left: 0;right: 0;bottom: 0;top: 0;height: 100vh;">
 
  			<image src="https://www.sfj365.com/dshtk/images/bp_bg.png" mode="widthFix" style="width: 100%;"></image>

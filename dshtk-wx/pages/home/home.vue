@@ -3,9 +3,9 @@
 	<view>
 		<z-paging ref="paging" v-model="dataList">
 			<template #top>
-				<view class="column p-b-30">
+				<view class="column p-b-20">
 					<u-navbar placeholder title="首页" autoBack></u-navbar>
-					<view class="row-c-c m-t-40">
+					<view class="row-c-c m-t-20">
 						<text class="fw-bold font-family color-1d1d1d p-lr-40 fs48">{{businessInfo.BnsinessName}}</text>
 						<view style="position: absolute;right: 20rpx;" v-if="businessInfo.IsOnline=='Y'" class="row-c" @click="showShop=true">
 							<image src="https://www.sfj365.com/dshtk/images/switch.png"

@@ -15,7 +15,8 @@
 			</view>
 			<view class="row m-t-40" style="flex-wrap: wrap;">
 				<view v-for="(item,index) in likeList" :key="index" class="column-c-c m-b-30 m-r-20">
-					<net-image width="90rpx" height="90rpx" radius="45rpx" imageUrl="https://www.sfj365.com/dshtk/images/user.png"></net-image>
+					<net-image width="90rpx" height="90rpx" radius="45rpx"
+						imageUrl="https://www.sfj365.com/dshtk/images/user.png"></net-image>
 					<text class="zhuli-bg row-c-c">已助力</text>
 				</view>
 			</view>
@@ -26,7 +27,7 @@
 		</view>
 	</view>
 
-<!-- 分享页面 -->
+	<!-- 分享页面 -->
 	<view class="column" v-else-if="!shareShow">
 		<image src="https://www.sfj365.com/dshtk/images/personal_bg.png" mode="widthFix" style="width: 100%;">
 		</image>
@@ -38,8 +39,6 @@
 					style="background-color: #FF6C4E;height:60rpx;border-radius: 30rpx;padding: 0 60rpx;">
 					{{warehouseInfo.Remark}}
 				</text>
-				<!-- <net-image height="385rpx" width="385rpx"></net-image> -->
-				<!-- <view class="m-t-20 fs28 color-1d1d1d">识别图中二维码，助力即可</view> -->
 				<button class="invite-btn" @click="UserAssist">点击为好友助力</button>
 			</view>
 		</view>
@@ -87,7 +86,8 @@
 		},
 		methods: {
 			UserAssist() {
-                 uni.$u.route('/pages/turntable/turntable?id='+this.id+"&bId="+this.businessId+"&sourceOpenId="+this.openId)
+				uni.$u.route('/pages/turntable/turntable?id=' + this.id + "&bId=" + this.businessId + "&sourceOpenId=" +
+					this.openId)
 			}
 		}
 	}
@@ -100,7 +100,7 @@
 		color: #FFFFFF;
 		width: 100%;
 		text-align: center;
-		margin-top: -300rpx;
+		margin-top: -350rpx;
 	}
 
 	.content-bg {

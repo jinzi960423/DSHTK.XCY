@@ -34,8 +34,8 @@ if (!Math) {
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.p({
-      width: "750rpx",
-      height: "640rpx",
+      width: "1080rpx",
+      height: "725rpx",
       imageUrl: $data.BusinessActivity
     }),
     b: common_vendor.t($data.BnsinessName),

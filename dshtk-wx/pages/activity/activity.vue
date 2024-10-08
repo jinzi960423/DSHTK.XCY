@@ -2,9 +2,9 @@
 	<view>
 		<z-paging ref="paging" v-model="prizeList">
 			<template #top>
-				<view class="column-c-c p-b-30">
+				<view class="column-c-c p-b-20">
 					<text
-						class="m-t-40 m-b-20 fw-bold font-family color-1d1d1d fs48">{{businessInfo.BnsinessName}}</text>
+						class="m-t-20 m-b-20 fw-bold font-family color-1d1d1d fs48">{{businessInfo.BnsinessName}}</text>
 					<u-icon name="map" color="#1d1d1d" size="24rpx" :label="businessInfo.Address" label-color="#1d1d1d"
 						@click="openMap" label-size="24rpx"></u-icon>
 				</view>
