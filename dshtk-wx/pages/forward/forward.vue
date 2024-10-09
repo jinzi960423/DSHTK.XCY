@@ -128,6 +128,7 @@
 
 	.invite-btn {
 		height: 86rpx;
+		width: 94%;
 		background: linear-gradient(90deg, #FF8A48 0%, #FF4057 100%);
 		border-radius: 43rpx;
 		font-weight: 400;

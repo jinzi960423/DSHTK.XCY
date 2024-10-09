@@ -13,6 +13,25 @@ const commonutils = {
       duration: 850
     });
   },
+  GetCityLimitById(Id) {
+    var th = this;
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: th.baseUrl() + "api/WeChatProgram/GetCityLimitById",
+        method: "GET",
+        data: {
+          Id
+        },
+        success: function(res) {
+          console.log(res.data);
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  },
   /**
    * 获取商户的详细信息
    **/

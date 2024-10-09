@@ -1,26 +1,7 @@
 import common from "../../utils/common.js"
 
 export default {
-	GetCityLimitById(Id){
-		return new Promise((resolve, reject) => {
-			//发起网络请求
-			wx.request({
-				url: common.baseUrl() + 'api/WeChatProgram/GetCityLimitById',
-				method: "GET",
-				data: { 
-					Id:Id
-				},
-				success: function(res) {
-					console.log(res.data);
-					resolve(res.data);
-		
-				},
-				fail: function() {
-					reject('网络异常，操作失败');
-				}
-			})
-		})
-	},
+	
 	/**
 	 * 保存微信用户的的相关信息
 	 * @param {Object} openid
@@ -49,26 +30,7 @@ export default {
 			})
 		})
 	},
-	//好友助力
-	WarehouseLike(warehouseId, openId) {
-		return new Promise((resolve, reject) => {
-			wx.request({
-				url: common.baseUrl() + 'api/WeChatProgram/WarehouseLike',
-				method: "GET",
-				data: {
-					WarehouseId: warehouseId,
-					OpenId: openId,
-				},
-				success: function(res) {
-					//console.log(res.data);
-					resolve(res.data);
-				},
-				fail: function() {
-					reject('网络异常，操作失败');
-				}
-			})
-		})
-	},
+	
 	/**
 	 * 绑定用户和商户的关系
 	 ***/

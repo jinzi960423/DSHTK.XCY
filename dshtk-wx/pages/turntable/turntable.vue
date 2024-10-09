@@ -80,7 +80,6 @@
 				//获取商户的详细信息
 				commonutils.GetBusinessInfoById(that.businessId).then(data => {
 					that.businessInfo = data.Data;
-
 					uni.getLocation({
 						type: 'wgs84',
 						success: function(res) {
@@ -92,7 +91,7 @@
 							var longitude = parseFloat(res.longitude)
 							var latitude = parseFloat(res.latitude)
 
-							turntableApi.GetCityLimitById(that.businessInfo.CityId).then(cityData => {
+							commonutils.GetCityLimitById(that.businessInfo.CityId).then(cityData => {
 								console.log(cityData)
 								//‌重庆市
 								if (longitude < cityData.Data.BeginLongitude || longitude >
@@ -170,46 +169,41 @@
 				uni.navigateBack()
 			},
 			befoterClick(data) {
-				turntableApi.WarehouseLike(this.id, this.openId).then(likeData => {
-					console.log(likeData)
-					if (this.id != "" && this.id != undefined) {
-						commonutils.showToast(likeData.Message, "success");
-					}
-					turntableApi.DrawLottery(this.businessId, this.openId).then(drawData => {
-						console.log(drawData)
-						if (drawData.Success) {
-							var Id = drawData.Data.Id;
-							for (var i = 0; i < this.prizeList.length; i++) {
-								if (this.prizeList[i].Id == Id) {
-									this.targetIndex = i; //中奖的数据下标
-								}
+				turntableApi.DrawLottery(this.businessId, this.openId).then(drawData => {
+					console.log(drawData)
+					if (drawData.Success) {
+						var Id = drawData.Data.Id;
+						for (var i = 0; i < this.prizeList.length; i++) {
+							if (this.prizeList[i].Id == Id) {
+								this.targetIndex = i; //中奖的数据下标
 							}
-							if (data.type == 'start') {
-								data.callback && data.callback(this.targetIndex)
-							}
-						} else {
-							if (data.type == 'start') {
-								this.targetIndex = 5;
-								data.callback && data.callback(this.targetIndex)
-							}
-							// uni.showModal({
-							// 	title: '温馨提示',
-							// 	content: drawData.Message,
-							// 	showCancel: false,
-							// 	success: function(res) {
-							// 		if (res.confirm) {
-							// 			if (data.type == 'start') {
-							// 				data.callback && data.callback(-1)
-							// 			}
-							// 			uni.$u.route('/pages/home/home', '')
-							// 		}
-							// 	}
-							// });
 						}
-					}).catch(error => {
-						commonutils.showToast(error, "error");
-					})
+						if (data.type == 'start') {
+							data.callback && data.callback(this.targetIndex)
+						}
+					} else {
+						if (data.type == 'start') {
+							this.targetIndex = 5;
+							data.callback && data.callback(this.targetIndex)
+						}
+						// uni.showModal({
+						// 	title: '温馨提示',
+						// 	content: drawData.Message,
+						// 	showCancel: false,
+						// 	success: function(res) {
+						// 		if (res.confirm) {
+						// 			if (data.type == 'start') {
+						// 				data.callback && data.callback(-1)
+						// 			}
+						// 			uni.$u.route('/pages/home/home', '')
+						// 		}
+						// 	}
+						// });
+					}
+				}).catch(error => {
+					commonutils.showToast(error, "error");
 				})
+
 			},
 			//转盘结束后
 			afterClick(data) {

@@ -11,6 +11,27 @@ export default {
 			duration: 850
 		});
 	},
+	GetCityLimitById(Id){
+		var th = this;
+		return new Promise((resolve, reject) => {
+			//发起网络请求
+			wx.request({
+				url: th.baseUrl() + 'api/WeChatProgram/GetCityLimitById',
+				method: "GET",
+				data: { 
+					Id:Id
+				},
+				success: function(res) {
+					console.log(res.data);
+					resolve(res.data);
+		
+				},
+				fail: function() {
+					reject('网络异常，操作失败');
+				}
+			})
+		})
+	},
 	/**
 	 * 获取商户的详细信息
 	 **/

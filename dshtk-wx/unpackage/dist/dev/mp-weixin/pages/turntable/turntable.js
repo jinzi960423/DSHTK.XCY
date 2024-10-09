@@ -3,24 +3,6 @@ const common_vendor = require("../../common/vendor.js");
 const utils_appStorage = require("../../utils/appStorage.js");
 const utils_common = require("../../utils/common.js");
 const turntableApi = {
-  GetCityLimitById(Id) {
-    return new Promise((resolve, reject) => {
-      common_vendor.wx$1.request({
-        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/GetCityLimitById",
-        method: "GET",
-        data: {
-          Id
-        },
-        success: function(res) {
-          console.log(res.data);
-          resolve(res.data);
-        },
-        fail: function() {
-          reject("网络异常，操作失败");
-        }
-      });
-    });
-  },
   /**
    * 保存微信用户的的相关信息
    * @param {Object} openid
@@ -39,25 +21,6 @@ const turntableApi = {
         },
         success: function(res) {
           console.log(res.data);
-          resolve(res.data);
-        },
-        fail: function() {
-          reject("网络异常，操作失败");
-        }
-      });
-    });
-  },
-  //好友助力
-  WarehouseLike(warehouseId, openId) {
-    return new Promise((resolve, reject) => {
-      common_vendor.wx$1.request({
-        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/WarehouseLike",
-        method: "GET",
-        data: {
-          WarehouseId: warehouseId,
-          OpenId: openId
-        },
-        success: function(res) {
           resolve(res.data);
         },
         fail: function() {
@@ -199,7 +162,7 @@ const _sfc_main = {
             console.log("当前位置的纬度latitude：" + res.latitude);
             var longitude = parseFloat(res.longitude);
             var latitude = parseFloat(res.latitude);
-            turntableApi.GetCityLimitById(that.businessInfo.CityId).then((cityData) => {
+            utils_common.commonutils.GetCityLimitById(that.businessInfo.CityId).then((cityData) => {
               console.log(cityData);
               if (longitude < cityData.Data.BeginLongitude || longitude > cityData.Data.EndLongitude || latitude < cityData.Data.BeginLatitude || latitude > cityData.Data.EndLatitude) {
                 common_vendor.index.showModal({
@@ -273,32 +236,26 @@ const _sfc_main = {
       common_vendor.index.navigateBack();
     },
     befoterClick(data) {
-      turntableApi.WarehouseLike(this.id, this.openId).then((likeData) => {
-        console.log(likeData);
-        if (this.id != "" && this.id != void 0) {
-          utils_common.commonutils.showToast(likeData.Message, "success");
-        }
-        turntableApi.DrawLottery(this.businessId, this.openId).then((drawData) => {
-          console.log(drawData);
-          if (drawData.Success) {
-            var Id = drawData.Data.Id;
-            for (var i = 0; i < this.prizeList.length; i++) {
-              if (this.prizeList[i].Id == Id) {
-                this.targetIndex = i;
-              }
-            }
-            if (data.type == "start") {
-              data.callback && data.callback(this.targetIndex);
-            }
-          } else {
-            if (data.type == "start") {
-              this.targetIndex = 5;
-              data.callback && data.callback(this.targetIndex);
+      turntableApi.DrawLottery(this.businessId, this.openId).then((drawData) => {
+        console.log(drawData);
+        if (drawData.Success) {
+          var Id = drawData.Data.Id;
+          for (var i = 0; i < this.prizeList.length; i++) {
+            if (this.prizeList[i].Id == Id) {
+              this.targetIndex = i;
             }
           }
-        }).catch((error) => {
-          utils_common.commonutils.showToast(error, "error");
-        });
+          if (data.type == "start") {
+            data.callback && data.callback(this.targetIndex);
+          }
+        } else {
+          if (data.type == "start") {
+            this.targetIndex = 5;
+            data.callback && data.callback(this.targetIndex);
+          }
+        }
+      }).catch((error) => {
+        utils_common.commonutils.showToast(error, "error");
       });
     },
     //转盘结束后

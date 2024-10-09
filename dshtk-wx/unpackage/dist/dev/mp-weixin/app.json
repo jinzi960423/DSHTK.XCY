@@ -1,8 +1,9 @@
 {
   "pages": [
     "pages/home/home",
-    "admin/home/home",
+    "pages/forward/forward",
     "pages/turntable/turntable",
+    "admin/home/home",
     "admin/business/qrCode",
     "admin/business/prizeEdit",
     "admin/business/prizeList",
@@ -14,7 +15,6 @@
     "admin/login/login",
     "admin/login/updatePwd",
     "pages/activity/activity",
-    "pages/forward/forward",
     "pages/friendHelp/friendHelp",
     "pages/mine/mine",
     "pages/redemption/redemption",
