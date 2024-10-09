@@ -22,8 +22,10 @@
 			</view>
 		</view>
 		<button class="invite-btn" open-type="share">邀请好友助力</button>
-		<view class="m-t-40 p-b-30">
-			<bottom-support-info></bottom-support-info>
+		<view class="bottom-view row-c-c">
+		    <safe-bottom-view>
+		        <bottom-support-info></bottom-support-info>
+		    </safe-bottom-view>
 		</view>
 	</view>
 
@@ -42,8 +44,10 @@
 				<button class="invite-btn" @click="UserAssist">点击为好友助力</button>
 			</view>
 		</view>
-		<view class="m-t-40 p-b-30">
-			<bottom-support-info></bottom-support-info>
+		<view class="bottom-view row-c-c">
+		    <safe-bottom-view>
+		        <bottom-support-info></bottom-support-info>
+		    </safe-bottom-view>
 		</view>
 	</view>
 </template>
@@ -86,7 +90,7 @@
 		},
 		methods: {
 			UserAssist() {
-				uni.$u.route('/pages/turntable/turntable?id=' + this.id + "&bId=" + this.businessId + "&sourceOpenId=" +
+				uni.$u.route('/pages/loadingPage/loadingPage?id=' + this.id + "&bId=" + this.businessId + "&sourceOpenId=" +
 					this.openId)
 			}
 		}

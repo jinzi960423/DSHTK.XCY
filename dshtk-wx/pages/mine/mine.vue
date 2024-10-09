@@ -18,7 +18,7 @@
 				<text class="fs28 m-lr-20 fw-400 color-1d1d1d flex1">{{item.Name}}</text>
 				<text class="fs28 fw-400 color-1d1d1d m-r-20">{{item.Count}}</text>
 				<u-icon name="arrow-right" color="#999" size="24rpx"></u-icon>
-			</view>
+			</view> 
 		</view>
 
 		<view class="m-t-40 p-b-30">

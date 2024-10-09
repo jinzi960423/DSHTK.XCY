@@ -74,19 +74,21 @@ const _sfc_main = {
   },
   methods: {
     UserAssist() {
-      common_vendor.index.$u.route("/pages/turntable/turntable?id=" + this.id + "&bId=" + this.businessId + "&sourceOpenId=" + this.openId);
+      common_vendor.index.$u.route("/pages/loadingPage/loadingPage?id=" + this.id + "&bId=" + this.businessId + "&sourceOpenId=" + this.openId);
     }
   }
 };
 if (!Array) {
   const _easycom_net_image2 = common_vendor.resolveComponent("net-image");
   const _easycom_bottom_support_info2 = common_vendor.resolveComponent("bottom-support-info");
-  (_easycom_net_image2 + _easycom_bottom_support_info2)();
+  const _easycom_safe_bottom_view2 = common_vendor.resolveComponent("safe-bottom-view");
+  (_easycom_net_image2 + _easycom_bottom_support_info2 + _easycom_safe_bottom_view2)();
 }
 const _easycom_net_image = () => "../../components/net-image/net-image.js";
 const _easycom_bottom_support_info = () => "../../components/bottom-support-info/bottom-support-info.js";
+const _easycom_safe_bottom_view = () => "../../components/safe-bottom-view/safe-bottom-view.js";
 if (!Math) {
-  (_easycom_net_image + _easycom_bottom_support_info)();
+  (_easycom_net_image + _easycom_bottom_support_info + _easycom_safe_bottom_view)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
