@@ -14,7 +14,8 @@
 				<view class="column m-l-20 flex1 p-b-10 p-t-10" style="justify-content: space-between;">
 					<view class="column">
 						<text class="fs32 fw-400 color-1d1d1d">{{item.Name}}</text>
-						<text class="m-t-30 color-666 fw-400">仅需<text class="fw-bold">{{item.PrizeLike}}</text>人助力，即可领取</text>
+						<text class="m-t-30 color-666 fw-400">仅需<text
+								class="fw-bold">{{item.PrizeLike}}</text>人助力，即可领取</text>
 					</view>
 					<view class="item-btn">
 						<u-icon name="arrow-right-double" size="28rpx" color="white" label="马上摇人" label-color="white"
@@ -76,10 +77,26 @@
 			},
 			JumpPage(prizeId) {
 				console.log(prizeId)
+				// if (appStorage.getStorage("tmp") != 'Y') {
+
+
+				// 	wx.requestSubscribeMessage({
+				// 		tmplIds: ['nVYRH_syPXNMFOCWAEbNPU_S8RsQIrdHi-wCZAl_H24'], // 模板ID数组，可以请求多个模板的订阅权限  
+				// 		success(res) {
+				// 			appStorage.setStorage("tmp", "Y")
+				// 			if (res['模板ID'] === 'accept') {
+				// 				// 用户同意订阅  
+				// 			} else if (res['模板ID'] === 'reject') {
+				// 				// 用户拒绝订阅  
+				// 			}
+				// 		}
+				// 	});
+				// } else {
 				activityApi.GetWarehouseEntity(this.openId, prizeId, this.businessId).then(data => {
 					console.log(data)
 					if (data.Success) {
-						uni.$u.route('/pages/forward/forward?Id=' + data.Data.Id+"&businessId="+this.businessId+"&openId="+this.openId)
+						uni.$u.route('/pages/forward/forward?Id=' + data.Data.Id + "&businessId=" + this
+							.businessId + "&openId=" + this.openId)
 					} else {
 						uni.showModal({
 							title: '温馨提示',
@@ -93,6 +110,7 @@
 						});
 					}
 				})
+				//}
 
 			}
 		},

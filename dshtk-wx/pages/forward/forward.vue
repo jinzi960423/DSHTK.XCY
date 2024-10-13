@@ -5,7 +5,7 @@
 		<view class="content-bg p-tb-30 p-lr-30">
 			<net-image height="300rpx" width="100%" :imageUrl="warehouseInfo.ImgUrl"></net-image>
 			<view class="column-c-c m-t-30">
-				<text class="fs32 color-white row-c-c"
+				<text class="fs32 color-white row-c-c" open-type="share"
 					style="background-color: #FF6C4E;height:60rpx;border-radius: 30rpx;padding: 0 60rpx;">
 					{{warehouseInfo.Remark}}
 				</text>
