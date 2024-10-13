@@ -2,7 +2,7 @@ import common from "../../utils/common.js"
 
 export default {
 	//好友助力
-	WarehouseLike(warehouseId, openId) {
+	WarehouseLike(warehouseId, openId, businessId) {
 		return new Promise((resolve, reject) => {
 			wx.request({
 				url: common.baseUrl() + 'api/WeChatProgram/WarehouseLike',
@@ -10,6 +10,7 @@ export default {
 				data: {
 					WarehouseId: warehouseId,
 					OpenId: openId,
+					BusinessId: businessId,
 				},
 				success: function(res) {
 					//console.log(res.data);

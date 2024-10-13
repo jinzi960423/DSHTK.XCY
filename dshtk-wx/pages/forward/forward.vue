@@ -5,10 +5,10 @@
 		<view class="content-bg p-tb-30 p-lr-30">
 			<net-image height="300rpx" width="100%" :imageUrl="warehouseInfo.ImgUrl"></net-image>
 			<view class="column-c-c m-t-30">
-				<text class="fs32 color-white row-c-c" open-type="share"
+				<button class="fs32 color-white row-c-c" open-type="share"
 					style="background-color: #FF6C4E;height:60rpx;border-radius: 30rpx;padding: 0 60rpx;">
 					{{warehouseInfo.Remark}}
-				</text>
+				</button>
 				<text class="fs28 color-999 m-t-20 fw-400">
 					还差{{warehouseInfo.Count}}人即可获得
 				</text>
@@ -33,7 +33,7 @@
 	<view class="column" v-else-if="!shareShow">
 		<image src="https://www.sfj365.com/dshtk/images/personal_bg.png" mode="widthFix" style="width: 100%;">
 		</image>
-		<view class="content-bg p-tb-30 p-lr-30" style="padding-bottom: 100rpx;">
+		<view class="content-bg p-tb-30 p-lr-30" style="padding-bottom: 100rpx;margin-top: -130px;">
 			<text>好友助力领好礼</text>
 			<net-image height="300rpx" width="100%" :imageUrl="warehouseInfo.ImgUrl"></net-image>
 			<view class="column-c-c m-t-30">

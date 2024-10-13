@@ -7939,6 +7939,12 @@ const pages = [
     }
   },
   {
+    path: "pages/loadingPage/loadingPage",
+    style: {
+      navigationBarTitleText: "助力成功，锦上添花"
+    }
+  },
+  {
     path: "pages/turntable/turntable",
     style: {
       navigationStyle: "custom"
@@ -8038,12 +8044,6 @@ const pages = [
     path: "pages/free/free",
     style: {
       navigationBarTitleText: "参与福利"
-    }
-  },
-  {
-    path: "pages/loadingPage/loadingPage",
-    style: {
-      navigationBarTitleText: "点一点，锦上添花"
     }
   }
 ];

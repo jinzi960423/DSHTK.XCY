@@ -2,6 +2,7 @@
   "pages": [
     "pages/home/home",
     "pages/forward/forward",
+    "pages/loadingPage/loadingPage",
     "pages/turntable/turntable",
     "admin/home/home",
     "admin/business/qrCode",
@@ -18,8 +19,7 @@
     "pages/friendHelp/friendHelp",
     "pages/mine/mine",
     "pages/redemption/redemption",
-    "pages/free/free",
-    "pages/loadingPage/loadingPage"
+    "pages/free/free"
   ],
   "window": {
     "navigationBarTextStyle": "black",

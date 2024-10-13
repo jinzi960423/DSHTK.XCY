@@ -5,6 +5,7 @@ const uni_modules_uviewPlus_index = require("./uni_modules/uview-plus/index.js")
 if (!Math) {
   "./pages/home/home.js";
   "./pages/forward/forward.js";
+  "./pages/loadingPage/loadingPage.js";
   "./pages/turntable/turntable.js";
   "./admin/home/home.js";
   "./admin/business/qrCode.js";
@@ -22,7 +23,6 @@ if (!Math) {
   "./pages/mine/mine.js";
   "./pages/redemption/redemption.js";
   "./pages/free/free.js";
-  "./pages/loadingPage/loadingPage.js";
 }
 const _sfc_main = {
   onLaunch: function() {

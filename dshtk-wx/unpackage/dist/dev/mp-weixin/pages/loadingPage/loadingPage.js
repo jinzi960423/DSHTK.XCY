@@ -2,16 +2,18 @@
 const common_vendor = require("../../common/vendor.js");
 const utils_common = require("../../utils/common.js");
 const utils_appStorage = require("../../utils/appStorage.js");
+const turntable = require("../../turntable.js");
 const loadingPageApi = {
   //好友助力
-  WarehouseLike(warehouseId, openId) {
+  WarehouseLike(warehouseId, openId, businessId) {
     return new Promise((resolve, reject) => {
       common_vendor.wx$1.request({
         url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/WarehouseLike",
         method: "GET",
         data: {
           WarehouseId: warehouseId,
-          OpenId: openId
+          OpenId: openId,
+          BusinessId: businessId
         },
         success: function(res) {
           resolve(res.data);
@@ -32,7 +34,8 @@ const _sfc_main = {
       sourceOpenId: "",
       businessInfo: {
         BnsinessName: ""
-      }
+      },
+      Msg: "正在助力！"
     };
   },
   onLoad(options) {
@@ -68,16 +71,33 @@ const _sfc_main = {
               utils_common.commonutils.GetOpenId().then((openId) => {
                 that.openId = openId;
                 utils_appStorage.appStorage.setStorage("businessId", that.businessId);
-                turntableApi.BindingBusiness(openId, that.businessId);
-              });
-              utils_common.commonutils.GetUserInfo().then((data2) => {
-                if (!data2.Success) {
-                  turntableApi.saveUserInfo(
-                    that.openId,
-                    "",
-                    "点上花"
-                  );
-                }
+                turntable.turntableApi.BindingBusiness(openId, that.businessId);
+                utils_common.commonutils.GetUserInfo().then((data2) => {
+                  if (!data2.Success) {
+                    turntable.turntableApi.saveUserInfo(
+                      that.openId,
+                      "",
+                      "点上花"
+                    );
+                  }
+                });
+                loadingPageApi.WarehouseLike(
+                  that.id,
+                  that.openId,
+                  that.businessId
+                ).then(
+                  (likeData) => {
+                    console.log(likeData);
+                    if (that.id != "" && that.id != void 0) {
+                      that.Msg = likeData.Message;
+                      setTimeout(function() {
+                        common_vendor.index.$u.route(
+                          "/pages/turntable/turntable?bId=" + that.businessId
+                        );
+                      }, 2e3);
+                    }
+                  }
+                );
               });
             }
           });
@@ -98,30 +118,11 @@ const _sfc_main = {
       });
     });
   },
-  methods: {
-    WarehouseLike() {
-      var th = this;
-      loadingPageApi.WarehouseLike(th.id, th.openId).then((likeData) => {
-        console.log(likeData);
-        if (th.id != "" && th.id != void 0) {
-          common_vendor.index.showModal({
-            title: "温馨提示",
-            content: likeData.Message,
-            showCancel: false,
-            success: function(res) {
-              if (res.confirm) {
-                common_vendor.index.$u.route("/pages/turntable/turntable?bId=" + th.businessId);
-              }
-            }
-          });
-        }
-      });
-    }
-  }
+  methods: {}
 };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
-    a: common_vendor.o(($event) => $options.WarehouseLike())
+    a: common_vendor.t($data.Msg)
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-054c6a7b"]]);
