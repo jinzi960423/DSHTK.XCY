@@ -11,7 +11,7 @@
                             @click="showShop=true">
                             <image src="https://www.sfj365.com/dshtk/images/switch.png"
                                 style="width: 30rpx;height: 30rpx;"></image>
-                            <text class="color-1d1d1d fs30 m-l-10">切换</text>
+                            <text class="color-1d1d1d fs30 m-l-10">附近商家</text>
                         </view>
                     </view>
                     <view class="row-c-c m-t-20">

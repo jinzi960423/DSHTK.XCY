@@ -44,79 +44,94 @@ const _sfc_main = {
     } else {
       utils_common.commonutils.GetBusinessInfoById(that.businessId).then((data) => {
         that.businessInfo = data.Data;
-        common_vendor.index.getLocation({
-          type: "wgs84",
-          success: function(res) {
-            console.log("当前位置的经度longitude：" + res.longitude);
-            console.log("当前位置的纬度latitude：" + res.latitude);
-            var longitude = parseFloat(res.longitude);
-            var latitude = parseFloat(res.latitude);
-            utils_common.commonutils.GetCityLimitById(that.businessInfo.CityId).then((cityData) => {
-              console.log(cityData);
-              if (longitude < cityData.Data.BeginLongitude || longitude > cityData.Data.EndLongitude || latitude < cityData.Data.BeginLatitude || latitude > cityData.Data.EndLatitude) {
-                common_vendor.index.showModal({
-                  title: "温馨提示",
-                  content: "当前活动仅限" + cityData.Data.CityName,
-                  showCancel: false,
-                  success: function(res2) {
-                    if (res2.confirm) {
-                      common_vendor.wx$1.exitMiniProgram();
-                    }
-                  }
-                });
-              } else {
-                utils_common.commonutils.GetOpenId().then((openId) => {
-                  that.openId = openId;
-                  utils_appStorage.appStorage.setStorage("businessId", that.businessId);
-                  turntable.turntableApi.BindingBusiness(openId, that.businessId);
-                });
-                utils_common.commonutils.GetUserInfo().then((data2) => {
-                  if (!data2.Success) {
-                    turntable.turntableApi.saveUserInfo(
-                      that.openId,
-                      "",
-                      "点上花"
+        if (that.businessInfo.State == "N") {
+          common_vendor.index.showModal({
+            title: "温馨提示",
+            content: "软件授权已到期，请联系管理员",
+            showCancel: false,
+            success: function(res) {
+              if (res.confirm) {
+                common_vendor.wx$1.exitMiniProgram();
+              }
+            }
+          });
+        } else {
+          common_vendor.index.getLocation({
+            type: "wgs84",
+            success: function(res) {
+              console.log("当前位置的经度longitude：" + res.longitude);
+              console.log("当前位置的纬度latitude：" + res.latitude);
+              var longitude = parseFloat(res.longitude);
+              var latitude = parseFloat(res.latitude);
+              utils_common.commonutils.GetCityLimitById(that.businessInfo.CityId).then(
+                (cityData) => {
+                  console.log(cityData);
+                  if (longitude < cityData.Data.BeginLongitude || longitude > cityData.Data.EndLongitude || latitude < cityData.Data.BeginLatitude || latitude > cityData.Data.EndLatitude) {
+                    common_vendor.index.showModal({
+                      title: "温馨提示",
+                      content: "当前活动仅限" + cityData.Data.CityName,
+                      showCancel: false,
+                      success: function(res2) {
+                        if (res2.confirm) {
+                          common_vendor.wx$1.exitMiniProgram();
+                        }
+                      }
+                    });
+                  } else {
+                    utils_common.commonutils.GetOpenId().then((openId) => {
+                      that.openId = openId;
+                      utils_appStorage.appStorage.setStorage("businessId", that.businessId);
+                      turntable.turntableApi.BindingBusiness(openId, that.businessId);
+                    });
+                    utils_common.commonutils.GetUserInfo().then((data2) => {
+                      if (!data2.Success) {
+                        turntable.turntableApi.saveUserInfo(
+                          that.openId,
+                          "",
+                          "点上花"
+                        );
+                      }
+                    });
+                    turntable.turntableApi.GetPrizeConfigList(that.businessId).then(
+                      (data2) => {
+                        console.log(data2);
+                        if (!data2.Success) {
+                          common_vendor.index.showModal({
+                            title: "温馨提示",
+                            content: data2.Message,
+                            showCancel: false,
+                            success: function(res2) {
+                              if (res2.confirm) {
+                                common_vendor.index.$u.route(
+                                  "/pages/home/home",
+                                  ""
+                                );
+                              }
+                            }
+                          });
+                        }
+                        that.prizeList = data2.Data;
+                      }
                     );
                   }
-                });
-                turntable.turntableApi.GetPrizeConfigList(that.businessId).then(
-                  (data2) => {
-                    console.log(data2);
-                    if (!data2.Success) {
-                      common_vendor.index.showModal({
-                        title: "温馨提示",
-                        content: data2.Message,
-                        showCancel: false,
-                        success: function(res2) {
-                          if (res2.confirm) {
-                            common_vendor.index.$u.route(
-                              "/pages/home/home",
-                              ""
-                            );
-                          }
-                        }
-                      });
-                    }
-                    that.prizeList = data2.Data;
-                  }
-                );
-              }
-            });
-          },
-          fail: function(error) {
-            console.error("获取位置失败：", error);
-            common_vendor.index.showModal({
-              title: "温馨提示",
-              content: "获取位置失败,请打开我的>设置>个人信息与权限 允许获取位置信息",
-              showCancel: false,
-              success: function(res) {
-                if (res.confirm) {
-                  common_vendor.wx$1.exitMiniProgram();
                 }
-              }
-            });
-          }
-        });
+              );
+            },
+            fail: function(error) {
+              console.error("获取位置失败：", error);
+              common_vendor.index.showModal({
+                title: "温馨提示",
+                content: "获取位置失败,请打开我的>设置>个人信息与权限 允许获取位置信息",
+                showCancel: false,
+                success: function(res) {
+                  if (res.confirm) {
+                    common_vendor.wx$1.exitMiniProgram();
+                  }
+                }
+              });
+            }
+          });
+        }
       });
     }
   },

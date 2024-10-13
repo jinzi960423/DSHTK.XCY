@@ -80,87 +80,102 @@
 				//获取商户的详细信息
 				commonutils.GetBusinessInfoById(that.businessId).then(data => {
 					that.businessInfo = data.Data;
-					uni.getLocation({
-						type: 'wgs84',
-						success: function(res) {
-							//commonutils.showToast('当前位置的经度：' + res.longitude, "success");
-							console.log('当前位置的经度longitude：' + res.longitude);
-							console.log('当前位置的纬度latitude：' + res.latitude);
-							//上海市经纬度区间	东经120度52分至122度12分，北纬30度40分至31度53分=
-							//‌重庆市的经纬度区间是东经105°17′至110°11′、北纬28°10′至32°13′。‌
-							var longitude = parseFloat(res.longitude)
-							var latitude = parseFloat(res.latitude)
+					if (that.businessInfo.State == "N") {
+						uni.showModal({
+							title: '温馨提示',
+							content: '软件授权已到期，请联系管理员',
+							showCancel: false,
+							success: function(res) {
+								if (res.confirm) {
+									wx.exitMiniProgram();
+								}
+							}
+						});
+					} else {
+						uni.getLocation({
+							type: 'wgs84',
+							success: function(res) {
+								//commonutils.showToast('当前位置的经度：' + res.longitude, "success");
+								console.log('当前位置的经度longitude：' + res.longitude);
+								console.log('当前位置的纬度latitude：' + res.latitude);
+								//上海市经纬度区间	东经120度52分至122度12分，北纬30度40分至31度53分=
+								//‌重庆市的经纬度区间是东经105°17′至110°11′、北纬28°10′至32°13′。‌
+								var longitude = parseFloat(res.longitude)
+								var latitude = parseFloat(res.latitude)
 
-							commonutils.GetCityLimitById(that.businessInfo.CityId).then(cityData => {
-								console.log(cityData)
-								//‌重庆市
-								if (longitude < cityData.Data.BeginLongitude || longitude >
-									cityData.Data.EndLongitude || latitude <
-									cityData.Data.BeginLatitude ||
-									latitude > cityData.Data.EndLatitude) {
-									uni.showModal({
-										title: '温馨提示',
-										content: '当前活动仅限' + cityData.Data.CityName,
-										showCancel: false,
-										success: function(res) {
-											if (res.confirm) {
-												wx.exitMiniProgram();
-											}
-										}
-									});
-								} else {
-									commonutils.GetOpenId().then(openId => {
-										that.openId = openId;
-										appStorage.setStorage("businessId", that
-											.businessId);
-										turntableApi.BindingBusiness(openId, that
-											.businessId)
-									})
-									commonutils.GetUserInfo().then(data => {
-										//console.log(data)
-										//this.userInfoDialog = !data.Success;
-										if (!data.Success) {
-											turntableApi.saveUserInfo(that.openId, '',
-												'点上花')
-										}
-									})
-									//获取转盘的奖品列表
-									turntableApi.GetPrizeConfigList(that.businessId).then(
-										data => {
-											console.log(data)
-											if (!data.Success) {
-												uni.showModal({
-													title: '温馨提示',
-													content: data.Message,
-													showCancel: false,
-													success: function(res) {
-														if (res.confirm) {
-															uni.$u.route(
-																'/pages/home/home',
-																'')
-														}
+								commonutils.GetCityLimitById(that.businessInfo.CityId).then(
+									cityData => {
+										console.log(cityData)
+										//‌重庆市
+										if (longitude < cityData.Data.BeginLongitude || longitude >
+											cityData.Data.EndLongitude || latitude <
+											cityData.Data.BeginLatitude ||
+											latitude > cityData.Data.EndLatitude) {
+											uni.showModal({
+												title: '温馨提示',
+												content: '当前活动仅限' + cityData.Data.CityName,
+												showCancel: false,
+												success: function(res) {
+													if (res.confirm) {
+														wx.exitMiniProgram();
 													}
-												});
-											}
-											that.prizeList = data.Data;
-										})
-								}
-							})
-						},
-						fail: function(error) {
-							console.error('获取位置失败：', error);
-							uni.showModal({
-								title: '温馨提示',
-								content: '获取位置失败,请打开我的>设置>个人信息与权限 允许获取位置信息',
-								showCancel: false,
-								success: function(res) {
-									if (res.confirm) {
-										wx.exitMiniProgram();
+												}
+											});
+										} else {
+											commonutils.GetOpenId().then(openId => {
+												that.openId = openId;
+												appStorage.setStorage("businessId", that
+													.businessId);
+												turntableApi.BindingBusiness(openId, that
+													.businessId)
+											})
+											commonutils.GetUserInfo().then(data => {
+												//console.log(data)
+												//this.userInfoDialog = !data.Success;
+												if (!data.Success) {
+													turntableApi.saveUserInfo(that.openId,
+														'',
+														'点上花')
+												}
+											})
+											//获取转盘的奖品列表
+											turntableApi.GetPrizeConfigList(that.businessId).then(
+												data => {
+													console.log(data)
+													if (!data.Success) {
+														uni.showModal({
+															title: '温馨提示',
+															content: data.Message,
+															showCancel: false,
+															success: function(res) {
+																if (res.confirm) {
+																	uni.$u.route(
+																		'/pages/home/home',
+																		'')
+																}
+															}
+														});
+													}
+													that.prizeList = data.Data;
+												})
+										}
+									})
+							},
+							fail: function(error) {
+								console.error('获取位置失败：', error);
+								uni.showModal({
+									title: '温馨提示',
+									content: '获取位置失败,请打开我的>设置>个人信息与权限 允许获取位置信息',
+									showCancel: false,
+									success: function(res) {
+										if (res.confirm) {
+											wx.exitMiniProgram();
+										}
 									}
-								}
-							});
-						}
-					});
+								});
+							}
+						});
+					}
 				})
 			}
 		},
