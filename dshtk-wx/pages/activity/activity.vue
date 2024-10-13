@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<z-paging ref="paging" v-model="prizeList">
+		<!-- <z-paging ref="paging" v-model="prizeList"> -->
 			<template #top>
 				<view class="column-c-c p-b-20">
 					<text
@@ -30,7 +30,7 @@
 					</safe-bottom-view>
 				</view>
 			</template>
-		</z-paging>
+		<!-- </z-paging> -->
 	</view>
 </template>
 <script>

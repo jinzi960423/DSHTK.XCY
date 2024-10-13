@@ -115,16 +115,14 @@ if (!Array) {
   const _easycom_net_image2 = common_vendor.resolveComponent("net-image");
   const _easycom_bottom_support_info2 = common_vendor.resolveComponent("bottom-support-info");
   const _easycom_safe_bottom_view2 = common_vendor.resolveComponent("safe-bottom-view");
-  const _easycom_z_paging2 = common_vendor.resolveComponent("z-paging");
-  (_easycom_u_icon2 + _easycom_net_image2 + _easycom_bottom_support_info2 + _easycom_safe_bottom_view2 + _easycom_z_paging2)();
+  (_easycom_u_icon2 + _easycom_net_image2 + _easycom_bottom_support_info2 + _easycom_safe_bottom_view2)();
 }
 const _easycom_u_icon = () => "../../uni_modules/uview-plus/components/u-icon/u-icon.js";
 const _easycom_net_image = () => "../../components/net-image/net-image.js";
 const _easycom_bottom_support_info = () => "../../components/bottom-support-info/bottom-support-info.js";
 const _easycom_safe_bottom_view = () => "../../components/safe-bottom-view/safe-bottom-view.js";
-const _easycom_z_paging = () => "../../uni_modules/z-paging/components/z-paging/z-paging.js";
 if (!Math) {
-  (_easycom_u_icon + _easycom_net_image + _easycom_bottom_support_info + _easycom_safe_bottom_view + _easycom_z_paging)();
+  (_easycom_u_icon + _easycom_net_image + _easycom_bottom_support_info + _easycom_safe_bottom_view)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
@@ -140,7 +138,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     d: common_vendor.f($data.prizeList, (item, index, i0) => {
       return {
-        a: "da48f91d-2-" + i0 + ",da48f91d-0",
+        a: "da48f91d-1-" + i0,
         b: common_vendor.p({
           width: "300rpx",
           height: "300rpx",
@@ -148,7 +146,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         }),
         c: common_vendor.t(item.Name),
         d: common_vendor.t(item.PrizeLike),
-        e: "da48f91d-3-" + i0 + ",da48f91d-0",
+        e: "da48f91d-2-" + i0,
         f: index,
         g: common_vendor.o(($event) => $options.JumpPage(item.Id), index)
       };
@@ -161,11 +159,6 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       ["label-color"]: "white",
       ["label-size"]: "28rpx",
       labelPos: "left"
-    }),
-    f: common_vendor.sr("paging", "da48f91d-0"),
-    g: common_vendor.o(($event) => $data.prizeList = $event),
-    h: common_vendor.p({
-      modelValue: $data.prizeList
     })
   };
 }

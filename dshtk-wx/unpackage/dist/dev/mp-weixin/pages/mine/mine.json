@@ -3,6 +3,7 @@
   "usingComponents": {
     "net-image": "../../components/net-image/net-image",
     "u-icon": "../../uni_modules/uview-plus/components/u-icon/u-icon",
-    "bottom-support-info": "../../components/bottom-support-info/bottom-support-info"
+    "bottom-support-info": "../../components/bottom-support-info/bottom-support-info",
+    "safe-bottom-view": "../../components/safe-bottom-view/safe-bottom-view"
   }
 }

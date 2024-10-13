@@ -7,7 +7,6 @@
     "net-image": "../../components/net-image/net-image",
     "bottom-support-info": "../../components/bottom-support-info/bottom-support-info",
     "safe-bottom-view": "../../components/safe-bottom-view/safe-bottom-view",
-    "z-paging": "../../uni_modules/z-paging/components/z-paging/z-paging",
     "gift-dialog": "../../components/gift-dialog/gift-dialog",
     "custom-picker-dialog": "../../components/custom-picker-dialog/custom-picker-dialog"
   }

@@ -121,21 +121,19 @@ if (!Array) {
   const _easycom_net_image2 = common_vendor.resolveComponent("net-image");
   const _easycom_bottom_support_info2 = common_vendor.resolveComponent("bottom-support-info");
   const _easycom_safe_bottom_view2 = common_vendor.resolveComponent("safe-bottom-view");
-  const _easycom_z_paging2 = common_vendor.resolveComponent("z-paging");
   const _easycom_gift_dialog2 = common_vendor.resolveComponent("gift-dialog");
   const _easycom_custom_picker_dialog2 = common_vendor.resolveComponent("custom-picker-dialog");
-  (_easycom_u_navbar2 + _easycom_u_icon2 + _easycom_net_image2 + _easycom_bottom_support_info2 + _easycom_safe_bottom_view2 + _easycom_z_paging2 + _easycom_gift_dialog2 + _easycom_custom_picker_dialog2)();
+  (_easycom_u_navbar2 + _easycom_u_icon2 + _easycom_net_image2 + _easycom_bottom_support_info2 + _easycom_safe_bottom_view2 + _easycom_gift_dialog2 + _easycom_custom_picker_dialog2)();
 }
 const _easycom_u_navbar = () => "../../uni_modules/uview-plus/components/u-navbar/u-navbar.js";
 const _easycom_u_icon = () => "../../uni_modules/uview-plus/components/u-icon/u-icon.js";
 const _easycom_net_image = () => "../../components/net-image/net-image.js";
 const _easycom_bottom_support_info = () => "../../components/bottom-support-info/bottom-support-info.js";
 const _easycom_safe_bottom_view = () => "../../components/safe-bottom-view/safe-bottom-view.js";
-const _easycom_z_paging = () => "../../uni_modules/z-paging/components/z-paging/z-paging.js";
 const _easycom_gift_dialog = () => "../../components/gift-dialog/gift-dialog.js";
 const _easycom_custom_picker_dialog = () => "../../components/custom-picker-dialog/custom-picker-dialog.js";
 if (!Math) {
-  (_easycom_u_navbar + _easycom_u_icon + _easycom_net_image + _easycom_bottom_support_info + _easycom_safe_bottom_view + _easycom_z_paging + _easycom_gift_dialog + _easycom_custom_picker_dialog)();
+  (_easycom_u_navbar + _easycom_u_icon + _easycom_net_image + _easycom_bottom_support_info + _easycom_safe_bottom_view + _easycom_gift_dialog + _easycom_custom_picker_dialog)();
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
@@ -161,7 +159,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     h: common_vendor.f($data.dataList, (item, index, i0) => {
       return {
-        a: "07e72d3c-3-" + i0 + ",07e72d3c-0",
+        a: "07e72d3c-2-" + i0,
         b: common_vendor.p({
           width: "705rpx",
           height: "355rpx",
@@ -173,20 +171,15 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         f: common_vendor.o(($event) => _ctx.$u.route(item.Path), index)
       };
     }),
-    i: common_vendor.sr("paging", "07e72d3c-0"),
-    j: common_vendor.o(($event) => $data.dataList = $event),
-    k: common_vendor.p({
-      modelValue: $data.dataList
-    }),
-    l: common_vendor.o(($event) => $data.showGift = false),
-    m: common_vendor.p({
+    i: common_vendor.o(($event) => $data.showGift = false),
+    j: common_vendor.p({
       show: $data.showGift,
       info: $data.giftInfo,
       imageUrl: $data.imageUrl
     }),
-    n: common_vendor.o(($event) => $data.showShop = false),
-    o: common_vendor.o($options.confirmShop),
-    p: common_vendor.p({
+    k: common_vendor.o(($event) => $data.showShop = false),
+    l: common_vendor.o($options.confirmShop),
+    m: common_vendor.p({
       show: $data.showShop,
       columns: [$data.shopList]
     })

@@ -1,18 +1,6 @@
 <template>
-	<view class="container">
-
-		<uni-section v-if="isAdmin" title="管理员操作" type="line" padding>
-			<uni-grid :column="3" :show-border="false" :square="false">
-				<uni-grid-item>
-					<view class="grid-item-box" @click="businessList" style="background-color: #fff;">
-						<uni-icons type="list" :size="30" color="#777" />
-						<text class="text">商户列表</text>
-					</view>
-				</uni-grid-item>
-			</uni-grid>
-		</uni-section>
-
-		<uni-section v-else :title="businessName" type="line" padding>
+	<view class="container"> 
+		<uni-section :title="businessName" type="line" padding>
 			<uni-grid :column="3" :show-border="false" :square="false">
 				<uni-grid-item>
 					<view class="grid-item-box" @click="scanCode" style="background-color: #fff;">
@@ -55,7 +43,16 @@
 			</uni-grid>
 		</uni-section>
 
-
+		<uni-section v-if="isAdmin" title="渠道商户推广" type="line" padding>
+			<uni-grid :column="3" :show-border="false" :square="false">
+				<uni-grid-item>
+					<view class="grid-item-box" @click="businessList" style="background-color: #fff;">
+						<uni-icons type="list" :size="30" color="#777" />
+						<text class="text">商户列表</text>
+					</view>
+				</uni-grid-item>
+			</uni-grid>
+		</uni-section>
 		<uni-section title="系统管理" type="line" padding>
 			<uni-grid :column="3" :show-border="false" :square="false">
 				<uni-grid-item>
@@ -93,7 +90,11 @@
 			var adminId = appStorage.getStorage("adminId")
 			var Admin = appStorage.getStorage("isAdmin")
 			var businessName = appStorage.getStorage("businessName")
-			this.isAdmin = Admin == "Y";
+			var th = this;
+			commonutils.GetBusinessInfoById(adminId).then(BusinessInfo => {
+				this.isAdmin = BusinessInfo.Data.IsAdmin == "Y";
+			})
+
 			this.adminId = adminId;
 			this.businessName = businessName;
 			if (adminId == "" || adminId == undefined) {

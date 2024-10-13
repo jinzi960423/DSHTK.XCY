@@ -38,9 +38,11 @@ const _sfc_main = {
   },
   onLoad() {
     var adminId = utils_appStorage.appStorage.getStorage("adminId");
-    var Admin = utils_appStorage.appStorage.getStorage("isAdmin");
+    utils_appStorage.appStorage.getStorage("isAdmin");
     var businessName = utils_appStorage.appStorage.getStorage("businessName");
-    this.isAdmin = Admin == "Y";
+    utils_common.commonutils.GetBusinessInfoById(adminId).then((BusinessInfo) => {
+      this.isAdmin = BusinessInfo.Data.IsAdmin == "Y";
+    });
     this.adminId = adminId;
     this.businessName = businessName;
     if (adminId == "" || adminId == void 0) {
@@ -134,77 +136,76 @@ if (!Math) {
 }
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return common_vendor.e({
-    a: $data.isAdmin
-  }, $data.isAdmin ? {
-    b: common_vendor.p({
-      type: "list",
-      size: 30,
-      color: "#777"
-    }),
-    c: common_vendor.o((...args) => $options.businessList && $options.businessList(...args)),
-    d: common_vendor.p({
-      column: 3,
-      ["show-border"]: false,
-      square: false
-    }),
-    e: common_vendor.p({
-      title: "管理员操作",
-      type: "line",
-      padding: true
-    })
-  } : {
-    f: common_vendor.p({
+    a: common_vendor.p({
       type: "scan",
       size: 30,
       color: "#777"
     }),
-    g: common_vendor.o((...args) => $options.scanCode && $options.scanCode(...args)),
-    h: common_vendor.p({
+    b: common_vendor.o((...args) => $options.scanCode && $options.scanCode(...args)),
+    c: common_vendor.p({
       type: "cart-filled",
       size: 30,
       color: "#777"
     }),
-    i: common_vendor.o((...args) => $options.writeList && $options.writeList(...args)),
-    j: common_vendor.p({
+    d: common_vendor.o((...args) => $options.writeList && $options.writeList(...args)),
+    e: common_vendor.p({
       type: "shop",
       size: 30,
       color: "#777"
     }),
-    k: common_vendor.o((...args) => $options.configFunction && $options.configFunction(...args)),
-    l: common_vendor.p({
+    f: common_vendor.o((...args) => $options.configFunction && $options.configFunction(...args)),
+    g: common_vendor.p({
       column: 3,
       ["show-border"]: false,
       square: false
     }),
-    m: common_vendor.p({
+    h: common_vendor.p({
       type: "compose",
       size: 30,
       color: "#777"
     }),
-    n: common_vendor.o((...args) => $options.configBusiness && $options.configBusiness(...args)),
-    o: common_vendor.p({
+    i: common_vendor.o((...args) => $options.configBusiness && $options.configBusiness(...args)),
+    j: common_vendor.p({
       type: "gift-filled",
       size: 30,
       color: "#777"
     }),
-    p: common_vendor.o((...args) => $options.prizeList && $options.prizeList(...args)),
-    q: common_vendor.p({
+    k: common_vendor.o((...args) => $options.prizeList && $options.prizeList(...args)),
+    l: common_vendor.p({
       type: "image-filled",
       size: 30,
       color: "#777"
     }),
-    r: common_vendor.o((...args) => $options.qrCode && $options.qrCode(...args)),
+    m: common_vendor.o((...args) => $options.qrCode && $options.qrCode(...args)),
+    n: common_vendor.p({
+      column: 3,
+      ["show-border"]: false,
+      square: false
+    }),
+    o: common_vendor.p({
+      title: $data.businessName,
+      type: "line",
+      padding: true
+    }),
+    p: $data.isAdmin
+  }, $data.isAdmin ? {
+    q: common_vendor.p({
+      type: "list",
+      size: 30,
+      color: "#777"
+    }),
+    r: common_vendor.o((...args) => $options.businessList && $options.businessList(...args)),
     s: common_vendor.p({
       column: 3,
       ["show-border"]: false,
       square: false
     }),
     t: common_vendor.p({
-      title: $data.businessName,
+      title: "渠道商户推广",
       type: "line",
       padding: true
     })
-  }, {
+  } : {}, {
     v: common_vendor.p({
       type: "refresh",
       size: 30,

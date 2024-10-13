@@ -1,7 +1,7 @@
 <template>
     <page-meta :page-style="'overflow:'+(showGift || showShop?'hidden':'auto')"></page-meta>
     <view>
-        <z-paging ref="paging" v-model="dataList">
+      <!--  <z-paging ref="paging" v-model="dataList" > -->
             <template #top>
                 <view class="column p-b-20">
                     <u-navbar placeholder title="首页" autoBack></u-navbar>
@@ -35,7 +35,7 @@
                     </safe-bottom-view>
                 </view>
             </template>
-        </z-paging>
+        <!-- </z-paging> -->
     </view>
 
     <gift-dialog :show="showGift" :info="giftInfo" @close="showGift=false" :imageUrl="imageUrl"></gift-dialog>

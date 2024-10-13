@@ -21,8 +21,10 @@
 			</view> 
 		</view>
 
-		<view class="m-t-40 p-b-30">
-			<bottom-support-info></bottom-support-info>
+		<view class="bottom-view row-c-c">
+		    <safe-bottom-view>
+		        <bottom-support-info></bottom-support-info>
+		    </safe-bottom-view>
 		</view>
 	</view>
 </template>
