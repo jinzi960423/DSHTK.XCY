@@ -4,10 +4,10 @@ const common_vendor = require("./common/vendor.js");
 const uni_modules_uviewPlus_index = require("./uni_modules/uview-plus/index.js");
 if (!Math) {
   "./pages/home/home.js";
+  "./admin/home/home.js";
   "./pages/forward/forward.js";
   "./pages/loadingPage/loadingPage.js";
   "./pages/turntable/turntable.js";
-  "./admin/home/home.js";
   "./admin/business/qrCode.js";
   "./admin/business/prizeEdit.js";
   "./admin/business/prizeList.js";

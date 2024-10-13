@@ -1,10 +1,10 @@
 {
   "pages": [
     "pages/home/home",
+    "admin/home/home",
     "pages/forward/forward",
     "pages/loadingPage/loadingPage",
     "pages/turntable/turntable",
-    "admin/home/home",
     "admin/business/qrCode",
     "admin/business/prizeEdit",
     "admin/business/prizeList",

@@ -6,6 +6,7 @@
 		<view class="content-bg p-tb-30 p-lr-30" style="padding-bottom: 100rpx;">
 			<view class="column-c-c m-t-30">
 				<net-image height="385rpx" width="385rpx" :imageUrl="imgUrl"></net-image>
+				<view class="m-t-20 fs28 color-1d1d1d">{{businessName}}</view>
 				<view class="m-t-20 fs28 color-1d1d1d">扫码二维码，参加抽奖活动</view>
 			</view>
 
@@ -25,7 +26,8 @@
 	export default {
 		data() {
 			return {
-				imgUrl: ""
+				imgUrl: "",
+				businessName:"",
 			}
 		},
 		onLoad() {
@@ -33,11 +35,12 @@
 		},
 		mounted() {
 			var adminId = appStorage.getStorage("adminId")
-			 
+			var businessName= appStorage.getStorage("businessName")
 			if (adminId == "" || adminId == undefined) {
 				uni.$u.route('/admin/login/login')
 			}
 			this.imgUrl = commonutils.baseUrl() + "/qr/GetQrCode?Id=" + adminId;
+			this.businessName=businessName;
 		},
 		methods: {
 

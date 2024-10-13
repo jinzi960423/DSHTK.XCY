@@ -7933,6 +7933,12 @@ const pages = [
     }
   },
   {
+    path: "admin/home/home",
+    style: {
+      navigationBarTitleText: "商户管理"
+    }
+  },
+  {
     path: "pages/forward/forward",
     style: {
       navigationBarTitleText: "转发积赞"
@@ -7948,12 +7954,6 @@ const pages = [
     path: "pages/turntable/turntable",
     style: {
       navigationStyle: "custom"
-    }
-  },
-  {
-    path: "admin/home/home",
-    style: {
-      navigationBarTitleText: "商户管理"
     }
   },
   {

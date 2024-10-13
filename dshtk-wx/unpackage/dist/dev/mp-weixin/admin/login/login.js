@@ -28,6 +28,7 @@ const _sfc_main = {
           if (data.Success) {
             utils_common.commonutils.showToast("登录成功", "success");
             utils_appStorage.appStorage.setStorage("adminId", data.Data.Id);
+            utils_appStorage.appStorage.setStorage("businessName", data.Data.BnsinessName);
             utils_appStorage.appStorage.setStorage("isAdmin", data.Data.IsAdmin ?? "");
             common_vendor.index.$u.route("/admin/home/home");
           } else {

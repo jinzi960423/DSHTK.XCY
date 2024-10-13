@@ -32,14 +32,17 @@ const _sfc_main = {
     return {
       adminId: "",
       isAdmin: false,
+      businessName: "",
       dynamicList: []
     };
   },
   onLoad() {
     var adminId = utils_appStorage.appStorage.getStorage("adminId");
     var Admin = utils_appStorage.appStorage.getStorage("isAdmin");
+    var businessName = utils_appStorage.appStorage.getStorage("businessName");
     this.isAdmin = Admin == "Y";
     this.adminId = adminId;
+    this.businessName = businessName;
     if (adminId == "" || adminId == void 0) {
       common_vendor.index.$u.route("/admin/login/login");
     }
@@ -197,7 +200,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       square: false
     }),
     t: common_vendor.p({
-      title: "商户管理",
+      title: $data.businessName,
       type: "line",
       padding: true
     })

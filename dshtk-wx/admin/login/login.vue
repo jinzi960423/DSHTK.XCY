@@ -43,6 +43,7 @@
 						if (data.Success) {
 							commonutils.showToast('登录成功', 'success')
 							appStorage.setStorage("adminId", data.Data.Id);
+							appStorage.setStorage("businessName", data.Data.BnsinessName);
 							appStorage.setStorage("isAdmin", data.Data.IsAdmin ?? "");
 							uni.$u.route('/admin/home/home')
 						} else {

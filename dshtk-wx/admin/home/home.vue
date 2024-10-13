@@ -12,7 +12,7 @@
 			</uni-grid>
 		</uni-section>
 
-		<uni-section v-else title="商户管理" type="line" padding>
+		<uni-section v-else :title="businessName" type="line" padding>
 			<uni-grid :column="3" :show-border="false" :square="false">
 				<uni-grid-item>
 					<view class="grid-item-box" @click="scanCode" style="background-color: #fff;">
@@ -85,14 +85,17 @@
 			return {
 				adminId: "",
 				isAdmin: false,
+				businessName: "",
 				dynamicList: [],
 			}
 		},
 		onLoad() {
 			var adminId = appStorage.getStorage("adminId")
 			var Admin = appStorage.getStorage("isAdmin")
+			var businessName = appStorage.getStorage("businessName")
 			this.isAdmin = Admin == "Y";
 			this.adminId = adminId;
+			this.businessName = businessName;
 			if (adminId == "" || adminId == undefined) {
 				uni.$u.route('/admin/login/login')
 			}
