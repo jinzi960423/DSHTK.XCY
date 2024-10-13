@@ -34,14 +34,15 @@ if (!Math) {
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return {
     a: common_vendor.p({
-      width: "1080rpx",
-      height: "725rpx",
-      imageUrl: $data.BusinessActivity
+      width: "750rpx",
+      height: "421rpx",
+      imageUrl: $data.BusinessActivity,
+      mode: "aspectFill"
     }),
-    b: common_vendor.t($data.BnsinessName),
+    b: common_vendor.t($data.BnsinessName || "店家名称"),
     c: common_vendor.p({
-      width: "180rpx",
-      height: "180rpx",
+      width: "338rpx",
+      height: "338rpx",
       imageUrl: $data.BusinessWeChat
     })
   };
