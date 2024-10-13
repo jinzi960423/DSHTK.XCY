@@ -149,9 +149,9 @@ const _sfc_main = {
     }
   },
   created() {
-    if (!(common_vendor.Vs.config && common_vendor.Vs.config.provider)) {
+    if (!(common_vendor.Ys.config && common_vendor.Ys.config.provider)) {
       this.noSpace = true;
-      common_vendor.Vs.chooseAndUploadFile = uni_modules_uniFilePicker_components_uniFilePicker_chooseAndUploadFile.chooseAndUploadFile;
+      common_vendor.Ys.chooseAndUploadFile = uni_modules_uniFilePicker_components_uniFilePicker_chooseAndUploadFile.chooseAndUploadFile;
     }
     this.form = this.getForm("uniForms");
     this.formItem = this.getForm("uniFormsItem");
@@ -251,7 +251,7 @@ const _sfc_main = {
      */
     chooseFiles() {
       const _extname = uni_modules_uniFilePicker_components_uniFilePicker_utils.get_extname(this.fileExtname);
-      common_vendor.Vs.chooseAndUploadFile({
+      common_vendor.Ys.chooseAndUploadFile({
         type: this.fileMediatype,
         compressed: false,
         sizeType: this.sizeType,
@@ -463,7 +463,7 @@ const _sfc_main = {
       fileList = {
         fileList: [].concat(fileList)
       };
-      const urls = await common_vendor.Vs.getTempFileURL(fileList);
+      const urls = await common_vendor.Ys.getTempFileURL(fileList);
       return urls.fileList[0].tempFileURL || "";
     },
     /**

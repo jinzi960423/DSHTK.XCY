@@ -64,9 +64,6 @@ const _sfc_main = {
       this.showGift = true;
       this.imageUrl = options.ImgUrl;
     }
-    common_vendor.index.reLaunch({
-      url: "/pages/free/free"
-    });
   },
   mounted() {
     utils_common.commonutils.GetOpenId().then((openId) => {
