@@ -21,7 +21,7 @@ const _sfc_main = {
   },
   onLoad(options) {
     this.id = options.id;
-    this.businessId = "d2201f782165490786aa4402806";
+    this.businessId = options.bId;
     this.sourceOpenId = options.sourceOpenId;
     var scene = options.scene;
     if (scene != "" && scene != null && scene != void 0) {

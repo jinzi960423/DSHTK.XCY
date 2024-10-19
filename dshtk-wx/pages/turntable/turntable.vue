@@ -44,7 +44,7 @@
 		},
 		onLoad(options) {
 			this.id = options.id;
-			this.businessId = "d2201f782165490786aa4402806"; //options.bId;
+			this.businessId = options.bId;
 			this.sourceOpenId = options.sourceOpenId;
 
 			var scene = options.scene;
