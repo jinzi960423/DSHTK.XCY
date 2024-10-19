@@ -1,7 +1,6 @@
 <template>
 	<page-meta :page-style="'overflow:'+(show?'hidden':'auto')"></page-meta>
 	<view class="view-bg" style="background-image: url('https://www.sfj365.com/dshtk/images/turntable_bg.jpg')">
-
 		<view class="column">
 			<view class="row-c" style="margin-top: 80rpx;margin-left: 40rpx;">
 				<text class="top-title">点一点，锦上添花！</text>
@@ -22,16 +21,8 @@
 			</view>
 		</view>
 	</view>
-
 	<set-avatar-dialog :show="userInfoDialog" @close="handleClose"></set-avatar-dialog>
-
-
-
-
-
-
 </template>
-
 <script>
 	import appStorage from '../../utils/appStorage.js'
 	import commonutils from '../../utils/common.js'
@@ -53,7 +44,7 @@
 		},
 		onLoad(options) {
 			this.id = options.id;
-			this.businessId = options.bId;
+			this.businessId = "d2201f782165490786aa4402806"; //options.bId;
 			this.sourceOpenId = options.sourceOpenId;
 
 			var scene = options.scene;
@@ -65,6 +56,7 @@
 		},
 		mounted() {
 			var that = this;
+			console.log(that.businessId)
 			if (that.businessId == "") {
 				uni.showModal({
 					title: '温馨提示',
@@ -80,7 +72,8 @@
 				//获取商户的详细信息
 				commonutils.GetBusinessInfoById(that.businessId).then(data => {
 					that.businessInfo = data.Data;
-					if (that.businessInfo.State == "N") {
+					if (that.businessInfo.State == "N" || new Date(that.businessInfo.ExpirationDate) <
+						new Date()) {
 						uni.showModal({
 							title: '温馨提示',
 							content: '软件授权已到期，请联系管理员',
@@ -102,7 +95,6 @@
 								//‌重庆市的经纬度区间是东经105°17′至110°11′、北纬28°10′至32°13′。‌
 								var longitude = parseFloat(res.longitude)
 								var latitude = parseFloat(res.latitude)
-
 								commonutils.GetCityLimitById(that.businessInfo.CityId).then(
 									cityData => {
 										console.log(cityData)
@@ -124,10 +116,36 @@
 										} else {
 											commonutils.GetOpenId().then(openId => {
 												that.openId = openId;
+												turntableApi.GetUserWarehouseByPrize(
+													that.businessId, openId).then(
+													prizedata => {
+														console.log(prizedata.Success)
+														if (prizedata.Success) {
+															uni.showModal({
+																title: '温馨提示',
+																content: prizedata
+																	.Message,
+																showCancel: false,
+																success: function(
+																	res) {
+																	if (res
+																		.confirm
+																	) {
+																		uni.$u
+																			.route(
+																				'/pages/home/home'
+																			)
+																	}
+																}
+															});
+														}
+													})
 												appStorage.setStorage("businessId", that
 													.businessId);
 												turntableApi.BindingBusiness(openId, that
 													.businessId)
+
+
 											})
 											commonutils.GetUserInfo().then(data => {
 												//console.log(data)

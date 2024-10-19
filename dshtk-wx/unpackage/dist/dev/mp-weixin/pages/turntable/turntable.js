@@ -21,7 +21,7 @@ const _sfc_main = {
   },
   onLoad(options) {
     this.id = options.id;
-    this.businessId = options.bId;
+    this.businessId = "d2201f782165490786aa4402806";
     this.sourceOpenId = options.sourceOpenId;
     var scene = options.scene;
     if (scene != "" && scene != null && scene != void 0) {
@@ -30,6 +30,7 @@ const _sfc_main = {
   },
   mounted() {
     var that = this;
+    console.log(that.businessId);
     if (that.businessId == "") {
       common_vendor.index.showModal({
         title: "温馨提示",
@@ -44,7 +45,7 @@ const _sfc_main = {
     } else {
       utils_common.commonutils.GetBusinessInfoById(that.businessId).then((data) => {
         that.businessInfo = data.Data;
-        if (that.businessInfo.State == "N") {
+        if (that.businessInfo.State == "N" || new Date(that.businessInfo.ExpirationDate) < /* @__PURE__ */ new Date()) {
           common_vendor.index.showModal({
             title: "温馨提示",
             content: "软件授权已到期，请联系管理员",
@@ -80,6 +81,28 @@ const _sfc_main = {
                   } else {
                     utils_common.commonutils.GetOpenId().then((openId) => {
                       that.openId = openId;
+                      turntable.turntableApi.GetUserWarehouseByPrize(
+                        that.businessId,
+                        openId
+                      ).then(
+                        (prizedata) => {
+                          console.log(prizedata.Success);
+                          if (prizedata.Success) {
+                            common_vendor.index.showModal({
+                              title: "温馨提示",
+                              content: prizedata.Message,
+                              showCancel: false,
+                              success: function(res2) {
+                                if (res2.confirm) {
+                                  common_vendor.index.$u.route(
+                                    "/pages/home/home"
+                                  );
+                                }
+                              }
+                            });
+                          }
+                        }
+                      );
                       utils_appStorage.appStorage.setStorage("businessId", that.businessId);
                       turntable.turntableApi.BindingBusiness(openId, that.businessId);
                     });

@@ -73,7 +73,8 @@
         mounted() {
             commonutils.GetOpenId().then(openId => {
                 this.openId = openId;
-                homeApi.GetBusinessListByOpenId(openId).then(data => {
+				//获取所有的商户列表
+                homeApi.GetBusinessList().then(data => {
                     this.shopList = data.Data;
                     var businessId = appStorage.getStorage("businessId");
                     if (businessId == "" || businessId == undefined) {

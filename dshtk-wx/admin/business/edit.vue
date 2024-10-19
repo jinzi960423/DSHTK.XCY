@@ -30,6 +30,31 @@
 				</view>
 			</view>
 			<view class="uni-form-item uni-column">
+				<view class="title"><text class="uni-form-item__title">福利描述1<text style="color: red;">*</text></text>
+				</view>
+				<view class="uni-input-wrapper">
+					<input class="uni-input" placeholder="请输入福利描述1" v-model="businessInfo.WelfareDescriptionOne" />
+				</view>
+			</view>
+			<view class="uni-form-item uni-column">
+				<view class="title"><text class="uni-form-item__title">福利描述2<text style="color: red;">*</text></text>
+				</view>
+				<view class="uni-input-wrapper">
+					<input class="uni-input" placeholder="请输入福利描述2" v-model="businessInfo.WelfareDescriptionTwo" />
+				</view>
+			</view>
+
+			<view class="uni-form-item uni-column" v-if="isAdmin">
+				<view class="title"><text class="uni-form-item__title">到期时间<text style="color: red;">*</text></text>
+				</view>
+				<view class="uni-input-wrapper">
+					<picker mode="date" :value="businessInfo.ExpirationDate"  
+						@change="bindDateChange">
+						<view class="uni-input">{{businessInfo.ExpirationDate}}</view>
+					</picker> 
+				</view>
+			</view> 
+			<view class="uni-form-item uni-column">
 				<view class="title"><text class="uni-form-item__title">商户账号<text style="color: red;">*</text></text>
 				</view>
 				<view class="uni-input-wrapper">
@@ -52,7 +77,7 @@
 						style="color: #2979ff;" />
 				</view>
 			</view>
-			
+
 			<view class="uni-form-item uni-column" style="display: none;">
 				<view class="title"><text class="uni-form-item__title">当前经度<text style="color: red;">*</text></text>
 				</view>
@@ -98,6 +123,28 @@
 	import businessApi from './business.js'
 	import appStorage from '../../utils/appStorage.js'
 	import commonutils from '../../utils/common.js'
+	
+	 function toDateString(data, format) {
+	     var d = new Date(data);
+	     var args = {
+	         "M+": d.getMonth() + 1,
+	         "d+": d.getDate(),
+	         "h+": d.getHours(),
+	         "m+": d.getMinutes(),
+	         "s+": d.getSeconds(),
+	         "q+": Math.floor((d.getMonth() + 3) / 3),  //quarter
+	         "S": d.getMilliseconds()
+	     };
+	     if (/(y+)/.test(format))
+	         format = format.replace(RegExp.$1, (d.getFullYear() + "").substr(4 - RegExp.$1.length));
+	     for (var i in args) {
+	         var n = args[i];
+	         if (new RegExp("(" + i + ")").test(format))
+	             format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? n : ("00" + n).substr(("" + n).length));
+	     }
+	     return format;
+	 };
+	 
 	export default {
 		data() {
 			return {
@@ -123,7 +170,7 @@
 					State: "Y",
 					CreateUid: "",
 					IsAdmin: "N",
-					IsOnline:"Y",
+					IsOnline: "Y",
 				}
 			}
 		},
@@ -181,6 +228,7 @@
 				} else {
 					commonutils.GetBusinessInfoById(th.businessInfo.Id).then(data => {
 						th.businessInfo = data.Data;
+						th.businessInfo.ExpirationDate= toDateString(data.Data.ExpirationDate,"yyyy-MM-dd");
 						for (var i = 0; i < th.CityLimitsList.length; i++) {
 							if (th.CityLimitsList[i].Id == th.businessInfo.CityId) {
 								th.index = i;
@@ -208,7 +256,10 @@
 			});
 		},
 		methods: {
-			switchChange:function(e){
+			bindDateChange: function(e) {
+				this.businessInfo.ExpirationDate = e.detail.value
+			},
+			switchChange: function(e) {
 				console.log('picker发送选择改变，携带值为：' + e.detail.value)
 				this.SwitchState = e.detail.value
 				if (e.detail.value) {
@@ -224,17 +275,23 @@
 				} else if (this.businessInfo.CityId == "") {
 					commonutils.showToast("请选择商户所在城市", "error")
 				} else if (this.businessInfo.Address == "") {
-					commonutils.showToast("请选输入商户地址", "error")
+					commonutils.showToast("请输入入商户地址", "error")
 				} else if (this.businessInfo.Account == "") {
-					commonutils.showToast("请选输入商户账号", "error")
+					commonutils.showToast("请输入入商户账号", "error")
 				} else if (this.businessInfo.Password == "") {
-					commonutils.showToast("请选输入商户密码", "error")
+					commonutils.showToast("请输入入商户密码", "error")
 				} else if (this.businessInfo.Longitude == "") {
 					commonutils.showToast("当前经纬度获取失败", "error")
 				} else if (this.businessInfo.BusinessWeChat == "") {
 					commonutils.showToast("请上传店主微信二维码", "error")
 				} else if (this.businessInfo.BusinessActivity == "") {
 					commonutils.showToast("请上传活动图片", "error")
+				} else if (this.businessInfo.WelfareDescriptionOne == "") {
+					commonutils.showToast("请输入福利描述1", "error")
+				} else if (this.businessInfo.WelfareDescriptionTwo == "") {
+					commonutils.showToast("请输入福利描述2", "error")
+				} else if (this.businessInfo.ExpirationDate == "") {
+					commonutils.showToast("请设置到期时间", "error")
 				} else {
 					uni.showLoading({
 						title: "更新中..."

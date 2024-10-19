@@ -2,9 +2,9 @@
   "pages": [
     "pages/home/home",
     "admin/home/home",
+    "pages/turntable/turntable",
     "pages/forward/forward",
     "pages/loadingPage/loadingPage",
-    "pages/turntable/turntable",
     "admin/business/qrCode",
     "admin/business/prizeEdit",
     "admin/business/prizeList",

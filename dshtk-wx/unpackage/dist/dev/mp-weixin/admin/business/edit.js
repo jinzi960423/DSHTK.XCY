@@ -3,6 +3,27 @@ const common_vendor = require("../../common/vendor.js");
 const admin_business_business = require("./business.js");
 const utils_appStorage = require("../../utils/appStorage.js");
 const utils_common = require("../../utils/common.js");
+function toDateString(data, format) {
+  var d = new Date(data);
+  var args = {
+    "M+": d.getMonth() + 1,
+    "d+": d.getDate(),
+    "h+": d.getHours(),
+    "m+": d.getMinutes(),
+    "s+": d.getSeconds(),
+    "q+": Math.floor((d.getMonth() + 3) / 3),
+    //quarter
+    "S": d.getMilliseconds()
+  };
+  if (/(y+)/.test(format))
+    format = format.replace(RegExp.$1, (d.getFullYear() + "").substr(4 - RegExp.$1.length));
+  for (var i in args) {
+    var n = args[i];
+    if (new RegExp("(" + i + ")").test(format))
+      format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? n : ("00" + n).substr(("" + n).length));
+  }
+  return format;
+}
 const _sfc_main = {
   data() {
     return {
@@ -83,6 +104,7 @@ const _sfc_main = {
       } else {
         utils_common.commonutils.GetBusinessInfoById(th.businessInfo.Id).then((data2) => {
           th.businessInfo = data2.Data;
+          th.businessInfo.ExpirationDate = toDateString(data2.Data.ExpirationDate, "yyyy-MM-dd");
           for (var i = 0; i < th.CityLimitsList.length; i++) {
             if (th.CityLimitsList[i].Id == th.businessInfo.CityId) {
               th.index = i;
@@ -109,6 +131,9 @@ const _sfc_main = {
     });
   },
   methods: {
+    bindDateChange: function(e) {
+      this.businessInfo.ExpirationDate = e.detail.value;
+    },
     switchChange: function(e) {
       console.log("picker发送选择改变，携带值为：" + e.detail.value);
       this.SwitchState = e.detail.value;
@@ -125,17 +150,23 @@ const _sfc_main = {
       } else if (this.businessInfo.CityId == "") {
         utils_common.commonutils.showToast("请选择商户所在城市", "error");
       } else if (this.businessInfo.Address == "") {
-        utils_common.commonutils.showToast("请选输入商户地址", "error");
+        utils_common.commonutils.showToast("请输入入商户地址", "error");
       } else if (this.businessInfo.Account == "") {
-        utils_common.commonutils.showToast("请选输入商户账号", "error");
+        utils_common.commonutils.showToast("请输入入商户账号", "error");
       } else if (this.businessInfo.Password == "") {
-        utils_common.commonutils.showToast("请选输入商户密码", "error");
+        utils_common.commonutils.showToast("请输入入商户密码", "error");
       } else if (this.businessInfo.Longitude == "") {
         utils_common.commonutils.showToast("当前经纬度获取失败", "error");
       } else if (this.businessInfo.BusinessWeChat == "") {
         utils_common.commonutils.showToast("请上传店主微信二维码", "error");
       } else if (this.businessInfo.BusinessActivity == "") {
         utils_common.commonutils.showToast("请上传活动图片", "error");
+      } else if (this.businessInfo.WelfareDescriptionOne == "") {
+        utils_common.commonutils.showToast("请输入福利描述1", "error");
+      } else if (this.businessInfo.WelfareDescriptionTwo == "") {
+        utils_common.commonutils.showToast("请输入福利描述2", "error");
+      } else if (this.businessInfo.ExpirationDate == "") {
+        utils_common.commonutils.showToast("请设置到期时间", "error");
       } else {
         common_vendor.index.showLoading({
           title: "更新中..."
@@ -215,28 +246,38 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     f: common_vendor.o(($event) => $data.businessInfo.BnsinessName = $event.detail.value),
     g: $data.businessInfo.Address,
     h: common_vendor.o(($event) => $data.businessInfo.Address = $event.detail.value),
-    i: $data.isAdmin ? "" : "disabled",
-    j: $data.businessInfo.Account,
-    k: common_vendor.o(($event) => $data.businessInfo.Account = $event.detail.value),
-    l: $data.isAdmin
+    i: $data.businessInfo.WelfareDescriptionOne,
+    j: common_vendor.o(($event) => $data.businessInfo.WelfareDescriptionOne = $event.detail.value),
+    k: $data.businessInfo.WelfareDescriptionTwo,
+    l: common_vendor.o(($event) => $data.businessInfo.WelfareDescriptionTwo = $event.detail.value),
+    m: $data.isAdmin
   }, $data.isAdmin ? {
-    m: $data.businessInfo.Password,
-    n: common_vendor.o(($event) => $data.businessInfo.Password = $event.detail.value)
+    n: common_vendor.t($data.businessInfo.ExpirationDate),
+    o: $data.businessInfo.ExpirationDate,
+    p: common_vendor.o((...args) => $options.bindDateChange && $options.bindDateChange(...args))
   } : {}, {
-    o: $data.isAdmin
+    q: $data.isAdmin ? "" : "disabled",
+    r: $data.businessInfo.Account,
+    s: common_vendor.o(($event) => $data.businessInfo.Account = $event.detail.value),
+    t: $data.isAdmin
   }, $data.isAdmin ? {
-    p: $data.businessInfo.IsOnline == "Y" ? "checked" : "",
-    q: common_vendor.o((...args) => $options.switchChange && $options.switchChange(...args))
+    v: $data.businessInfo.Password,
+    w: common_vendor.o(($event) => $data.businessInfo.Password = $event.detail.value)
   } : {}, {
-    r: $data.businessInfo.Longitude,
-    s: common_vendor.o(($event) => $data.businessInfo.Longitude = $event.detail.value),
-    t: $data.businessInfo.Latitude,
-    v: common_vendor.o(($event) => $data.businessInfo.Latitude = $event.detail.value),
-    w: common_vendor.o($options.businessWeChatSelect),
-    x: common_vendor.o($options.success),
-    y: common_vendor.o($options.progress),
-    z: common_vendor.o(($event) => $data.businessWeChat = $event),
-    A: common_vendor.p({
+    x: $data.isAdmin
+  }, $data.isAdmin ? {
+    y: $data.businessInfo.IsOnline == "Y" ? "checked" : "",
+    z: common_vendor.o((...args) => $options.switchChange && $options.switchChange(...args))
+  } : {}, {
+    A: $data.businessInfo.Longitude,
+    B: common_vendor.o(($event) => $data.businessInfo.Longitude = $event.detail.value),
+    C: $data.businessInfo.Latitude,
+    D: common_vendor.o(($event) => $data.businessInfo.Latitude = $event.detail.value),
+    E: common_vendor.o($options.businessWeChatSelect),
+    F: common_vendor.o($options.success),
+    G: common_vendor.o($options.progress),
+    H: common_vendor.o(($event) => $data.businessWeChat = $event),
+    I: common_vendor.p({
       limit: "1",
       ["auto-upload"]: true,
       fileMediatype: "image",
@@ -245,11 +286,11 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       ["source-type"]: _ctx.sourceType,
       modelValue: $data.businessWeChat
     }),
-    B: common_vendor.o($options.businessActivitySelect),
-    C: common_vendor.o($options.success),
-    D: common_vendor.o($options.progress),
-    E: common_vendor.o(($event) => $data.businessActivity = $event),
-    F: common_vendor.p({
+    J: common_vendor.o($options.businessActivitySelect),
+    K: common_vendor.o($options.success),
+    L: common_vendor.o($options.progress),
+    M: common_vendor.o(($event) => $data.businessActivity = $event),
+    N: common_vendor.p({
       limit: "1",
       ["auto-upload"]: true,
       fileMediatype: "image",
@@ -257,7 +298,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       ["source-type"]: _ctx.sourceType,
       modelValue: $data.businessActivity
     }),
-    G: common_vendor.o((...args) => $options.businessSave && $options.businessSave(...args))
+    O: common_vendor.o((...args) => $options.businessSave && $options.businessSave(...args))
   });
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-1199a384"]]);

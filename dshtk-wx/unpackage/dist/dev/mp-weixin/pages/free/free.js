@@ -7,7 +7,9 @@ const _sfc_main = {
     return {
       BusinessWeChat: "",
       BnsinessName: "",
-      BusinessActivity: ""
+      BusinessActivity: "",
+      WelfareDescriptionOne: "",
+      WelfareDescriptionTwo: ""
     };
   },
   mounted() {
@@ -20,6 +22,8 @@ const _sfc_main = {
       this.BusinessWeChat = businessInfo.Data.BusinessWeChat;
       this.BnsinessName = businessInfo.Data.BnsinessName;
       this.BusinessActivity = businessInfo.Data.BusinessActivity;
+      this.WelfareDescriptionOne = businessInfo.Data.WelfareDescriptionOne;
+      this.WelfareDescriptionTwo = businessInfo.Data.WelfareDescriptionTwo;
     });
   }
 };
@@ -40,7 +44,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       mode: "aspectFill"
     }),
     b: common_vendor.t($data.BnsinessName || "店家名称"),
-    c: common_vendor.p({
+    c: common_vendor.t($data.WelfareDescriptionOne),
+    d: common_vendor.t($data.WelfareDescriptionTwo),
+    e: common_vendor.p({
       width: "338rpx",
       height: "338rpx",
       imageUrl: $data.BusinessWeChat

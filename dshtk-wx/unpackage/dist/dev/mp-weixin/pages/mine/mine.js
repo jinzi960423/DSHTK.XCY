@@ -29,11 +29,15 @@ const _sfc_main = {
   data() {
     return {
       userInfo: {},
-      dataList: []
+      dataList: [],
+      qrCodeImg: ""
     };
   },
   mounted() {
     var businessId = utils_appStorage.appStorage.getStorage("businessId");
+    utils_common.commonutils.GetBusinessInfoById(businessId).then((businessInfo) => {
+      this.qrCodeImg = businessInfo.Data.BusinessWeChat;
+    });
     utils_common.commonutils.GetOpenId().then((openid) => {
       mineApi.GetPrizeListByOpenId(businessId, openid).then((dataList) => {
         this.dataList = dataList.Data;
@@ -85,6 +89,11 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       name: "arrow-right",
       color: "#999",
       size: "24rpx"
+    }),
+    e: common_vendor.p({
+      height: "385rpx",
+      width: "385rpx",
+      imageUrl: $data.qrCodeImg
     })
   };
 }

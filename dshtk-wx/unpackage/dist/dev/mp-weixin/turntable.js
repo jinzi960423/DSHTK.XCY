@@ -2,6 +2,27 @@
 const common_vendor = require("./common/vendor.js");
 const utils_common = require("./utils/common.js");
 const turntableApi = {
+  /***
+   *查询用户是否有抽奖信息
+   ***/
+  GetUserWarehouseByPrize(businessId, openId) {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/GetUserWarehouseByPrize",
+        method: "GET",
+        data: {
+          OpenId: openId,
+          BusinessId: businessId
+        },
+        success: function(res) {
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  },
   /**
    * 保存微信用户的的相关信息
    * @param {Object} openid

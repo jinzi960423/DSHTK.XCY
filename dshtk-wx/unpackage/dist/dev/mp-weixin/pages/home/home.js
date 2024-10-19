@@ -3,6 +3,23 @@ const common_vendor = require("../../common/vendor.js");
 const utils_common = require("../../utils/common.js");
 const utils_appStorage = require("../../utils/appStorage.js");
 const homeApi = {
+  /***
+  获取所有的商户列表
+  **/
+  GetBusinessList() {
+    return new Promise((resolve, reject) => {
+      common_vendor.wx$1.request({
+        url: utils_common.commonutils.baseUrl() + "api/WeChatProgram/GetBusinessList",
+        method: "GET",
+        success: function(res) {
+          resolve(res.data);
+        },
+        fail: function() {
+          reject("网络异常，操作失败");
+        }
+      });
+    });
+  },
   /**
    * 获取首页的配置
    **/
@@ -68,7 +85,7 @@ const _sfc_main = {
   mounted() {
     utils_common.commonutils.GetOpenId().then((openId) => {
       this.openId = openId;
-      homeApi.GetBusinessListByOpenId(openId).then((data) => {
+      homeApi.GetBusinessList().then((data) => {
         this.shopList = data.Data;
         var businessId = utils_appStorage.appStorage.getStorage("businessId");
         if (businessId == "" || businessId == void 0) {

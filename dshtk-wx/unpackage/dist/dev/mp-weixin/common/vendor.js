@@ -7910,6 +7910,12 @@ const pages = [
     }
   },
   {
+    path: "pages/turntable/turntable",
+    style: {
+      navigationStyle: "custom"
+    }
+  },
+  {
     path: "pages/forward/forward",
     style: {
       navigationBarTitleText: "转发积赞"
@@ -7919,12 +7925,6 @@ const pages = [
     path: "pages/loadingPage/loadingPage",
     style: {
       navigationBarTitleText: "助力成功，锦上添花"
-    }
-  },
-  {
-    path: "pages/turntable/turntable",
-    style: {
-      navigationStyle: "custom"
     }
   },
   {

@@ -1,7 +1,28 @@
 import common from "../../utils/common.js"
 
 export default {
-	
+	/***
+	 *查询用户是否有抽奖信息
+	 ***/
+	GetUserWarehouseByPrize(businessId, openId) {
+		return new Promise((resolve, reject) => {
+			wx.request({
+				url: common.baseUrl() + 'api/WeChatProgram/GetUserWarehouseByPrize',
+				method: "GET",
+				data: {
+					OpenId: openId,
+					BusinessId: businessId,
+				},
+				success: function(res) {
+					//console.log(res.data);
+					resolve(res.data);
+				},
+				fail: function() {
+					reject('网络异常，操作失败');
+				}
+			})
+		})
+	},
 	/**
 	 * 保存微信用户的的相关信息
 	 * @param {Object} openid
@@ -30,7 +51,7 @@ export default {
 			})
 		})
 	},
-	
+
 	/**
 	 * 绑定用户和商户的关系
 	 ***/
