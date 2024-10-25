@@ -13,6 +13,7 @@
 					还差{{warehouseInfo.Count}}人即可获得
 				</text>
 			</view>
+			
 			<view class="row m-t-40" style="flex-wrap: wrap;">
 				<view v-for="(item,index) in likeList" :key="index" class="column-c-c m-b-30 m-r-20">
 					<net-image width="90rpx" height="90rpx" radius="45rpx"
@@ -20,21 +21,24 @@
 					<text class="zhuli-bg row-c-c">已助力</text>
 				</view>
 			</view>
-		</view>
-		<button class="invite-btn" open-type="share">邀请好友助力</button>
-
-		<view class="content-bg p-tb-30 p-lr-30">
 			<net-image height="300rpx" width="100%" :imageUrl="qrUrl"></net-image>
 			<view class="column-c-c m-t-30">
-				<text class="fs28 color-999 m-t-20 fw-400" style="text-align: center;">面对面扫码助力</text>
+				<text class="fs28 color-999 m-t-20 fw-400" style="text-align: center;">截图转发到朋友圈助力</text>
 			</view>
-		</view>
-		<view style="height: 80rpx;"></view>
+		</view> 
+	<!-- 	<view class="content-bg p-tb-30 p-lr-30">
+			<net-image height="300rpx" width="100%" :imageUrl="qrUrl"></net-image>
+			<view class="column-c-c m-t-30">
+				<text class="fs28 color-999 m-t-20 fw-400" style="text-align: center;">截图转发到朋友圈助力</text>
+			</view>
+		</view> -->
+		<button class="invite-btn" open-type="share">邀请好友助力或截图到朋友圈助力</button>
+		<view style="height: 120rpx;"></view>
 		<view class="bottom-view row-c-c">
 			<safe-bottom-view>
 				<bottom-support-info></bottom-support-info>
 			</safe-bottom-view>
-		</view> 
+		</view>
 	</view>
 
 	<!-- 分享页面 -->
@@ -81,29 +85,30 @@
 			this.id = options.Id;
 			this.sourceOpenId = options.openId;
 			this.businessId = options.businessId;
+			var th = this;
 			var scene = options.scene;
 			if (scene != '' && scene != null && scene != undefined) {
+				th.id = scene;
 				forwardApi.GetWarehouseDetail(scene).then(data => {
-					this.warehouseInfo = data.Data;
-					this.sourceOpenId = data.Data.OpenId
-					this.businessId = data.Data.BusinessId
+					th.warehouseInfo = data.Data;
+					th.sourceOpenId = data.Data.OpenId
+					th.businessId = data.Data.BusinessId
 				})
 			} else {
-				this.qrUrl = commonutils.baseUrl() + "/qr/GetQrCodeZL?Id=" + this.id;
+				th.qrUrl = commonutils.baseUrl() + "/qr/GetQrCodeZL?Id=" + this.id;
 				forwardApi.GetWarehouseDetail(this.id).then(data => {
-					this.warehouseInfo = data.Data;
-
+					th.warehouseInfo = data.Data;
 				})
 			}
 		},
 		mounted() {
+			var th = this;
 			commonutils.GetOpenId().then(openid => {
+				th.openId = openid;
 				if (openid != this.sourceOpenId) {
 					this.shareShow = false;
 				}
 			})
-			//this.businessId = appStorage.getStorage("businessId");
-
 			forwardApi.GetLikeListByWarehouseId(this.id).then(data => {
 				console.log(data)
 				this.likeList = data.Data;

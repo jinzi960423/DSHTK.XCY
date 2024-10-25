@@ -58,22 +58,26 @@ const _sfc_main = {
     this.id = options.Id;
     this.sourceOpenId = options.openId;
     this.businessId = options.businessId;
+    var th = this;
     var scene = options.scene;
     if (scene != "" && scene != null && scene != void 0) {
+      th.id = scene;
       forwardApi.GetWarehouseDetail(scene).then((data) => {
-        this.warehouseInfo = data.Data;
-        this.sourceOpenId = data.Data.OpenId;
-        this.businessId = data.Data.BusinessId;
+        th.warehouseInfo = data.Data;
+        th.sourceOpenId = data.Data.OpenId;
+        th.businessId = data.Data.BusinessId;
       });
     } else {
-      this.qrUrl = utils_common.commonutils.baseUrl() + "/qr/GetQrCodeZL?Id=" + this.id;
+      th.qrUrl = utils_common.commonutils.baseUrl() + "/qr/GetQrCodeZL?Id=" + this.id;
       forwardApi.GetWarehouseDetail(this.id).then((data) => {
-        this.warehouseInfo = data.Data;
+        th.warehouseInfo = data.Data;
       });
     }
   },
   mounted() {
+    var th = this;
     utils_common.commonutils.GetOpenId().then((openid) => {
+      th.openId = openid;
       if (openid != this.sourceOpenId) {
         this.shareShow = false;
       }
