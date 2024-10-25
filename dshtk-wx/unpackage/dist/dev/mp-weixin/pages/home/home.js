@@ -83,6 +83,9 @@ const _sfc_main = {
     }
   },
   mounted() {
+    common_vendor.index.showLoading({
+      title: "正在加载.."
+    });
     utils_common.commonutils.GetOpenId().then((openId) => {
       this.openId = openId;
       homeApi.GetBusinessList().then((data) => {
@@ -128,6 +131,7 @@ const _sfc_main = {
       });
       homeApi.GetHomeConfigList(businessId).then((config) => {
         this.dataList = config.Data;
+        common_vendor.index.hideLoading();
       });
     }
   }

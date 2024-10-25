@@ -71,6 +71,9 @@
             }
         },
         mounted() {
+			uni.showLoading({
+				title: "正在加载.."
+			});
             commonutils.GetOpenId().then(openId => {
                 this.openId = openId;
 				//获取所有的商户列表
@@ -115,6 +118,7 @@
                 //获取主页配置
                 homeApi.GetHomeConfigList(businessId).then(config => {
                     this.dataList = config.Data;
+					uni.hideLoading();
                 });
             }
         },

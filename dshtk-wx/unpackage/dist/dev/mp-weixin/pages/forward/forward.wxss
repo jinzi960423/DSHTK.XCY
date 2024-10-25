@@ -59,7 +59,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 100rpx;
+  margin-top: 50rpx;
   margin-left: 22rpx;
   margin-right: 22rpx;
 }

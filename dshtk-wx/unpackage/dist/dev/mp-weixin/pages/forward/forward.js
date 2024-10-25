@@ -50,22 +50,33 @@ const _sfc_main = {
       businessId: "",
       warehouseInfo: {},
       shareShow: true,
-      likeList: []
+      likeList: [],
+      qrUrl: ""
     };
   },
   onLoad(options) {
     this.id = options.Id;
     this.sourceOpenId = options.openId;
     this.businessId = options.businessId;
+    var scene = options.scene;
+    if (scene != "" && scene != null && scene != void 0) {
+      forwardApi.GetWarehouseDetail(scene).then((data) => {
+        this.warehouseInfo = data.Data;
+        this.sourceOpenId = data.Data.OpenId;
+        this.businessId = data.Data.BusinessId;
+      });
+    } else {
+      this.qrUrl = utils_common.commonutils.baseUrl() + "/qr/GetQrCodeZL?Id=" + this.id;
+      forwardApi.GetWarehouseDetail(this.id).then((data) => {
+        this.warehouseInfo = data.Data;
+      });
+    }
   },
   mounted() {
     utils_common.commonutils.GetOpenId().then((openid) => {
       if (openid != this.sourceOpenId) {
         this.shareShow = false;
       }
-    });
-    forwardApi.GetWarehouseDetail(this.id).then((data) => {
-      this.warehouseInfo = data.Data;
     });
     forwardApi.GetLikeListByWarehouseId(this.id).then((data) => {
       console.log(data);
@@ -112,17 +123,22 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       height: "90rpx",
       radius: "45rpx",
       imageUrl: "https://www.sfj365.com/dshtk/images/user.png"
+    }),
+    g: common_vendor.p({
+      height: "300rpx",
+      width: "100%",
+      imageUrl: $data.qrUrl
     })
   } : !$data.shareShow ? {
-    h: common_vendor.p({
+    i: common_vendor.p({
       height: "300rpx",
       width: "100%",
       imageUrl: $data.warehouseInfo.ImgUrl
     }),
-    i: common_vendor.t($data.warehouseInfo.Remark),
-    j: common_vendor.o((...args) => $options.UserAssist && $options.UserAssist(...args))
+    j: common_vendor.t($data.warehouseInfo.Remark),
+    k: common_vendor.o((...args) => $options.UserAssist && $options.UserAssist(...args))
   } : {}, {
-    g: !$data.shareShow
+    h: !$data.shareShow
   });
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-167fdda7"]]);

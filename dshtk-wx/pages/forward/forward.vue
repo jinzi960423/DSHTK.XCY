@@ -22,11 +22,19 @@
 			</view>
 		</view>
 		<button class="invite-btn" open-type="share">邀请好友助力</button>
-		<view class="bottom-view row-c-c">
-		    <safe-bottom-view>
-		        <bottom-support-info></bottom-support-info>
-		    </safe-bottom-view>
+
+		<view class="content-bg p-tb-30 p-lr-30">
+			<net-image height="300rpx" width="100%" :imageUrl="qrUrl"></net-image>
+			<view class="column-c-c m-t-30">
+				<text class="fs28 color-999 m-t-20 fw-400" style="text-align: center;">面对面扫码助力</text>
+			</view>
 		</view>
+		<view style="height: 80rpx;"></view>
+		<view class="bottom-view row-c-c">
+			<safe-bottom-view>
+				<bottom-support-info></bottom-support-info>
+			</safe-bottom-view>
+		</view> 
 	</view>
 
 	<!-- 分享页面 -->
@@ -45,9 +53,9 @@
 			</view>
 		</view>
 		<view class="bottom-view row-c-c">
-		    <safe-bottom-view>
-		        <bottom-support-info></bottom-support-info>
-		    </safe-bottom-view>
+			<safe-bottom-view>
+				<bottom-support-info></bottom-support-info>
+			</safe-bottom-view>
 		</view>
 	</view>
 </template>
@@ -65,13 +73,28 @@
 				businessId: "",
 				warehouseInfo: {},
 				shareShow: true,
-				likeList: []
+				likeList: [],
+				qrUrl: "",
 			}
 		},
 		onLoad(options) {
 			this.id = options.Id;
 			this.sourceOpenId = options.openId;
 			this.businessId = options.businessId;
+			var scene = options.scene;
+			if (scene != '' && scene != null && scene != undefined) {
+				forwardApi.GetWarehouseDetail(scene).then(data => {
+					this.warehouseInfo = data.Data;
+					this.sourceOpenId = data.Data.OpenId
+					this.businessId = data.Data.BusinessId
+				})
+			} else {
+				this.qrUrl = commonutils.baseUrl() + "/qr/GetQrCodeZL?Id=" + this.id;
+				forwardApi.GetWarehouseDetail(this.id).then(data => {
+					this.warehouseInfo = data.Data;
+
+				})
+			}
 		},
 		mounted() {
 			commonutils.GetOpenId().then(openid => {
@@ -80,9 +103,7 @@
 				}
 			})
 			//this.businessId = appStorage.getStorage("businessId");
-			forwardApi.GetWarehouseDetail(this.id).then(data => {
-				this.warehouseInfo = data.Data;
-			})
+
 			forwardApi.GetLikeListByWarehouseId(this.id).then(data => {
 				console.log(data)
 				this.likeList = data.Data;
@@ -90,7 +111,8 @@
 		},
 		methods: {
 			UserAssist() {
-				uni.$u.route('/pages/loadingPage/loadingPage?id=' + this.id + "&bId=" + this.businessId + "&sourceOpenId=" +
+				uni.$u.route('/pages/loadingPage/loadingPage?id=' + this.id + "&bId=" + this.businessId +
+					"&sourceOpenId=" +
 					this.openId)
 			}
 		}
@@ -137,7 +159,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin-top: 100rpx;
+		margin-top: 50rpx;
 		margin-left: 22rpx;
 		margin-right: 22rpx;
 	}
